@@ -1,0 +1,71 @@
+\documentclass[conference,10pt]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+\usepackage{cleveref}
+\newtcbtheorem[]{lesson}{Observation}{colback=black!5,colframe=black!35,fonttitle=\bfseries}{th}
+
+\newcommand{\ie}{\emph{i.e.,}}
+\newcommand{\eg}{\emph{e.g.,}}
+
+\newcommand{\fmc}[1]{{\color{magenta} #1}} % Florina Ciorba
+\newcommand{\jk}[1]{{\color{orange} #1}} % Jonas
+\newcommand{\qg}[1]{{\color{blue} #1}} % Quentin
+
+%\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+
+\usepackage[
+  datamodel=software,
+  style=trad-abbrv,
+  backend=biber
+]{biblatex}
+\addbibresource{references.bib}
+\usepackage{software-biblatex}
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Effortless parallelization and distribution with Daphne}
+
+\author{
+\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+}
+
+\maketitle
+\thispagestyle{plain}
+\pagestyle{plain}
+
+\begin{abstract}
+  TODO
+\end{abstract}
+
+\begin{IEEEkeywords}
+TODO
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+TODO
+
+\printbibliography
+
+\end{document}
