@@ -22,6 +22,9 @@
               # Experiments related
               (python3.withPackages (ps: python-packages))
               julia-bin
+              gcc
+              eigen
+              pkg-config
 
               # Analysis related
               (rWrapper.override { packages = r-packages; })
