@@ -13,8 +13,8 @@ diff = inf;
 
 // Iterative computation of connected components (decisive part).
 for(iter in 1:maxi) {
-    u = max(aggMax(G * t(c), 0), c);
-    diff = sum(u != c);
-    c = u;
+    x = aggMax(G * t(c), 0);
+    c = max(x, c);
+    // diff = sum(u != c);
 }
 

@@ -11,12 +11,17 @@
       let
         pkgs = import nixpkgs { inherit system; };
         r-packages = with pkgs.rPackages; [ tidyverse geomtextpath kableExtra ];
+        python-packages = with pkgs.python3Packages; [ numpy scipy ];
       in {
         devShells = {
           default = pkgs.mkShell {
             packages = with pkgs; [
               # Workflow related
               snakemake
+
+              # Experiments related
+              (python3.withPackages (ps: python-packages))
+              julia-bin
 
               # Analysis related
               (rWrapper.override { packages = r-packages; })
