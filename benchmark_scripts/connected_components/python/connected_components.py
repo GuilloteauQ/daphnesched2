@@ -9,6 +9,7 @@ def cc(filename, maxi=20):
     for iter in range(maxi):
         x = np.asarray(np.max(G.multiply(np.transpose(c)), axis=1).toarray())
         c = np.maximum(c, x)
+        print(np.sum(c))
 
 if __name__ == "__main__":
     args = sys.argv
