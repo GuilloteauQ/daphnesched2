@@ -37,6 +37,7 @@ int main(int argc, char** argv) {
   G = G.transpose();
 
   for (int iter = 0; iter < 40; iter++) {
+#pragma omp parallel for
     for (int row_id = 0; row_id < G.outerSize(); row_id++) {
       double current_max = c.coeffRef(row_id);
       for (InIterMatR i_(G, row_id); i_; ++i_) {
@@ -52,7 +53,8 @@ int main(int argc, char** argv) {
       c.coeffRef(j) = MAX(c.coeffRef(j), x.coeffRef(j));
       sum_ += c.coeffRef(j);
     }
-    std::cout << iter << ": " << sum_ << std::endl;
+    // std::cout << iter << ": " << sum_ << std::endl;
   }
+  // std::cout << Eigen::nbThreads( ) << std::endl;
   return 0;
 }
