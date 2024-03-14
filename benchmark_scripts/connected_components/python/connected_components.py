@@ -1,11 +1,10 @@
-import numpy as np
 from scipy.io import mmread
-import scipy.sparse as ss
+from scipy.sparse import coo_array
 import sys
 
 def cc(filename, maxi=40):
     G = mmread(filename)
-    c = ss.coo_array(np.arange(1.0, float(G.shape[0] + 1), 1.0))
+    c = coo_array(list(map(lambda i: float(i), range(1, G.shape[0] + 1, 1))))
 
     for iter in range(maxi):
         x = G.multiply(c.transpose()).max(axis=0)
