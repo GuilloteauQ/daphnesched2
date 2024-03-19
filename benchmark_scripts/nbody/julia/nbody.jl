@@ -4,7 +4,7 @@ function calculate_acceleration_matrix(P, M::Matrix{Float64}, gravity::Float64, 
   y = P[:,2]
   dx = ones(n, 1) * transpose(x) .- x 
   dy = ones(n, 1) * transpose(y) .- y 
-  inv_r3 = (dx^2 .+ dy^2 .+ softening^2)^(-1.5)
+  inv_r3 = (dx .* dx + dy .* dy .+ softening^2)^(-1.5)
 
 	ax = gravity .* (dx * inv_r3) * M
 	ay = gravity .* (dy * inv_r3) * M
@@ -14,7 +14,7 @@ end
 
 function main()
 
-  n = 100
+  n = 1000
   gravity = 0.00001
   step_size = 20.0 / 1000.0
   half_step_size = 0.5 * step_size
