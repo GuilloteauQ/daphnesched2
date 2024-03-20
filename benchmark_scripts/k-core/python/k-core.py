@@ -14,7 +14,7 @@ def k_core(filename, k):
     iter = 0
     while diff != 0:
         prev = c
-        x = G.multiply(c.transpose()).sum(axis=0)
+        x = G.multiply(c.transpose())
         c = (x >= k).astype(int)
         diff = (c != prev).astype(int).sum()
         # iter += 1
