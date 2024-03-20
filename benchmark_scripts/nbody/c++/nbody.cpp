@@ -25,9 +25,7 @@ Eigen::MatrixXd calculate_acceleration_matrix(Eigen::MatrixXd position, Eigen::V
 
 
 int main(int argc, char** argv) {
-  std::cout << "hello" << std::endl;
-
-  int n = 1000;
+  int n = 10000;
   double gravity = 0.00001;
   double step_size = 20.0 / 1000.0;
   double half_step_size = 0.5 * step_size;
@@ -69,8 +67,6 @@ int main(int argc, char** argv) {
     position.row(i) -= com_p;
     velocity.row(i) -= com_v;
   }
-
-  std::cout << position << std::endl;
 
   for (int iter = 0; iter < 400; iter++) {
     std::cout << iter << std::endl;
