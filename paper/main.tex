@@ -2,6 +2,7 @@
 \IEEEoverridecommandlockouts
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 
+\usepackage{hyperref}
 \usepackage{tcolorbox}
 \tcbuselibrary{theorems}
 \usepackage{cleveref}
@@ -10,9 +11,9 @@
 \newcommand{\ie}{\emph{i.e.,}}
 \newcommand{\eg}{\emph{e.g.,}}
 
-\newcommand{\fmc}[1]{{\color{magenta} #1}} % Florina Ciorba
-\newcommand{\jk}[1]{{\color{orange} #1}} % Jonas
-\newcommand{\qg}[1]{{\color{blue} #1}} % Quentin
+\newcommand{\fmc}[1]{{\color{magenta} FMC: #1}} % Florina Ciorba
+\newcommand{\jk}[1]{{\color{orange} JK: #1}} % Jonas
+\newcommand{\qg}[1]{{\color{blue} QG: #1}} % Quentin
 
 %\usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
@@ -34,20 +35,14 @@
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
 
-\title{Effortless parallelization and distribution with Daphne}
+%\title{Effortless parallelization and distribution with Daphne}
+\title{Effortless Parallel and Distributed Execution with Daphne}
 
 \author{
-\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
+\IEEEauthorblockN{Anonymous Authors}
+\IEEEauthorblockA{Anonymous Affiliation\\
 City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
+}
 }
 
 \maketitle
@@ -64,7 +59,109 @@ TODO
 
 \section{Introduction}
 
-TODO
+\begin{itemize}
+\item IDA pipelines
+\item different paradigms, different hardware
+\item etc.
+\item take some text from the ispdc paper
+\end{itemize}
+
+Contributions:
+
+\begin{itemize}
+\item \textbf{Comparison between DaphneSched and popular scientific languages}
+\item \textbf{Study the impact of scheduling on performance with the flexibility of DaphneSched}
+\end{itemize}
+
+
+\section{Background}
+
+Daphne \cite{damme2022daphne}
+
+Chapel \cite{callahan2004cascade}
+
+StarPU \cite{augonnet2009starpu} 
+
+HPX \cite{kaiser2014hpx}
+
+Julia \cite{bezanson2012julia}
+
+Numpy \cite{harris2020array}
+
+R \cite{morandat2012evaluating}
+
+LB4OMP \cite{korndorfer2021lb4omp}
+
+\section{DaphneSched}
+
+DaphneSched \cite{eleliemy2023daphnesched}
+
+\qg{summary of the local runtime, queues, scheduling techniques, (victim selections), and then description of the MPI distributed runtime (+ mention of gRPC ?)}
+
+\section{Importance of Scheduling}
+
+\qg{in this section we show how the different option of daphnesched impact the performance. should this be before the section on comparison with different languages ?
+It can also be presented as a platform for studying scheduling.
+}
+
+\subsection{Considered Benchmarks}
+
+\qg{TODO: small descriptions with math equations if applicable, give use-cases of algos}
+
+\paragraph{Connected Components}
+
+\paragraph{Page Rank}
+
+\paragraph{k-core}
+
+\paragraph{Linear Regression}
+
+\paragraph{N-body Simulation}
+
+\paragraph{\qg{something from reto bsc thesis?}}
+
+\subsection{Experiments}
+
+\qg{on VEGA?, sciCORE?, miniHPC?}
+
+\section{Comparison with popular scientific languages}
+
+\begin{itemize}
+    \item implement algorithms in an \textbf{idiomatic} way
+    \item C++, Julia, Python, and DaphneDSL
+\end{itemize}
+
+
+\subsection{Comparison}
+
+\begin{itemize}
+\item number of lines
+\item number of third party dependencies
+\item distance between code and math equations
+\item ``difficulty'' of implementation
+\item \qg{disk size of binary + deps ?}
+\end{itemize}
+
+\paragraph{Third party dependencies}
+
+Eigen \cite{guennebaud2010eigen}
+
+Numpy \cite{harris2020array}
+
+SciPy \cite{virtanen2020scipy}
+
+
+\subsection{Experiments}
+
+\qg{on VEGA?, sciCORE?, miniHPC?}
+
+
+\section{Conlusion and Perspectives}
+
+\section*{Acknowledgments}
+
+This research was funded, in whole or in part, by the European Union’s Horizon 2020 research and innovation programme under grant agreement No. 957407 as DAPHNE.
+The authors have applied a CC-BY public copyright license to the present document and will be applied to all subsequent versions up to the Author Accepted Manuscript arising from this submission, in accordance with the grant’s open access conditions.
 
 \printbibliography
 
