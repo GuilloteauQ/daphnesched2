@@ -7,14 +7,14 @@
 
 #define MAX(x, y) ((x) < (y)) ? (y) : (x)
 
-typedef Eigen::SparseMatrix<double, Eigen::ColMajor> SpMatC;
-typedef Eigen::SparseMatrix<double, Eigen::RowMajor> SpMatR;
-typedef Eigen::SparseVector<double, Eigen::ColMajor> SpVecC;
-typedef Eigen::SparseVector<double, Eigen::RowMajor> SpVecR;
-typedef Eigen::Array<double, 1, Eigen::Dynamic> Vec;
+typedef Eigen::SparseMatrix<int, Eigen::ColMajor> SpMatC;
+typedef Eigen::SparseMatrix<int, Eigen::RowMajor> SpMatR;
+typedef Eigen::SparseVector<int, Eigen::ColMajor> SpVecC;
+typedef Eigen::SparseVector<int, Eigen::RowMajor> SpVecR;
+typedef Eigen::Array<int, 1, Eigen::Dynamic> Vec;
 
 typedef SpMatC::InnerIterator InIterVec;
-typedef Eigen::MappedSparseMatrix<double> MSpMat;
+typedef Eigen::MappedSparseMatrix<int> MSpMat;
 // typedef MSpMat::InnerIterator InIterMat;
 typedef SpMatC::InnerIterator InIterMatC;
 typedef SpMatR::InnerIterator InIterMatR;
@@ -28,12 +28,12 @@ int main(int argc, char** argv) {
   if (!loadMarket(G, filename))
     std::cout << "could  not load mtx file" << std::endl;
 
-  Eigen::Array<double, 1, Eigen::Dynamic> c(n);
+  Eigen::VectorXi c(n);
   for (int i = 0; i < n; i++) {
-    c(i) = (double)(i + 1);
+    c(i) = i + 1;
   }
 
-  Eigen::Array<double, 1, Eigen::Dynamic> x(n);
+  Eigen::VectorXi x(n);
   G = G.transpose();
 
   for (int iter = 0; iter < 40; iter++) {
