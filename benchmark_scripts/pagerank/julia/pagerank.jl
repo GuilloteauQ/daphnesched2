@@ -11,7 +11,7 @@ function pagerank(filename, maxi)
     p = (G * p) * alpha + p * one_minus_alpha
     p = p / sum(p)
   end
-  println(p)
+  #println(p)
 end
 
 @assert(length(ARGS) == 1)
