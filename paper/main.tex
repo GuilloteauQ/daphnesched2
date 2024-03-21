@@ -1,4 +1,4 @@
-\documentclass[conference,10pt]{IEEEtran}
+\documentclass[conference,10pt,a4paper]{IEEEtran}
 \IEEEoverridecommandlockouts
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 
@@ -10,6 +10,7 @@
 
 \newcommand{\ie}{\emph{i.e.,}}
 \newcommand{\eg}{\emph{e.g.,}}
+\newcommand{\ds}{\emph{DaphneSched}}
 
 \newcommand{\fmc}[1]{{\color{magenta} FMC: #1}} % Florina Ciorba
 \newcommand{\jk}[1]{{\color{orange} JK: #1}} % Jonas
@@ -36,7 +37,8 @@
 \begin{document}
 
 %\title{Effortless parallelization and distribution with Daphne}
-\title{Effortless Parallel and Distributed Execution with Daphne}
+% \title{Effortless Parallel and Distributed Execution with Daphne}
+\title{Effortless Distributed Execution with Daphne}
 
 \author{
 \IEEEauthorblockN{Anonymous Authors}
@@ -72,6 +74,26 @@ Contributions:
 \item \textbf{Comparison between DaphneSched and popular scientific languages}
 \item \textbf{Study the impact of scheduling on performance with the flexibility of DaphneSched}
 \end{itemize}
+
+\subsection{try}
+
+
+When developing a new scientific application, researchers are faced with a dilema:
+either develop quickly with scripting languages such a Python which might yield poor performance,
+or invest more time and efforts into a implementation in fast compiled languages such as C++/Rust.
+Moreover, if an appliction is initially written in Python, and is lacking performance, it will need to be fully rewritten in another language.
+This issue is known as the ``Two languages problem''.
+Julia \cite{bezanson2012julia} positioned itself as a solution combining both the ease of writing of a scripting language, while yielding high performance with a Just-in-Time compilation.
+
+
+% However, the ``Two language problem'' still persist when the application needs to scale beyond a single thread or a single machine.
+Some libraries, such as Numpy \cite{harris2020array}, are parallelizable and allow user to use the full computing power of a single machine without having to modify any of their application.
+However, when needed to scale beyond a single machine, no language nor library allow to easily distribute the computation by requiring no modification of the user's code.
+If users need to distribute their computations, they will need, at best, a partial rewrite of their application to integrate MPI for example.
+Hence, the ``Two language problem'' persists.
+
+In this paper, we present the extension of \ds\ \cite{eleliemy2023daphnesched} to support the distributed scheduling and execution of integrated data analysis pipelines.
+
 
 
 \section{Background}
@@ -112,13 +134,21 @@ It can also be presented as a platform for studying scheduling.
 
 \paragraph{Page Rank}
 
+assigns an ``importance'' weight to each node of $G$ based on the number of edges pointing from and to.
+
 \paragraph{k-core}
+
+computes the subgraph of $G$ where all the nodes have at least a degree of $k$.
+To do so, it iteratively removes the nodes of unsufficient degree.
 
 \paragraph{Linear Regression}
 
 \paragraph{k-means}
 
 \paragraph{N-body Simulation}
+
+simulates the gravitational interaction between $N$ bodies.
+
 
 \paragraph{\qg{something from reto bsc thesis?}}
 
@@ -133,7 +163,6 @@ It can also be presented as a platform for studying scheduling.
     \item C++, Julia, Python, and DaphneDSL
 \end{itemize}
 
-
 \subsection{Comparison}
 
 \begin{itemize}
@@ -146,17 +175,38 @@ It can also be presented as a platform for studying scheduling.
 
 \paragraph{Third party dependencies}
 
-Eigen \cite{guennebaud2010eigen}
+One drawback of using general purpose programming languages for scientific computing is the need for third party dependencies.
+These dependencies add complexity to the software environment \qg{more + repro?}.
 
-Numpy \cite{harris2020array}
+The C++ implementations of the considered benchmarks depend on the Eigen library
+Eigen \cite{guennebaud2010eigen} is a C++ library for linear algebra.
+It supports operations on dense and spare matrices.
+Eigen is parallelized via OpenMP.
+Users can disable this parallelization at compile time, or set the number of threads via the \texttt{OMP\_NUM\_THREADS} environment variable.
 
-SciPy \cite{virtanen2020scipy}
+The Python implementations depend on Numpy and Scipy.
+Numpy \cite{harris2020array} and SciPy \cite{virtanen2020scipy} are the corner stone of scientific computing in Python.
+The later depends on the former which is also parallelized via OpenMP.
+Similarly to Eigen, users can set up \texttt{OMP\_NUM\_THREADS} to increase the number of threads.
+
+The Julia implementations only required one external library to load the matrices of the MatrixMarket format.
+All the computations use the standard Julia library. 
+
+No external dependencies were needed for the DaphneDSL implementations.
+
+\subsection{Considered Matrices}
+
+The matrices have been optained on the \textit{SuiteSparse Matrix Collection} \cite{davis2011university}. 
+
+\paragraph{\texttt{webbase-2001} \cite{BoVWFI, BRSLLP}}
+which has been obtained from a 2001 crawl performed by the WebBase crawler.
+The matrix represents the connections between 118 142 155 websites.
+
 
 
 \subsection{Experiments}
 
 \qg{on VEGA?, sciCORE?, miniHPC?}
-
 
 \section{Conlusion and Perspectives}
 
