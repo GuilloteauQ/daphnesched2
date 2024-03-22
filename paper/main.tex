@@ -39,6 +39,7 @@
 %\title{Effortless parallelization and distribution with Daphne}
 % \title{Effortless Parallel and Distributed Execution with Daphne}
 \title{Effortless Distributed Execution with Daphne}
+% \title{Effortless Scalable Execution with Daphne}
 
 \author{
 \IEEEauthorblockN{Anonymous Authors}
@@ -98,11 +99,12 @@ In this paper, we present the extension of \ds\ \cite{eleliemy2023daphnesched} t
 
 \section{Background}
 
-Daphne \cite{damme2022daphne}
+Daphne \cite{damme2022daphne} is a scalable infrastructure system designed for integrated data analysis pipelines, \ie\ the management and processing of high performance computation or machine learning data and \qg{scoring}.
 
 Chapel \cite{callahan2004cascade}
 
-StarPU \cite{augonnet2009starpu} 
+StarPU \cite{augonnet2009starpu} is a runtime for parallelize and distribute computation on heterogenous machines.
+Users annotate their code to give some hints to the runtime about the nature of the computation.
 
 HPX \cite{kaiser2014hpx}
 
@@ -112,7 +114,10 @@ Numpy \cite{harris2020array}
 
 R \cite{morandat2012evaluating}
 
-LB4OMP \cite{korndorfer2021lb4omp}
+LB4OMP \cite{korndorfer2021lb4omp} is a extension of OpenMP with state-of-the-art scheduling techniques (\eg\ \qg{list some}).
+
+\qg{LB4MPI ?}
+
 
 \section{DaphneSched}
 
@@ -120,11 +125,86 @@ DaphneSched \cite{eleliemy2023daphnesched}
 
 \qg{summary of the local runtime, queues, scheduling techniques, (victim selections), and then description of the MPI distributed runtime (+ mention of gRPC ?)}
 
+\subsection{Terminology}
+
+From the point of view of Daphne, a \emph{task} is a \emph{operator} and some data.
+An \emph{operator} is a single and indivisible operation that can be applied to the data of the task.
+For example, in the case of a matrix-vector multiplication, the \emph{operator} the dot product, and the data will be a given number of rows of matrix, and the vector.
+The number of rows of the matrix corresponds to the size of the \emph{task}.
+In Daphne, a \emph{task} is the smallest unit of work, and cannot be subdivided.
+
+Note that Daphne does not parallelize loop iteration like OpenMP, but instead parallelize and vectorize operations on matrices.
+
+\subsection{Local runtime}\label{sec:daphnesched:local}
+
+In this section, we summarize the content of \cite{eleliemy2023daphnesched}.
+
+\qg{todo}
+
+\paragraph{Scheduling schemes}
+
+\ds\ supports 12 state-of-the-art scheduling, or partitioning, schemes, \ie\ how the total work (operation + data) is partitionned into several \emph{tasks}.
+
+\paragraph{Worker}
+
+TODO
+
+\paragraph{Queue layouts}
+
+After the work has been partitionned into \emph{tasks}, these \emph{tasks} are inserted into a \emph{queue}.
+\ds\ has three queue layouts:
+
+\begin{itemize}
+\item a centralized queue (\texttt{CENTRALIZED}): all the worker query this one queue to get their next task
+\item a per-socket queue (\texttt{PERGROUP}): a queue is created per socket, and the workers query the queue of the socket they belong. 
+\item a per-cpu queue (\texttt{PERCPU}): each (allocated) CPU has one task queue, and all the workers running on this CPU query this queue.
+\end{itemize}
+
+\paragraph{Victim selections}
+
+Having several queues (\ie\ \texttt{PERGROUP} and \texttt{PERCPU}) enables to apply work-stealing techniques.
+Indeed once a of the queues is empty, all the worker belonging to this queue are now idle and looking for work.
+\ds\ provides four victim selections:
+
+\begin{itemize}
+\item sequential stealing (\texttt{SEQ}): query the next queue in order for work
+\item random stealing (\texttt{RANDOM}): query a random queue for work
+\item sequential \emph{prioritized} stealing (\texttt{SEQPRI}): query the next queue \emph{in the same NUMA domain} for work
+\item random \emph{prioritized} stealing (\texttt{RANDOMPRI}): query a random queue \emph{in the same NUMA domain} for work
+\end{itemize}
+
+Queue layout and victim selection play a crucial role in the performance of a IDA pipelines.
+In some cases, a \texttt{CENTRALIZED} queue can introduce overhead because of lock contention, while \texttt{PERCPU} queues might induce a lot of steals which could increase the cache misses.
+
+\qg{some image of the local rutime}
+
+\subsection{Distributed runtime}
+
+What was presented in Section \ref{sec:daphnesched:local} and in \cite{eleliemy2023daphnesched} is only for a single machine.
+However, the ambition of Daphne is to be a \emph{scalable} runtime for IDA pipelines.
+Hence, this section present the extension of \ds\ to support distributed executions.
+
+The distributed runtime of Daphne bases itself on its local runtime.
+There are two modes of the distributed runtime: using MPI, or using gRPC.
+In this paper, we will focus on the MPI runtime; \qg{the gRPC will be presented.....}.
+
+\ds\ leverages MPI to start multiple instances of the local runtime.
+Rank 0 is called the \emph{coordinator}.
+The \emph{coordinator} serves as an entry point and is responsible to send the tasks (data + operation) to the local runtimes.
+Note that the \emph{coordinator} does not perform any computation.
+The advantage of using MPI is the collective operations (\eg\ broadcast, scatter) in the case of sending the same data, or pieces of the whole data, to all the local runtimes.
+
+
+\qg{some image of the distributed rutime}
+
+
 \section{Importance of Scheduling}
 
 \qg{in this section we show how the different option of daphnesched impact the performance. should this be before the section on comparison with different languages ?
 It can also be presented as a platform for studying scheduling.
 }
+
+\qg{here: the image of the gantt of STATIC, GSS, and MFSC from the review meeting (generated with R to be vectoriel)}
 
 \subsection{Considered Benchmarks}
 
@@ -148,6 +228,14 @@ To do so, it iteratively removes the nodes of unsufficient degree.
 \paragraph{N-body Simulation}
 
 simulates the gravitational interaction between $N$ bodies.
+
+\subsection{Considered Matrices}
+
+The matrices have been optained on the \textit{SuiteSparse Matrix Collection} \cite{davis2011university}. 
+
+\paragraph{\texttt{webbase-2001} \cite{BoVWFI, BRSLLP}}
+which has been obtained from a 2001 crawl performed by the WebBase crawler.
+The matrix represents the connections between 118 142 155 websites.
 
 
 \paragraph{\qg{something from reto bsc thesis?}}
@@ -194,13 +282,6 @@ All the computations use the standard Julia library.
 
 No external dependencies were needed for the DaphneDSL implementations.
 
-\subsection{Considered Matrices}
-
-The matrices have been optained on the \textit{SuiteSparse Matrix Collection} \cite{davis2011university}. 
-
-\paragraph{\texttt{webbase-2001} \cite{BoVWFI, BRSLLP}}
-which has been obtained from a 2001 crawl performed by the WebBase crawler.
-The matrix represents the connections between 118 142 155 websites.
 
 
 
@@ -214,6 +295,8 @@ The matrix represents the connections between 118 142 155 websites.
 
 This research was funded, in whole or in part, by the European Union’s Horizon 2020 research and innovation programme under grant agreement No. 957407 as DAPHNE.
 The authors have applied a CC-BY public copyright license to the present document and will be applied to all subsequent versions up to the Author Accepted Manuscript arising from this submission, in accordance with the grant’s open access conditions.
+
+\newpage
 
 \printbibliography
 
