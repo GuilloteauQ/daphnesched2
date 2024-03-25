@@ -25,8 +25,10 @@
                 gcc
                 eigen
                 pkg-config
+                bashInteractive
+                coreutils-full
               ];
-              pathsToLink = [ "/bin" ];
+              pathsToLink = [ "/bin" "/include" "/share" ];
             };
           };
         };
