@@ -13,6 +13,23 @@
         r-packages = with pkgs.rPackages; [ tidyverse geomtextpath kableExtra ];
         python-packages = with pkgs.python3Packages; [ numpy scipy ];
       in {
+        packages = {
+          jupycpp = pkgs.dockerTools.buildImage {
+            name = "guilloteauq/jupycpp";
+            tag = "march24";
+            copyToRoot = pkgs.buildEnv {
+              name = "image-root";
+              paths = with pkgs; [
+                (python3.withPackages (ps: python-packages))
+                julia-bin
+                gcc
+                eigen
+                pkg-config
+              ];
+              pathsToLink = [ "/bin" ];
+            };
+          };
+        };
         devShells = {
           default = pkgs.mkShell {
             packages = with pkgs; [
