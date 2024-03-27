@@ -20,4 +20,4 @@ for(iter in 1:maxi) {
 }
 
 end=now();
-print(end-start);
+print((end-start) / 1000000000.0);

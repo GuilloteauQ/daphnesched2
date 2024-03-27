@@ -6,7 +6,8 @@ matrices = {
    "meta" : {
      "numRows": 403394,
      "numCols": 403394,
-     "numNonZeros": 3387388
+     "numNonZeros": 3387388,
+     "valueType": "f64"
     }
   },
 }

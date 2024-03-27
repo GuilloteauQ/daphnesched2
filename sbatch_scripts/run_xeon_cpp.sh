@@ -20,7 +20,9 @@ RESULT=$5
 
 EXECUTABLE=$(dirname ${SOURCEFILE})/$(basename ${SOURCEFILE} .cpp)
 
-singularity exec ${SLURM_SUBMIT_DIR}/jupycpp.sif g++ ${SLURM_SUBMIT_DIR}/${SOURCEFILE} -o ${SLURM_SUBMIT_DIR}/${EXECUTABLE} `pkg-config --cflags eigen3` -O3 -fopenmp
+CFLAGS=$(PKG_CONFIG_PATH=/share/pkgconfig singularity exec ${SLURM_SUBMIT_DIR}/jupycpp.sif pkg-config --cflags eigen3)
+
+singularity exec ${SLURM_SUBMIT_DIR}/jupycpp.sif g++ ${SLURM_SUBMIT_DIR}/${SOURCEFILE} -o ${SLURM_SUBMIT_DIR}/${EXECUTABLE} ${CFLAGS} -O3 -fopenmp
 
 OMP_NUM_THREADS=${NUM_THREADS} srun --cpus-per-task=${NUM_THREADS} singularity exec ${SLURM_SUBMIT_DIR}/jupycpp.sif ${SLURM_SUBMIT_DIR}/${EXECUTABLE} ${SLURM_SUBMIT_DIR}/${MATRIX_PATH} ${MATRIX_SIZE} > ${SLURM_SUBMIT_DIR}/${RESULT}
 

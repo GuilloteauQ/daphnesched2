@@ -30,7 +30,7 @@ then
 fi
 
 
-srun --cpus-per-task=${NUM_THREADS} singularity exec ${SLURM_SUBMIT_DIR}/daphne-dev.sif daphne-src/bin/daphne \
+srun --cpus-per-task=${NUM_THREADS} singularity exec ${SLURM_SUBMIT_DIR}/daphne-dev.sif ${SLURM_SUBMIT_DIR}/daphne-src/bin/daphne \
 					            --select-matrix-repr \
                       ${OPTIONS} \
 					            --args f=\"${SLURM_SUBMIT_DIR}/${MATRIX_PATH}\"\
