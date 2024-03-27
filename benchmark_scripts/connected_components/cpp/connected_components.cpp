@@ -8,14 +8,14 @@
 
 #define MAX(x, y) ((x) < (y)) ? (y) : (x)
 
-typedef Eigen::SparseMatrix<int, Eigen::ColMajor> SpMatC;
-typedef Eigen::SparseMatrix<int, Eigen::RowMajor> SpMatR;
-typedef Eigen::SparseVector<int, Eigen::ColMajor> SpVecC;
-typedef Eigen::SparseVector<int, Eigen::RowMajor> SpVecR;
-typedef Eigen::Array<int, 1, Eigen::Dynamic> Vec;
+typedef Eigen::SparseMatrix<double, Eigen::ColMajor> SpMatC;
+typedef Eigen::SparseMatrix<double, Eigen::RowMajor> SpMatR;
+typedef Eigen::SparseVector<double, Eigen::ColMajor> SpVecC;
+typedef Eigen::SparseVector<double, Eigen::RowMajor> SpVecR;
+typedef Eigen::Array<double, 1, Eigen::Dynamic> Vec;
 
 typedef SpMatC::InnerIterator InIterVec;
-typedef Eigen::MappedSparseMatrix<int> MSpMat;
+typedef Eigen::MappedSparseMatrix<double> MSpMat;
 // typedef MSpMat::InnerIterator InIterMat;
 typedef SpMatC::InnerIterator InIterMatC;
 typedef SpMatR::InnerIterator InIterMatR;
@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
 
   Eigen::VectorXi c(n);
   for (int i = 0; i < n; i++) {
-    c(i) = i + 1;
+    c(i) = (double)(i + 1);
   }
 
   Eigen::VectorXi x(n);
@@ -60,11 +60,8 @@ int main(int argc, char** argv) {
       c.coeffRef(j) = MAX(c.coeffRef(j), x.coeffRef(j));
       sum_ += c.coeffRef(j);
     }
-    // std::cout << iter << ": " << sum_ << std::endl;
   }
-  // std::cout << Eigen::nbThreads( ) << std::endl;
   auto stop = std::chrono::high_resolution_clock::now();
-  // auto duration = std::chrono::duration_cast<std::chrono::seconds>(stop - start);
   auto duration = std::chrono::duration<float>(stop - start);
   std::cout << duration.count() << std::endl;
   return 0;

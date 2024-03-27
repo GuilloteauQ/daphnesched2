@@ -1,10 +1,12 @@
 from scipy.io import mmread
 from scipy.sparse import coo_array
+import time
 import sys
 import numpy as np
 
 def pagerank(filename, maxi=260):
     G = mmread(filename)
+    start = time.time()
     n = G.shape[0]
     p = np.ones(n)
     alpha = 0.85
@@ -13,7 +15,8 @@ def pagerank(filename, maxi=260):
     for iter in range(maxi):
         p = G.dot(p) * alpha + p * one_minus_alpha 
         p = p / p.sum()
-    #print(p)
+    end = time.time()
+    print(end - start)
 
 if __name__ == "__main__":
     args = sys.argv

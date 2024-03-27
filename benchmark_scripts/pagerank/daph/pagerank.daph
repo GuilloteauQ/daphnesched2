@@ -1,4 +1,6 @@
 G = readMatrix($f);
+start = now();
+
 M = nrow(G);
 N = ncol(G);
 p = fill(1.0, M, 1);
@@ -12,3 +14,6 @@ for (iter in 1:max_iteration) {
   sumP = fill(sum(p), nrow(p), 1);
   p = (G @ p) * alpha + (sumP) * (1.0 - alpha);
 }
+
+end = now();
+print((end - start) / 1000000000.0);
