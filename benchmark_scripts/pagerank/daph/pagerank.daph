@@ -6,7 +6,7 @@ N = ncol(G);
 p = fill(1.0, M, 1);
 
 alpha = 0.85;
-maxiter = 260;
+maxiter = 250;
 max_iteration = as.si64(maxiter);
 iter = 0;
 

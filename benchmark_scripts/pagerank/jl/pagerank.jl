@@ -16,6 +16,6 @@ end
 
 @assert(length(ARGS) == 1)
 filename = ARGS[1]
-maxi = 260
+maxi = 250
 pagerank(filename, maxi)
 

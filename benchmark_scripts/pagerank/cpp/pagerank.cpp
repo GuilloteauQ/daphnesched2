@@ -17,6 +17,7 @@ int main(int argc, char** argv) {
   std::string filename = argv[1];
 
   int n = atoi(argv[2]);
+  int maxi = 250;
 
   double alpha = 0.85;
   double one_minus_alpha = 1 - alpha;

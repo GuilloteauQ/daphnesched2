@@ -4,7 +4,7 @@ import time
 import sys
 import numpy as np
 
-def pagerank(filename, maxi=260):
+def pagerank(filename, maxi=250):
     G = mmread(filename)
     start = time.time()
     n = G.shape[0]
