@@ -19,7 +19,7 @@ rule run_expe:
   output:
     "data/{matrix}/{benchmark}/{lang}/{num_threads}/{iter}.dat"  
   wildcard_constraints:
-    matrix="\w+"
+    matrix="[a-zA-Z0-9]+"
   params:
     matrix_size = lambda w: matrices[w.matrix]["meta"]["numRows"]
   shell:
