@@ -9,15 +9,18 @@
 typedef Eigen::SparseMatrix<int, Eigen::RowMajor> SpMatR;
 
 int main(int argc, char** argv) {
-  std::string filename = "../python/amazon0601/amazon0601.mtx";
-  //std::string filename = "../python/amazon0601/small.mtx";
+  if (argc != 3) {
+    std::cout << "Usage: bin mat.mtx size" << std::endl;
+    return 1;
+  }
+  std::string filename = argv[1];
 
-  int n = 403394; // TODO: manage this
-  // int n = 8; // TODO: manage this
+  int n = atoi(argv[2]);
 
   SpMatR G(n, n); 
   if (!loadMarket(G, filename))
     std::cout << "could  not load mtx file" << std::endl;
+  std::cout << "Finished reading" << std::endl;
 
   Eigen::VectorXi c(n);
   Eigen::VectorXi x(n);
