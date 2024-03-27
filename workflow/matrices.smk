@@ -10,6 +10,15 @@ matrices = {
      "valueType": "f64"
     }
   },
+  "wikipedia-20070206" : {
+   "url": "https://suitesparse-collection-website.herokuapp.com/MM/Gleich/wikipedia-20070206.tar.gz",
+   "meta" : {
+     "numRows": 3566907,
+     "numCols": 3566907,
+     "numNonZeros": 45030389,
+     "valueType": "f64"
+    }
+  },
 }
 
 rule untar_matrix:

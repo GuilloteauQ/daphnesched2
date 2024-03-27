@@ -6,11 +6,13 @@ LANGUAGES = [
 ]
 
 MATRICES = [
-  "amazon0601"
+  "amazon0601",
+  "wikipedia-20070206"
 ]
 
 SCRIPTS = [
-  "connected_components"
+  "connected_components",
+  "pagerank"
 ]
 
 NUM_THREADS = [

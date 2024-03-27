@@ -11,7 +11,7 @@ rule merge_iterations:
   output:
     "data/grouped_iter/{matrix}_{benchmark}_{lang}_{num_threads}.csv"
   wildcard_constraints:
-    matrix="[a-zA-Z0-9]+"
+    matrix="[a-zA-Z0-9-]+"
   shell:
     "Rscript {input.script} {input.data} {wildcards.benchmark} {wildcards.num_threads} {wildcards.lang} {wildcards.matrix} {output}"
 
@@ -26,6 +26,6 @@ rule merge_iteration_csv:
   output:
     "data/all.csv"
   wildcard_constraints:
-    matrix="[a-zA-Z0-9]+"
+    matrix="[a-zA-Z0-9-]+"
   shell:
     "Rscript {input.script} {input.data} {output}"
