@@ -1,17 +1,16 @@
 LANGUAGES = [
-  #{"name": "c++",    "ext": "cpp"},
-  {"name": "python", "ext": "py"},
-  {"name": "daphne", "ext": "daph"}
+  "cpp",
+  "py",
+  "daph",
+  #"jl"
 ]
 
-LANGS=list(map(lambda x: x["name"], LANGUAGES))
-
 MATRICES = [
-  "amazon0601/amazon0601.mtx"
+  "amazon0601"
 ]
 
 SCRIPTS = [
-  "benchmark_scripts/connected_components"
+  "connected_components"
 ]
 
 NUM_THREADS = [
@@ -19,4 +18,5 @@ NUM_THREADS = [
   20
 ]
 
-ITERATIONS = range(1, 5 + 1)
+TOTAL_ITERS = 10
+ITERATIONS = range(1, TOTAL_ITERS + 1)

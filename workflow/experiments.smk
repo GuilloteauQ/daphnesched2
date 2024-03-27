@@ -1,23 +1,28 @@
 include: "doe.smk"
+include: "matrices.smk"
 
 rule all:
   input:
-    expand("data/{matrix}/{benchmark}/{lang}/{num_threads}/{iter}",\
+    expand("data/{matrix}/{benchmark}/{lang}/{num_threads}/{iter}.dat",\
       matrix=MATRICES,\
       benchmark=SCRIPTS,\
-      lang=LANGS,\
+      lang=LANGUAGES,\
       num_threads=NUM_THREADS,\
       iter=ITERATIONS)
 
 rule run_expe:
   input:
     sbatch="sbatch_scripts/run_xeon_{lang}.sh",
-    script="benchmark_scripts/{benchmark}/{lang}/{benchmark}.{params.ext}",
-    matrix="matrices/{matrix}"
+    script="benchmark_scripts/{benchmark}/{lang}/{benchmark}.{lang}",
+    mtx="matrices/{matrix}/{matrix}.mtx",
+    meta="matrices/{matrix}/{matrix}.mtx.meta"
   output:
-    "data/{matrix}/{benchmark}/{lang}/{num_threads}/{iter}"
+    "data/{matrix}/{benchmark}/{lang}/{num_threads}/{iter}.dat"  
+  wildcard_constraints:
+    matrix="\w+"
   params:
-    matrix_size = 100000, # TODO
-    ext = "py"
+    matrix_size = lambda w: matrices[w.matrix]["meta"]["numRows"]
   shell:
-    "{input.sbatch} {wildcards.num_threads} {input.script} {input.matrix} {params.matrix_size} {output}"
+    "{input.sbatch} {wildcards.num_threads} {input.script} {input.mtx} {params.matrix_size} {output}"
+
+
