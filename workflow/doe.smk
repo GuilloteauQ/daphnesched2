@@ -10,9 +10,13 @@ MATRICES = [
   "wikipedia-20070206"
 ]
 
-SCRIPTS = [
+SCRIPTS_WITH_MATRICES = [
   "connected_components",
   "pagerank"
+]
+
+SCRIPTS_WITHOUT_MATRICES = [
+  "nbody"
 ]
 
 NUM_THREADS = [
