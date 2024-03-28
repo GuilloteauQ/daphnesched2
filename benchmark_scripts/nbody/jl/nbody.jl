@@ -20,6 +20,8 @@ function main()
   half_step_size = 0.5 * step_size
   softening = 0.1
 
+  start = time()
+
   position = 5.0 .* (randn(n, 2) .- 5.0)
   velocity = zeros(n, 2)
   acceleration = zeros(n, 2)
@@ -38,7 +40,7 @@ function main()
   velocity = velocity .- com_v
 
   for i in 1:400
-    println(i)
+    #println(i)
     velocity = velocity .+ acceleration .* half_step_size
     position = position .+ velocity .* step_size
 
@@ -46,6 +48,8 @@ function main()
 
     velocity = velocity .+ acceleration .* half_step_size
   end
+  fin = time()
+  println(fin - start)
 end
 
 main()

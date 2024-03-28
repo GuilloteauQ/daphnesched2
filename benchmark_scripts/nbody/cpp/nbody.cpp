@@ -1,6 +1,7 @@
 #include <iostream>
 #include <Eigen/Dense>
 #include <Eigen/Core>
+#include <chrono>
 
 Eigen::MatrixXd calculate_acceleration_matrix(Eigen::MatrixXd position, Eigen::VectorXd mass, double gravity, double softening, int n) {
 
@@ -30,6 +31,8 @@ int main(int argc, char** argv) {
   double step_size = 20.0 / 1000.0;
   double half_step_size = 0.5 * step_size;
   double softening = 0.1;
+
+  auto start = std::chrono::high_resolution_clock::now();
 
   auto mat = Eigen::MatrixXd::Random(n, 2);
   auto mat_ones = Eigen::MatrixXd::Ones(n, 2);
@@ -69,7 +72,7 @@ int main(int argc, char** argv) {
   }
 
   for (int iter = 0; iter < 400; iter++) {
-    std::cout << iter << std::endl;
+    // std::cout << iter << std::endl;
 
     velocity = velocity + acceleration * half_step_size;
     position = position + velocity * step_size;
@@ -78,6 +81,10 @@ int main(int argc, char** argv) {
 
     velocity = velocity + acceleration * half_step_size;
   }
+
+  auto stop = std::chrono::high_resolution_clock::now();
+  auto duration = std::chrono::duration<float>(stop - start);
+  std::cout << duration.count() << std::endl;
 
   return 0;
 }

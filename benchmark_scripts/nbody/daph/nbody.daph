@@ -4,6 +4,8 @@ step_size = 20.0 / 1000.0;
 half_step_size = step_size / 2.0;
 softening = 0.1;
 
+t1 = now();
+
 position = rand(n, 2, -10.0, 10.0, 1.0, -1);
 velocity = fill(0.0, n, 2);
 acceleration = fill(0.0, n, 2);
@@ -22,7 +24,6 @@ velocity = velocity - com_v;
 
 #data = cbind(fill(0, n, 1), cbind(position, mass));
 
-t1 = now();
 for (i in 1:400) {
   #print(i);
   velocity = velocity + acceleration * half_step_size;
@@ -40,5 +41,5 @@ for (i in 1:400) {
   #data = rbind(data, cbind(fill(i, n, 1), cbind(position, mass)));
 }
 t2 = now();
-print(t2 - t1);
+print((t2 - t1) / 1000000000.0);
 #write(data, "out.csv");

@@ -1,10 +1,13 @@
 import numpy as np
+import time
 
 n = 10000
 gravity = 0.00001
 step_size = 20.0 / 1000.0
 half_step_size = 0.5 * step_size
 softening = 0.1
+
+start = time.time()
 
 position = 5.0 * (np.random.rand(n, 2) - 5.0)
 velocity = np.zeros((n, 2)) #1 * (np.random.rand(n, 2) - 5)
@@ -41,4 +44,7 @@ for i in range(400):
 
 	velocity += acceleration * half_step_size
 	#print(i)
+
+end = time.time()
+print(end - start)
 
