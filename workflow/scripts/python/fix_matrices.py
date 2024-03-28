@@ -7,7 +7,7 @@ def add_ones(input_file, output_file):
             is_header = True
             for line in rfile:
                 if is_header:
-                    file.write(line.replace("pattern", "real")
+                    file.write(line.replace("pattern", "real"))
                     is_header = False
                 if not line.startswith("%"):
                     if not is_actual_data:
