@@ -39,8 +39,22 @@ rule download_matrix:
 
 rule setup_metadata:
   output:
-    "matrices/{matrix}/{matrix}.mtx.meta"
+    "matrices/{matrix}/{matrix}_ones.mtx.meta"
+  wildcard_constraints:
+    matrix="[a-zA-Z0-9-]+"
   params:
     meta = lambda w: json.dumps(matrices[w.matrix]["meta"])
   shell:
     "echo '{params.meta}' > {output}"
+
+rule add_ones:
+  input:
+    mat="matrices/{matrix}/{matrix}.mtx",
+    script="workflow/scripts/python/fix_matrices.py"
+  wildcard_constraints:
+    matrix="[a-zA-Z0-9-]+"
+  output:
+    "matrices/{matrix}/{matrix}_ones.mtx"
+  shell:
+    "python3 {input.script} --input {input.mat} --output {output}"
+

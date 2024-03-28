@@ -7,7 +7,7 @@ def add_ones(input_file, output_file):
             is_header = True
             for line in rfile:
                 if is_header:
-                    file.write(line)
+                    file.write(line.replace("pattern", "real")
                     is_header = False
                 if not line.startswith("%"):
                     if not is_actual_data:
@@ -15,7 +15,7 @@ def add_ones(input_file, output_file):
                         is_actual_data = True
                     else:
                         r, c = int(line.split()[0]), int(line.split()[1])
-                        file.write(f"{r} {c} 1\n")
+                        file.write(f"{r} {c} 1.0\n")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Explicitly add ones in an MatrixMarket matrix')
@@ -26,4 +26,3 @@ if __name__ == "__main__":
     input_file = args.input
     output_file = args.output
     add_ones(input_file, output_file)
-    

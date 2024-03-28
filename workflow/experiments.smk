@@ -14,8 +14,8 @@ rule run_expe:
   input:
     sbatch="sbatch_scripts/run_xeon_{lang}.sh",
     script="benchmark_scripts/{benchmark}/{lang}/{benchmark}.{lang}",
-    mtx="matrices/{matrix}/{matrix}.mtx",
-    meta="matrices/{matrix}/{matrix}.mtx.meta"
+    mtx="matrices/{matrix}/{matrix}_ones.mtx",
+    meta="matrices/{matrix}/{matrix}_ones.mtx.meta"
   output:
     "data/{matrix}/{benchmark}/{lang}/{num_threads}/{iter}.dat"  
   wildcard_constraints:
