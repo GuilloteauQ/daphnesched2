@@ -25,6 +25,7 @@
                 gcc
                 eigen
                 pkg-config
+                openmpi
                 bashInteractive
                 coreutils-full
               ];
@@ -44,6 +45,8 @@
               gcc
               eigen
               pkg-config
+              openmpi
+              #llvmPackages.openmp
 
               # Analysis related
               (rWrapper.override { packages = r-packages; })
