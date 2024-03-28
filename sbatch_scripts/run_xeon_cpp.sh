@@ -18,11 +18,21 @@ MATRIX_PATH=$3
 MATRIX_SIZE=$4
 RESULT=$5
 
-EXECUTABLE=$(dirname ${SOURCEFILE})/$(basename ${SOURCEFILE} .cpp)
+EXECUTABLE=$(dirname ${SOURCEFILE})/$(basename ${SOURCEFILE} .cpp)_${NUM_THREADS}
 
 CFLAGS=$(PKG_CONFIG_PATH=/share/pkgconfig singularity exec ${SLURM_SUBMIT_DIR}/jupycpp.sif pkg-config --cflags eigen3)
 
-singularity exec ${SLURM_SUBMIT_DIR}/jupycpp.sif g++ ${SLURM_SUBMIT_DIR}/${SOURCEFILE} -o ${SLURM_SUBMIT_DIR}/${EXECUTABLE} ${CFLAGS} -O3 -fopenmp
+OPTIONS=""
+
+if [ "${NUM_THREADS}" -gt "1" ]
+then
+  OPTIONS="${CFLAGS} -O3 -fopenmp"
+else
+  OPTIONS="${CFLAGS} -O3 -DEIGEN_DONT_PARALLELIZE"
+fi
+
+
+singularity exec ${SLURM_SUBMIT_DIR}/jupycpp.sif g++ ${SLURM_SUBMIT_DIR}/${SOURCEFILE} -o ${SLURM_SUBMIT_DIR}/${EXECUTABLE} ${OPTIONS}
 
 OMP_NUM_THREADS=${NUM_THREADS} srun --cpus-per-task=${NUM_THREADS} singularity exec ${SLURM_SUBMIT_DIR}/jupycpp.sif ${SLURM_SUBMIT_DIR}/${EXECUTABLE} ${SLURM_SUBMIT_DIR}/${MATRIX_PATH} ${MATRIX_SIZE} > ${SLURM_SUBMIT_DIR}/${RESULT}
 
