@@ -1,4 +1,4 @@
-n = 10000;
+n = 1000;
 gravity = 0.00001;
 step_size = 20.0 / 1000.0;
 half_step_size = step_size / 2.0;

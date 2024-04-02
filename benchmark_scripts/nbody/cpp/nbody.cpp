@@ -26,7 +26,7 @@ Eigen::MatrixXd calculate_acceleration_matrix(Eigen::MatrixXd position, Eigen::V
 
 
 int main(int argc, char** argv) {
-  int n = 10000;
+  int n = 1000;
   double gravity = 0.00001;
   double step_size = 20.0 / 1000.0;
   double half_step_size = 0.5 * step_size;
