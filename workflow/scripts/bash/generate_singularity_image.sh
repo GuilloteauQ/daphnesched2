@@ -23,4 +23,7 @@ if [ -d "${PATCH_FOLDER}" ]
 fi
 
 cd ${HERE}
+# MPI
+singularity exec ${DEV_IMAGE} bash -c "cd daphne-src; ./build.sh --no-deps --installPrefix /usr/local --mpi && cp bin/daphne bin/daphne-mpi"
+# Normal
 singularity exec ${DEV_IMAGE} bash -c "cd daphne-src; ./build.sh --no-deps --installPrefix /usr/local"
