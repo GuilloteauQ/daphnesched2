@@ -5,12 +5,14 @@
 
 Eigen::MatrixXd calculate_acceleration_matrix(Eigen::MatrixXd position, Eigen::VectorXd mass, double gravity, double softening, int n) {
 
-  auto ones = Eigen::VectorXd::Ones(n);
-  auto x = position.col(0);
-  auto y = position.col(1);
+  Eigen::VectorXd ones = Eigen::VectorXd::Ones(n);
+  Eigen::VectorXd x = position.col(0);
+  Eigen::VectorXd y = position.col(1);
 
-  auto dx = ones * x.transpose() - x * ones.transpose(); 
-  auto dy = ones * y.transpose() - y * ones.transpose(); 
+  Eigen::MatrixXd dx = ones * x.transpose();
+  Eigen::MatrixXd dy = ones * y.transpose();
+  dx.colwise() -= x;
+  dy.colwise() -= y;
 
   Eigen::MatrixXd inv_r3(n, n);
   inv_r3 = dx.array().square() + dy.array().square();
