@@ -1,10 +1,10 @@
 
-function calculate_acceleration_matrix(P, M::Matrix{Float64}, gravity::Float64, softening::Float64, n::Integer)
+function calculate_acceleration_matrix(P::Matrix{Float64}, M::Matrix{Float64}, gravity::Float64, softening::Float64, n::Integer)
   x = P[:,1]
   y = P[:,2]
-  dx = ones(n, 1) * transpose(x) .- x 
-  dy = ones(n, 1) * transpose(y) .- y 
-  inv_r3 = (dx .* dx + dy .* dy .+ softening^2)^(-1.5)
+  dx = transpose(x) .- x 
+  dy = transpose(y) .- y 
+  inv_r3 = (dx.^2 + dy.^2 .+ softening^2).^(-1.5)
 
 	ax = gravity .* (dx * inv_r3) * M
 	ay = gravity .* (dy * inv_r3) * M
@@ -20,7 +20,7 @@ function main()
   half_step_size = 0.5 * step_size
   softening = 0.1
 
-  start = time()
+  start = time_ns()
 
   position = 5.0 .* (randn(n, 2) .- 5.0)
   velocity = zeros(n, 2)
@@ -47,8 +47,8 @@ function main()
 
     velocity = velocity .+ acceleration .* half_step_size
   end
-  fin = time()
-  println(fin - start)
+  fin = time_ns()
+  println((fin - start) * 1e-9)
 end
 
 main()
