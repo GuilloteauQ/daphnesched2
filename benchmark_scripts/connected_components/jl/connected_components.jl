@@ -6,7 +6,7 @@ function G_broadcast_mult_c(G, c)
   vals = nonzeros(G)
   m, n = size(G)
   new_vals = Vector{Float64}(undef, length(vals))
-  for j = 1:n
+  @Threads.threads for j = 1:n
      for i in nzrange(G, j)
         row = rows[i]
         val = vals[i]
