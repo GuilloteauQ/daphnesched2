@@ -9,14 +9,11 @@ Eigen::MatrixXd calculate_acceleration_matrix(Eigen::MatrixXd position, Eigen::V
   Eigen::VectorXd x = position.col(0);
   Eigen::VectorXd y = position.col(1);
 
-  Eigen::MatrixXd dx = ones * x.transpose();
-  Eigen::MatrixXd dy = ones * y.transpose();
-  dx.colwise() -= x;
-  dy.colwise() -= y;
+  Eigen::MatrixXd dx = (ones * x.transpose()).colwise() - x;
+  Eigen::MatrixXd dy = (ones * y.transpose()).colwise() - y;
 
   Eigen::MatrixXd inv_r3(n, n);
-  inv_r3 = dx.array().square() + dy.array().square();
-  inv_r3 += (softening * softening) * Eigen::MatrixXd::Ones(n, n);
+  inv_r3 = (dx.array().square() + dy.array().square()).array() + softening * softening;
   inv_r3 = inv_r3.array().pow(-1.5);
 
   Eigen::MatrixXd acceleration(n, 2);
@@ -44,7 +41,7 @@ int main(int argc, char** argv) {
   Eigen::MatrixXd acceleration(n, 2);
   Eigen::VectorXd mass(n);
 
-  position = 5.0 * (mat - 5.0 * mat_ones);
+  position = 5.0 * (mat.array() - 5.0); 
   velocity = Eigen::MatrixXd::Zero(n, 2);
   acceleration = Eigen::MatrixXd::Zero(n, 2);
   mass = 500.0 * Eigen::VectorXd::Ones(n);
@@ -54,24 +51,12 @@ int main(int argc, char** argv) {
   mass(0) = 10000.0;
 
 
-  double sum_mass = 0.0;
-  Eigen::MatrixXd com_p(1, 2);
-  Eigen::MatrixXd com_v(1 ,2);
-  com_p = Eigen::MatrixXd::Zero(1, 2);
-  com_v = Eigen::MatrixXd::Zero(1, 2);
+  double sum_mass = mass.array().sum();
+  auto com_p = (position.colwise() + mass).colwise().sum() / sum_mass;
+  auto com_v = (velocity.colwise() + mass).colwise().sum() / sum_mass;
 
-  for (int i = 0; i < n; i++) {
-    sum_mass += mass(i);
-    com_p += mass(i) * position.row(i); 
-    com_v += mass(i) * velocity.row(i); 
-  }
-  com_p /= sum_mass;
-  com_v /= sum_mass;
-
-  for (int i = 0; i < n; i++) {
-    position.row(i) -= com_p;
-    velocity.row(i) -= com_v;
-  }
+  position.rowwise() -= com_p;
+  velocity.rowwise() -= com_v;
 
   for (int iter = 0; iter < 400; iter++) {
     // std::cout << iter << std::endl;
