@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=20
 #              d-hh:mm:ss
 #SBATCH --time=0-02:00:00
-#SBATCH --mem=62000M
+##SBATCH --mem=62000M
 #SBATCH --wait
 
 set -ex
@@ -27,6 +27,6 @@ export NUMEXPR_NUM_THREADS=${NUM_THREADS}
 
 srun --cpus-per-task=${NUM_THREADS} singularity exec ${SLURM_SUBMIT_DIR}/jupycpp.sif julia --project=$(dirname ${SLURM_SUBMIT_DIR}/${SCRIPT}) -e "using Pkg; Pkg.instantiate()"
 
-srun --cpus-per-task=${NUM_THREADS} --mem=62000M singularity exec ${SLURM_SUBMIT_DIR}/jupycpp.sif julia --threads ${NUM_THREADS} --project=$(dirname ${SLURM_SUBMIT_DIR}/${SCRIPT}) ${SLURM_SUBMIT_DIR}/${SCRIPT} ${SLURM_SUBMIT_DIR}/${MATRIX_PATH} > ${SLURM_SUBMIT_DIR}/${RESULT}
+srun --cpus-per-task=${NUM_THREADS} singularity exec ${SLURM_SUBMIT_DIR}/jupycpp.sif julia --threads ${NUM_THREADS} --project=$(dirname ${SLURM_SUBMIT_DIR}/${SCRIPT}) ${SLURM_SUBMIT_DIR}/${SCRIPT} ${SLURM_SUBMIT_DIR}/${MATRIX_PATH} > ${SLURM_SUBMIT_DIR}/${RESULT}
 
 exit 0
