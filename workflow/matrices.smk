@@ -19,6 +19,15 @@ matrices = {
      "valueType": "f64"
     }
   },
+  "ljournal-2008" : {
+   "url": "https://suitesparse-collection-website.herokuapp.com/MM/LAW/ljournal-2008.tar.gz",
+   "meta" : {
+     "numRows": 5363260,
+     "numCols": 5363260,
+     "numNonZeros": 79023142,
+     "valueType": "f64"
+    }
+  },
   "wikipedia-20070206" : {
    "url": "https://suitesparse-collection-website.herokuapp.com/MM/Gleich/wikipedia-20070206.tar.gz",
    "meta" : {

@@ -7,12 +7,13 @@ LANGUAGES = [
 
 MATRICES = [
   "amazon0302",
-  # "amazon0601",
-  # "wikipedia-20070206"
+  "amazon0601",
+  "wikipedia-20070206",
+  "ljournal-2008"
 ]
 
 SCRIPTS_WITH_MATRICES = [
-  #"connected_components",
+  "connected_components",
   "pagerank",
   # "bfs",
   # "triangle_count"
