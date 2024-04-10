@@ -11,12 +11,13 @@ velocity = fill(0.0, n, 2);
 acceleration = fill(0.0, n, 2);
 mass = fill(500.0, n, 1);
 
-com_p = sum(mass @ position) / (500.0 * n);
-com_v = sum(mass @ velocity) / (500.0 * n);
 
 position[0, ] = fill(0.0, 1, 2);
 velocity[0, ] = fill(0.0, 1, 2);
 mass[0, ] = fill(10000.0, 1, 1);
+
+com_p = sum(mass @ position) / (500.0 * n);
+com_v = sum(mass @ velocity) / (500.0 * n);
 
 position = position - com_p;
 velocity = velocity - com_v;
