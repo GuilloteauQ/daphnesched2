@@ -10,6 +10,15 @@ matrices = {
      "valueType": "f64"
     }
   },
+  "amazon0302" : {
+   "url": "https://suitesparse-collection-website.herokuapp.com/MM/SNAP/amazon0302.tar.gz",
+   "meta" : {
+     "numRows": 262111,
+     "numCols": 262111,
+     "numNonZeros": 1234877,
+     "valueType": "f64"
+    }
+  },
   "wikipedia-20070206" : {
    "url": "https://suitesparse-collection-website.herokuapp.com/MM/Gleich/wikipedia-20070206.tar.gz",
    "meta" : {

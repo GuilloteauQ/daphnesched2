@@ -7,11 +7,13 @@ function pagerank(filename, maxi)
   alpha = 0.85
   one_minus_alpha = 1 - alpha
 
+  start = time_ns()
   for iter in 1:maxi
     p = (G * p) * alpha + p * one_minus_alpha
     p = p / sum(p)
   end
-  #println(p)
+  fin = time_ns()
+  println((fin - start) * 1e-9)
 end
 
 @assert(length(ARGS) == 1)

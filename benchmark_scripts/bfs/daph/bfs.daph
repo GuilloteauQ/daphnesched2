@@ -2,7 +2,7 @@ G = readMatrix($f);
 maxi = 200;
 n = nrow(G);
 x = fill(0.0, n, 1);
-x[0] = 1.0
+x[0,0] = [1.0];
 one = fill(1.0, n, 1);
 
 start=now();

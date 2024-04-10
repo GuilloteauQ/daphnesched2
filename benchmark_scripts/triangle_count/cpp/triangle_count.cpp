@@ -31,6 +31,7 @@ int main(int argc, char** argv) {
 
   auto stop = std::chrono::high_resolution_clock::now();
   auto duration = std::chrono::duration<float>(stop - start);
-  std::cout << duration.count() << ", " << nb_triangles << std::endl;
+  // std::cout << duration.count() << ", " << nb_triangles << std::endl;
+  std::cout << duration.count() << std::endl;
   return 0;
 }

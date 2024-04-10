@@ -14,7 +14,7 @@ end
 
 function main()
 
-  n = 10000
+  n = 1000
   gravity = 0.00001
   step_size = 20.0 / 1000.0
   half_step_size = 0.5 * step_size
@@ -40,7 +40,6 @@ function main()
   velocity = velocity .- com_v
 
   for i in 1:400
-    #println(i)
     velocity = velocity .+ acceleration .* half_step_size
     position = position .+ velocity .* step_size
 
