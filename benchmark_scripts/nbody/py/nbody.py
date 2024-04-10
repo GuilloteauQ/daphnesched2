@@ -1,7 +1,7 @@
 import numpy as np
 import time
 
-n = 10000
+n = 1000
 gravity = 0.00001
 step_size = 20.0 / 1000.0
 half_step_size = 0.5 * step_size

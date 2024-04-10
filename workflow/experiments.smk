@@ -37,5 +37,5 @@ rule run_expe_without_matrix:
   output:
     "data/NA/{benchmark}/{lang}/{num_threads}/{iter}.dat"  
   shell:
-    "sbatch {input.sbatch} {wildcards.num_threads} {input.script} NA -1 {output}"
+    "sbatch --time=0-05:00:00 {input.sbatch} {wildcards.num_threads} {input.script} NA -1 {output}"
 
