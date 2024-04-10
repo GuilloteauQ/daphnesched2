@@ -21,6 +21,12 @@ matrices = {
   },
 }
 
+rule all_matrices:
+  input:
+    expand("matrices/{matrix}/{matrix}_ones.mtx", matrix=matrices.keys()),
+    expand("matrices/{matrix}/{matrix}_ones.mtx.meta", matrix=matrices.keys())
+    
+
 rule untar_matrix:
   input:
     "matrices/{matrix}.tar.gz"
