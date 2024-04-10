@@ -46,7 +46,7 @@
               eigen
               pkg-config
               openmpi
-              #llvmPackages.openmp
+              llvmPackages.openmp
 
               # Analysis related
               (rWrapper.override { packages = r-packages; })

@@ -3,8 +3,78 @@
 #include <Eigen/Core>
 #include <chrono>
 #include "mpi.h"
+#include <omp.h>
 
 void add_with_scale(Eigen::MatrixXd A, Eigen::MatrixXd B, double alpha, int rank, int numprocs, int size, MPI_Datatype line_type);
+
+Eigen::MatrixXd compute_distances(Eigen::VectorXd V, int rank, int numprocs, int size) {
+  // 1. scatter the data of V.data
+  int sub_size = size / numprocs;
+  if (rank != 0) {
+    Eigen::VectorXd V(size);
+  }
+  MPI_Bcast(V.data(), size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  Eigen::VectorXd subV(sub_size);
+  MPI_Scatter(V.data(), sub_size, MPI_DOUBLE, subV.data(), sub_size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  
+  // 2. perform ones * V.tranpose()
+  Eigen::MatrixXd sub_dv = Eigen::MatrixXd::Zero(size, sub_size);
+  sub_dv.rowwise() += subV.transpose();
+  sub_dv.colwise() -= V;
+
+  // 3. send back the sub matrix
+  Eigen::MatrixXd dv(size, size);
+  MPI_Gather(sub_dv.data(), size * sub_size, MPI_DOUBLE, dv.data(), size * sub_size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
+  return dv;
+}
+
+Eigen::MatrixXd compute_inv_r3(Eigen::MatrixXd X, Eigen::MatrixXd Y, double softening, int rank, int numprocs, int size) {
+  int sub_size = (size * size) / numprocs;
+
+  Eigen::VectorXd subX(sub_size);
+  Eigen::VectorXd subY(sub_size);
+  MPI_Scatter(X.data(), sub_size, MPI_DOUBLE, subX.data(), sub_size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  MPI_Scatter(Y.data(), sub_size, MPI_DOUBLE, subY.data(), sub_size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  
+  // 2. perform ones * V.tranpose()
+  Eigen::MatrixXd sub_dv = Eigen::VectorXd::Zero(sub_size);
+  sub_dv = subX.array().square() + subY.array().square();
+  sub_dv += softening*softening * Eigen::VectorXd::Ones(sub_size);
+  sub_dv = sub_dv.array().pow(-1.5);
+
+  // 3. send back the sub matrix
+  Eigen::MatrixXd dv(size, size);
+  MPI_Gather(sub_dv.data(), sub_size, MPI_DOUBLE, dv.data(), sub_size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  return dv;
+}
+
+Eigen::MatrixXd compute_acc_component(Eigen::MatrixXd dx, Eigen::MatrixXd inv_r3, Eigen::VectorXd mass, double gravity, int rank, int numprocs, int size) {
+  int sub_size = (size * size) / numprocs;
+
+  Eigen::MatrixXd subDX(size,  size / numprocs);
+  Eigen::MatrixXd subInv(size, size / numprocs);
+  Eigen::VectorXd subMass(size / numprocs);
+
+  MPI_Scatter(dx.data(), size / numprocs, MPI_DOUBLE, subDX.data(), size / numprocs, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  MPI_Scatter(inv_r3.data(), size / numprocs, MPI_DOUBLE, subInv.data(), size / numprocs, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  MPI_Scatter(mass.data(), size / numprocs, MPI_DOUBLE, subMass.data(), size / numprocs, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
+  // std::cout << "ok scatters\n";
+  
+  // 2. perform ones * V.tranpose()
+  Eigen::VectorXd sub = subInv * subMass;
+  Eigen::VectorXd result = Eigen::VectorXd::Zero(size);
+  MPI_Reduce(sub.data(), result.data(), size / numprocs, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+  Eigen::VectorXd result_sub = Eigen::VectorXd::Zero(size / numprocs);
+  MPI_Scatter(result.data(), size / numprocs, MPI_DOUBLE, result_sub.data(), size / numprocs, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  // std::cout << "first mat mut\n";
+
+  sub = gravity * subDX * result_sub;
+  MPI_Reduce(sub.data(), result.data(), size / numprocs, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+
+  return sub;
+}
 
 Eigen::MatrixXd calculate_acceleration_matrix(Eigen::MatrixXd position, Eigen::VectorXd mass, double gravity, double softening, int n) {
 
@@ -12,17 +82,17 @@ Eigen::MatrixXd calculate_acceleration_matrix(Eigen::MatrixXd position, Eigen::V
   auto x = position.col(0);
   auto y = position.col(1);
 
-  auto dx = ones * x.transpose() - x * ones.transpose(); 
-  auto dy = ones * y.transpose() - y * ones.transpose(); 
+  int numprocs, rank;
+  MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+  auto dx = compute_distances(x, rank, numprocs, n);
+  auto dy = compute_distances(y, rank, numprocs, n);
 
-  Eigen::MatrixXd inv_r3(n, n);
-  inv_r3 = dx.array().square() + dy.array().square();
-  inv_r3 += (softening * softening) * Eigen::MatrixXd::Ones(n, n);
-  inv_r3 = inv_r3.array().pow(-1.5);
+  Eigen::MatrixXd inv_r3 = compute_inv_r3(dx, dy, softening, rank, numprocs, n);
 
   Eigen::MatrixXd acceleration(n, 2);
-  acceleration.col(0) = gravity * (dx * inv_r3) * mass;
-  acceleration.col(1) = gravity * (dy * inv_r3) * mass;
+  acceleration.col(0) = compute_acc_component(dx, inv_r3, mass, gravity, rank, numprocs, n);
+  acceleration.col(1) = compute_acc_component(dy, inv_r3, mass, gravity, rank, numprocs, n);
 
   return acceleration;
 }
@@ -35,7 +105,7 @@ int main(int argc, char** argv) {
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
 
-  int n = 100;
+  int n = 1600;
   double gravity = 0.00001;
   double step_size = 20.0 / 1000.0;
   double half_step_size = 0.5 * step_size;
