@@ -15,7 +15,7 @@ MATRICES = [
 SCRIPTS_WITH_MATRICES = [
   "connected_components",
   "pagerank",
-  # "bfs",
+  "bfs",
   # "triangle_count"
 
 ]
