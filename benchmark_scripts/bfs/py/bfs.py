@@ -13,7 +13,7 @@ def bfs(filename, maxi=2000):
 
     start = time.time()
     for iter in range(maxi):
-        x = np.minimum(one, x + G.dot(x))
+        x = np.minimum(1.0, x + G.dot(x))
     end = time.time()
     print(end - start)
 
