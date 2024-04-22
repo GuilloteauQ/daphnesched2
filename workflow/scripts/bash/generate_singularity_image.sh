@@ -24,6 +24,6 @@ fi
 
 cd ${HERE}
 # MPI
-singularity exec ${DEV_IMAGE} bash -c "cd daphne-src; ./build.sh --no-deps --installPrefix /usr/local --mpi && cp bin/daphne bin/daphne-mpi"
+singularity exec ${DEV_IMAGE} bash -c "cd daphne-src; ./build.sh --mpi --no-deps --installPrefix /usr/local" # --mpi && cp bin/daphne bin/daphne-mpi"
 # Normal
-singularity exec ${DEV_IMAGE} bash -c "cd daphne-src; ./build.sh --no-deps --installPrefix /usr/local"
+#singularity exec ${DEV_IMAGE} bash -c "cd daphne-src; ./build.sh --no-deps --installPrefix /usr/local"

@@ -25,31 +25,24 @@ SpMatR read_and_send_matrix(std::string filename, int n) {
 
     std::vector<std::vector<T>> content;
     std::vector<int> sizes;
-    content.reserve(nb_sub);
-    sizes.reserve(nb_sub);
+    content.resize(nb_sub);
+    sizes.resize(nb_sub);
     for (int i = 0; i < nb_sub; i++) {
-      content[i].reserve(G.nonZeros());
+      content[i].resize(G.nonZeros());
       sizes[i] = n / nb_sub;
     }
     sizes[nb_sub - 1] = n - (nb_sub-1) * (n / nb_sub);
     int remainder = n % nb_sub;
 
-    int row_id = 0;
-    for (row_id = 0; row_id < G.outerSize() - remainder; row_id++) {
+    for (int row_id = 0; row_id < G.outerSize(); row_id++) {
       int k = row_id / (n / nb_sub); 
+      if (k > nb_sub - 1) k = nb_sub - 1;
       for (SpMatR::InnerIterator it(G,row_id); it; ++it)
       {
         content[k].push_back(T(row_id - k * (n/nb_sub), it.col(), it.value()));
       }
     }
 
-    for (; row_id < G.outerSize(); row_id++) {
-      int k = nb_sub - 1; 
-      for (SpMatR::InnerIterator it(G,row_id); it; ++it)
-      {
-        content[k].push_back(T(row_id - k * (n/nb_sub), it.col(), it.value()));
-      }
-    }
     for (int k = 1; k < world; k++) {
       int nb_elems = content[k].size();
       MPI_Send(&sizes[k], 1, MPI_INT, k, 0, MPI_COMM_WORLD);
@@ -110,11 +103,12 @@ int main(int argc, char** argv) {
   Eigen::VectorXd p(n);
   Eigen::VectorXd p_partial(n);
   p = Eigen::VectorXd::Ones(n);
+  double sum_total = n * 1.0;
 
   for (int i = 0; i < maxi; i++) {
     p_partial = alpha * (G * p) + one_minus_alpha * p.segment(offsets[rank], sizes[rank]);
     double sum_partial = p_partial.sum();
-    double sum_total = 0.0;
+    sum_total = 0.0;
     MPI_Allreduce(&sum_partial, &sum_total, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
     p_partial = p_partial / sum_total;
     MPI_Allgatherv(p_partial.data(), sizes[rank], MPI_DOUBLE, p.data(), sizes.data(), offsets.data(), MPI_DOUBLE, MPI_COMM_WORLD);
@@ -123,7 +117,7 @@ int main(int argc, char** argv) {
   auto duration = std::chrono::duration<float>(stop - start);
   if (rank == 0) {
     std::cout << duration.count() << std::endl;
-    std::cout << p[0] << std::endl;
+    //std::cout << p[0] << std::endl;
   }
   MPI_Finalize();
   return 0;

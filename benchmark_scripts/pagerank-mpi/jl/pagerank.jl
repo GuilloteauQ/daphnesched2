@@ -70,6 +70,7 @@ function pagerank(filename, maxi)
   sizes[world] = n - (world-1) * div(n, world)
   offsets = zeros(Int64, world)
   offsets[2:world] = cumsum(sizes)[1:world-1]
+  sum_total = n * 1.0
 
   start = time_ns()
   for iter in 1:maxi
@@ -83,7 +84,7 @@ function pagerank(filename, maxi)
   fin = time_ns()
   if rank == 0
     println((fin - start) * 1e-9)
-    println(p[1])
+    #println(p[1])
   end
 end
 

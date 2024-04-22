@@ -18,7 +18,6 @@ def read_and_send_sparse_matrix(filename):
     if rank == 0:
         G = csr_matrix(mmread(filename))
         n = G.shape[0]
-        print(G.shape)
         fh_indices = []
         fh_indptr  = []
         fh_data    = []
@@ -33,24 +32,12 @@ def read_and_send_sparse_matrix(filename):
         remainer = n % nb_sub
 
         row_id = 0
-        while row_id < len(G.indptr) - 1 - remainer:
-            next_ptr = G.indptr[row_id + 1]
-            current_ptr = G.indptr[row_id]
-            k = row_id // (n // nb_sub)
-            #print(f"{row_id} -> {k}")
-            nb_elements = next_ptr - current_ptr
-            indices = G.indices[current_ptr:next_ptr]
-            half_indices = [ind for ind in indices]
-            fh_indices[k] += half_indices
-            fh_ptr[k] += len(indices)
-            fh_data[k] += [1.0 for _ in range(len(indices))]
-            fh_indptr[k].append(fh_ptr[k])
-            row_id += 1
-
         while row_id < len(G.indptr) - 1:
             next_ptr = G.indptr[row_id + 1]
             current_ptr = G.indptr[row_id]
-            k = nb_sub - 1
+            k = row_id // (n // nb_sub)
+            if k >= nb_sub:
+                k = nb_sub -1
             #print(f"{row_id} -> {k}")
             nb_elements = next_ptr - current_ptr
             indices = G.indices[current_ptr:next_ptr]
@@ -60,7 +47,6 @@ def read_and_send_sparse_matrix(filename):
             fh_data[k] += [1.0 for _ in range(len(indices))]
             fh_indptr[k].append(fh_ptr[k])
             row_id += 1
-
 
         for k in range(1, nb_sub):
             G_h = csr_matrix((fh_data[k], fh_indices[k], fh_indptr[k]), shape=(shapes[k], n))
@@ -119,6 +105,7 @@ def pagerank(filename, maxi=250):
     sizes[-1] = n - sum(sizes[:-1])
     offsets = np.zeros(world, dtype=np.int32)
     offsets[1:]=np.cumsum(sizes)[:-1]
+    sum_total = n * 1.0
 
     for iter in range(maxi):
         p_partial = alpha * G.dot(p) +one_minus_alpha * p[offsets[rank]:(offsets[rank] + sizes[rank])]
@@ -132,7 +119,7 @@ def pagerank(filename, maxi=250):
                        [p, sizes, offsets, MPI.DOUBLE])
     end = time.time()
     if rank == 0:
-        print(p[0])
+        #print(p[0])
         print(end - start)
 
 if __name__ == "__main__":
