@@ -11,12 +11,12 @@
       let
         pkgs = import nixpkgs { inherit system; };
         r-packages = with pkgs.rPackages; [ tidyverse geomtextpath kableExtra ];
-        python-packages = with pkgs.python3Packages; [ numpy scipy ];
+        python-packages = with pkgs.python3Packages; [ numpy scipy mpi4py ];
       in {
         packages = {
           jupycpp = pkgs.dockerTools.buildImage {
             name = "guilloteauq/jupycpp";
-            tag = "march24";
+            tag = "april24";
             copyToRoot = pkgs.buildEnv {
               name = "image-root";
               paths = with pkgs; [
@@ -26,6 +26,7 @@
                 eigen
                 pkg-config
                 openmpi
+                llvmPackages.openmp
                 bashInteractive
                 coreutils-full
               ];
