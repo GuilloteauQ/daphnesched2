@@ -102,7 +102,7 @@ function cc(filename, maxi)
   fin = time_ns()
   if rank == 0
     println((fin - start) * 1e-9)
-    println(sum(c))
+    #println(sum(c))
   end
 
 end

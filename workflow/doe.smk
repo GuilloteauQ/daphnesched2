@@ -13,7 +13,8 @@ MATRICES = [
 ]
 
 SCRIPTS_MPI = [
-  "pagerank"
+  "pagerank",
+  "connected_components"
 ]
 
 SCRIPTS_WITH_MATRICES = [

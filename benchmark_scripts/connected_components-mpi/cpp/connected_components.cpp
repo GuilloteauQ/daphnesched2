@@ -134,7 +134,7 @@ int main(int argc, char** argv) {
   auto duration = std::chrono::duration<float>(stop - start);
   if (rank == 0) {
     std::cout << duration.count() << std::endl;
-    std::cout << c.sum() << std::endl;
+    // std::cout << c.sum() << std::endl;
   }
   MPI_Finalize();
   return 0;

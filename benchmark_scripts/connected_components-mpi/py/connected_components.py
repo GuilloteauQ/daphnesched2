@@ -121,7 +121,7 @@ def cc(filename, maxi=100):
         comm.Bcast([c, MPI.DOUBLE], root=0)
     end = time.time()
     if rank == 0:
-        print(c.sum())
+        #print(c.sum())
         print(end - start)
 
 if __name__ == "__main__":
