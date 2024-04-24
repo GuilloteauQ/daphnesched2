@@ -71,6 +71,12 @@ SpMatR read_and_send_matrix(std::string filename, int n) {
   }
 }
 
+void reduce_max(double *in, double *inout, int *len, MPI_Datatype *datatype) {
+  Eigen::Map<Eigen::VectorXd> x(in, *len);
+  Eigen::Map<Eigen::VectorXd> y(inout, *len);
+  y = y.cwiseMax(x);
+} 
+
 int main(int argc, char** argv) {
   MPI_Init(&argc, &argv);
   if (argc != 3) {
@@ -98,8 +104,12 @@ int main(int argc, char** argv) {
 
   SpMatR G = read_and_send_matrix(filename, n);
 
+  MPI_Op myOp;
+  MPI_Op_create((MPI_User_function*)reduce_max, true, &myOp);
+
   auto start = std::chrono::high_resolution_clock::now();
 
+  Eigen::VectorXd c_partial(n);
   Eigen::VectorXd c(n);
   for (int i = 0; i < n; i++) {
     c(i) = (double)(i + 1);
@@ -118,23 +128,14 @@ int main(int argc, char** argv) {
         }
       }
     }
-    c = c.cwiseMax(maxes);
-
-    if (rank < world - 1) {
-      Eigen::VectorXd tmp(n);
-      MPI_Recv(tmp.data(), n, MPI_DOUBLE, rank + 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-      c = c.cwiseMax(tmp);
-    }
-    if (rank > 0) {
-      MPI_Send(c.data(), n, MPI_DOUBLE, rank - 1, 0, MPI_COMM_WORLD);
-    }
-    MPI_Bcast(c.data(), n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    c_partial = c.cwiseMax(maxes);
+    MPI_Allreduce(c_partial.data(), c.data(), n, MPI_DOUBLE, myOp, MPI_COMM_WORLD);
   }
   auto stop = std::chrono::high_resolution_clock::now();
   auto duration = std::chrono::duration<float>(stop - start);
   if (rank == 0) {
     std::cout << duration.count() << std::endl;
-    // std::cout << c.sum() << std::endl;
+    //std::cout << c.sum() << std::endl;
   }
   MPI_Finalize();
   return 0;
