@@ -91,10 +91,15 @@ def read_and_send_sparse_matrix(filename):
     #print(f"{rank}:\n{Gs.A}\n\n\n")
     return Gs
 
-
+def reduce_max(xmem, ymem, dt):
+    x = np.frombuffer(xmem, dtype=np.float64)
+    y = np.frombuffer(ymem, dtype=np.float64)
+    z = np.maximum(x, y)
+    y[:] = z
 
 def cc(filename, maxi=100):
     G = read_and_send_sparse_matrix(filename)
+    op = MPI.Op.Create(reduce_max, commute=True)
     start = time.time()
     world = comm.Get_size()
     n = G.shape[1]
@@ -108,17 +113,8 @@ def cc(filename, maxi=100):
     for iter in range(maxi):
         c_partial = csr_array(c[0,offsets[rank]:(offsets[rank] + sizes[rank])])
         x = G.multiply(c_partial.transpose()).max(axis=0)
-        max_partial = x.maximum(csr_array(c))
-        if rank < world - 1:
-            tmp = np.zeros(n, dtype=np.float64)
-            comm.Recv(tmp, source=rank+1, tag=222)
-            max_partial = max_partial.maximum(csr_array(tmp))
-        if rank > 0:
-            comm.Send(max_partial.toarray(), dest=rank-1, tag=222)
-        if rank == 0:
-            c = max_partial.todense()
-
-        comm.Bcast([c, MPI.DOUBLE], root=0)
+        max_partial = np.maximum(c, x.todense())
+        comm.Allreduce([max_partial, MPI.DOUBLE], [c, MPI.DOUBLE], op)
     end = time.time()
     if rank == 0:
         #print(c.sum())
