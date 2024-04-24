@@ -78,8 +78,8 @@ rule run_expe_mpi_daphne:
     layout="|".join(QUEUE_LAYOUTS)
   params:
     nb_nodes = 4,
-    tasks_per_node = 2,
-    cpus_per_task = 10
+    tasks_per_node = 1,
+    cpus_per_task = 20
   shell:
     "sbatch --nodes={params.nb_nodes} \
             --ntasks-per-node={params.tasks_per_node} \
