@@ -4,7 +4,7 @@ include: "matrices.smk"
 rule all:
   input:
     expand("data/mpi-config/{matrix}/{benchmark}/{lang}/{mpi_procs}/{iter}.dat",\
-      matrix=MATRICES,\
+      matrix=MATRICES_CONFIG,\
       benchmark=SCRIPTS_MPI,\
       lang=LANGUAGES,\
       mpi_procs=MPI_DISTRIBUTION.keys(),\

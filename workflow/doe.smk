@@ -9,7 +9,12 @@ MATRICES = [
   #"amazon0302",
   "amazon0601",
   "wikipedia-20070206",
-  #"ljournal-2008"
+  "ljournal-2008"
+]
+
+MATRICES_CONFIG = [
+  "amazon0601",
+  "wikipedia-20070206",
 ]
 
 SCRIPTS_MPI = [

@@ -72,7 +72,11 @@ function G_broadcast_mult_c(G, c)
   maxs
 end
 
-function reduce_max(x::Vector{Float64}, y::Vector{Float64})::Vector{Float64}
+struct MyWrapper
+  data::Vector{Float64}
+end
+
+function reduce_max(x, y)
   max.(x, y)
 end
 
@@ -94,15 +98,6 @@ function cc(filename, maxi)
     x = G_broadcast_mult_c(G, c[1+offsets[rank + 1]:(1+offsets[rank + 1] + sizes[rank + 1] - 1)])
     c_partial = max.(c, x)
     MPI.Allreduce!(c_partial, c, reduce_max, comm)
-    #if rank < world - 1
-    #  tmp = MPI.recv(comm; source=rank+1, tag=0)
-    #  c = max.(c, tmp)
-    #end
-    #if rank > 0
-    #  MPI.send(c, comm; dest=rank-1, tag=0)
-    #end
-    #MPI.Bcast!(c, 0, comm)
-  
   end
   fin = time_ns()
   if rank == 0
