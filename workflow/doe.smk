@@ -13,7 +13,7 @@ MATRICES = [
 ]
 
 SCRIPTS_MPI = [
-  "pagerank",
+  #"pagerank",
   "connected_components"
 ]
 
@@ -34,8 +34,10 @@ NUM_THREADS = [
   20
 ]
 
-MPI_NB_NODES=4
-MPI_CORES_PER_NODE=20
+MPI_CONFIG_NB_NODES=4
+MPI_CONFIG_CORES_PER_NODE=20
+
+MPI_SCALE_NB_NODES = range(2, 11)
 
 MPI_DISTRIBUTION = {
   # total-mpi-procs, task-per-node, cpu-per-task
@@ -50,3 +52,24 @@ MPI_DISTRIBUTION = {
 
 TOTAL_ITERS = 3
 ITERATIONS = range(1, TOTAL_ITERS + 1)
+
+SCHEMES = [
+  "STATIC",
+  "GSS",
+  "AUTO",
+  "VISS",
+  # "SS",
+  "TSS",
+  "FAC2",
+  "TFSS",
+  "FISS",
+  "PLS",
+  "MSTATIC",
+  "MFSC",
+  "PSS",
+]
+
+QUEUE_LAYOUTS = [
+  "CENTRALIZED",
+  "PERCPU"
+]
