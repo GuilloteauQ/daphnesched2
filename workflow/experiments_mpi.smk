@@ -21,6 +21,11 @@ rule all:
       layout=QUEUE_LAYOUTS,
       scheme=SCHEMES,\
       iter=ITERATIONS),
+    expand("data/mpi-scale-daph-best/{matrix}/{benchmark}/{nb_nodes}/{iter}.dat",\
+      matrix=MATRICES,\
+      benchmark=SCRIPTS_MPI,\
+      nb_nodes=MPI_SCALE_NB_NODES,
+      iter=ITERATIONS),
 
 rule run_expe_mpi_config:
   input:
@@ -84,3 +89,24 @@ rule run_expe_mpi_daphne:
     "sbatch --nodes={params.nb_nodes} \
             --ntasks-per-node={params.tasks_per_node} \
             --cpus-per-task={params.cpus_per_task} {input.sbatch} {params.cpus_per_task} {input.script} {input.mtx} {wildcards.scheme} {wildcards.layout} {output}"
+
+rule run_expe_mpi_daphne_best:
+  input:
+    sbatch="sbatch_scripts/run_xeon_daph_mpi_options.sh",
+    script="benchmark_scripts/{benchmark}-mpi/daph/{benchmark}.daph",
+    mtx="matrices/{matrix}/{matrix}_ones.mtx",
+    meta="matrices/{matrix}/{matrix}_ones.mtx.meta"
+  output:
+    "data/mpi-scale-daph-best/{matrix}/{benchmark}/{nb_nodes}/{iter}.dat"
+  wildcard_constraints:
+    matrix="|".join(matrices.keys()),
+    benchmark="|".join(SCRIPTS_MPI),
+  params:
+    tasks_per_node = 1,
+    cpus_per_task = 20,
+    scheme = "AUTO",
+    layout = "CENTRALIZED"
+  shell:
+    "sbatch --nodes={wildcards.nb_nodes} \
+            --ntasks-per-node={params.tasks_per_node} \
+            --cpus-per-task={params.cpus_per_task} {input.sbatch} {params.cpus_per_task} {input.script} {input.mtx} {params.scheme} {params.layout} {output}"
