@@ -1,18 +1,19 @@
 import sys
 import time
 from scipy.io import mmread
-from scipy.sparse import coo_array
+from scipy.sparse import csr_matrix, csr_array
 
 def cc(filename, maxi=100):
-    G = mmread(filename)
+    G = csr_matrix(mmread(filename))
     start = time.time()
-    c = coo_array(list(map(lambda i: float(i), range(1, G.shape[0] + 1, 1))))
+    c = np.array([list(map(lambda i: float(i), range(1, n + 1, 1)))])
 
     for iter in range(maxi):
         x = G.multiply(c.transpose()).max(axis=0)
-        c = c.maximum(x)
+        c = np.maximum(c, x.todense())
     end = time.time()
     print(end - start)
+    #print(c.sum())
 
 if __name__ == "__main__":
     args = sys.argv

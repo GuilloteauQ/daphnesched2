@@ -10,7 +10,7 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        r-packages = with pkgs.rPackages; [ tidyverse geomtextpath kableExtra ];
+        r-packages = with pkgs.rPackages; [ tidyverse geomtextpath kableExtra patchwork ];
         python-packages = with pkgs.python3Packages; [ numpy scipy mpi4py ];
       in {
         packages = {

@@ -6,18 +6,7 @@
 #include <unsupported/Eigen/SparseExtra>
 #include <chrono>
 
-#define MAX(x, y) ((x) < (y)) ? (y) : (x)
-
-typedef Eigen::SparseMatrix<double, Eigen::ColMajor> SpMatC;
 typedef Eigen::SparseMatrix<double, Eigen::RowMajor> SpMatR;
-typedef Eigen::SparseVector<double, Eigen::ColMajor> SpVecC;
-typedef Eigen::SparseVector<double, Eigen::RowMajor> SpVecR;
-typedef Eigen::Array<double, 1, Eigen::Dynamic> Vec;
-
-typedef SpMatC::InnerIterator InIterVec;
-typedef Eigen::MappedSparseMatrix<double> MSpMat;
-// typedef MSpMat::InnerIterator InIterMat;
-typedef SpMatC::InnerIterator InIterMatC;
 typedef SpMatR::InnerIterator InIterMatR;
 
 int main(int argc, char** argv) {
@@ -35,31 +24,22 @@ int main(int argc, char** argv) {
 
   auto start = std::chrono::high_resolution_clock::now();
 
-  Eigen::VectorXi c(n);
+  Eigen::VectorXd c(n);
   for (int i = 0; i < n; i++) {
     c(i) = (double)(i + 1);
   }
 
-  Eigen::VectorXi x(n);
-  G = G.transpose();
-
   for (int iter = 0; iter < 100; iter++) {
-#pragma omp parallel for
+    Eigen::VectorXd x = Eigen::VectorXd::Zero(n);
     for (int row_id = 0; row_id < G.outerSize(); row_id++) {
-      double current_max = c.coeffRef(row_id);
+      double tmp = c.coeffRef(row_id);
       for (InIterMatR i_(G, row_id); i_; ++i_) {
-        double tmp = c.coeffRef(i_.col());
-        if (tmp > current_max) {
-          current_max = tmp;
+        if (tmp > x.coeffRef(i_.col())) {
+          maxes.coeffRef(i_.col()) = tmp;
         }
       }
-      x.coeffRef(row_id) = current_max;
     }
-    double sum_ = 0.0;
-    for (int j = 0; j < n; j++) {
-      c.coeffRef(j) = MAX(c.coeffRef(j), x.coeffRef(j));
-      sum_ += c.coeffRef(j);
-    }
+    c = c.cwiseMax(x);
   }
   auto stop = std::chrono::high_resolution_clock::now();
   auto duration = std::chrono::duration<float>(stop - start);
