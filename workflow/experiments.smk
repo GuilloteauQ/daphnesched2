@@ -9,11 +9,11 @@ rule all:
       lang=LANGUAGES,\
       num_threads=NUM_THREADS,\
       iter=ITERATIONS),
-    expand("data/NA/{benchmark}/{lang}/{num_threads}/{iter}.dat",\
-      benchmark=SCRIPTS_WITHOUT_MATRICES,\
-      lang=LANGUAGES,\
-      num_threads=NUM_THREADS,\
-      iter=ITERATIONS)
+    #expand("data/NA/{benchmark}/{lang}/{num_threads}/{iter}.dat",\
+    #  benchmark=SCRIPTS_WITHOUT_MATRICES,\
+    #  lang=LANGUAGES,\
+    #  num_threads=NUM_THREADS,\
+    #  iter=ITERATIONS)
 
 rule run_expe_with_matrix:
   input:

@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
       double tmp = c.coeffRef(row_id);
       for (InIterMatR i_(G, row_id); i_; ++i_) {
         if (tmp > x.coeffRef(i_.col())) {
-          maxes.coeffRef(i_.col()) = tmp;
+          x.coeffRef(i_.col()) = tmp;
         }
       }
     }

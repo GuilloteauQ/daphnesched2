@@ -1,5 +1,6 @@
 using MatrixMarket
 using SparseArrays
+using SparseMatricesCSR
 
 function G_broadcast_mult_c(G, c)
   cols = colvals(G)

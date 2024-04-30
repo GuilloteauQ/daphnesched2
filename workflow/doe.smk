@@ -23,7 +23,7 @@ SCRIPTS_MPI = [
 ]
 
 SCRIPTS_WITH_MATRICES = [
-  #"connected_components",
+  "connected_components",
   "pagerank",
   #"bfs",
   # "triangle_count"
