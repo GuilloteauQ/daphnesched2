@@ -24,6 +24,6 @@ export MKL_NUM_THREADS=${NUM_THREADS}
 export VECLIB_MAXIMUM_THREADS=${NUM_THREADS}
 export NUMEXPR_NUM_THREADS=${NUM_THREADS}
 
-srun --cpus-per-task=${NUM_THREADS} singularity exec ${SLURM_SUBMIT_DIR}/jupycpp.sif python3 ${SLURM_SUBMIT_DIR}/${SCRIPT} ${SLURM_SUBMIT_DIR}/${MATRIX_PATH} > ${SLURM_SUBMIT_DIR}/${RESULT}
+srun --cpus-per-task=${NUM_THREADS} singularity exec --env OMP_NUM_THREADS=${NUM_THREADS} ${SLURM_SUBMIT_DIR}/jupycpp.sif python3 ${SLURM_SUBMIT_DIR}/${SCRIPT} ${SLURM_SUBMIT_DIR}/${MATRIX_PATH} > ${SLURM_SUBMIT_DIR}/${RESULT}
 
 exit 0
