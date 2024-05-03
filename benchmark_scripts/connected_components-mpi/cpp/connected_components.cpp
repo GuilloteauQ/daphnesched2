@@ -26,34 +26,54 @@ SpMatR read_and_send_matrix(std::string filename, int n) {
 
     int nb_sub = world;
 
-    std::vector<std::vector<T>> content;
+    std::vector<T> content;
+    std::vector<T> content0;
     std::vector<int> sizes;
-    content.resize(nb_sub);
+    content.resize(G.nonZeros());
+    content0.resize(G.nonZeros());
     sizes.resize(nb_sub);
     for (int i = 0; i < nb_sub; i++) {
-      content[i].resize(G.nonZeros());
       sizes[i] = n / nb_sub;
     }
     sizes[nb_sub - 1] = n - (nb_sub-1) * (n / nb_sub);
     int remainder = n % nb_sub;
 
+    int previous_k = 0;
+    int k = 0;
     for (int row_id = 0; row_id < G.outerSize(); row_id++) {
-      int k = row_id / (n / nb_sub); 
+      previous_k = k;
+      k = row_id / (n / nb_sub); 
       if (k > nb_sub - 1) k = nb_sub - 1;
+      if (previous_k != 0 && previous_k != k) {
+        int nb_elems = content.size();
+        MPI_Send(&sizes[previous_k], 1, MPI_INT, previous_k, 0, MPI_COMM_WORLD);
+        MPI_Send(&nb_elems, 1, MPI_INT, previous_k, 1, MPI_COMM_WORLD);
+        MPI_Send(&content[0], nb_elems * sizeof(T), MPI_CHAR, previous_k, 2, MPI_COMM_WORLD);
+        content.clear();
+      }
       for (SpMatR::InnerIterator it(G,row_id); it; ++it)
       {
-        content[k].push_back(T(row_id - k * (n/nb_sub), it.col(), it.value()));
+        if (k == 0) {
+          content0.push_back(T(row_id - k * (n/nb_sub), it.col(), it.value()));
+        } else {
+          content.push_back(T(row_id - k * (n/nb_sub), it.col(), it.value()));
+        }
       }
     }
+    int nb_elems = content.size();
+    MPI_Send(&sizes[nb_sub-1], 1, MPI_INT, nb_sub-1, 0, MPI_COMM_WORLD);
+    MPI_Send(&nb_elems, 1, MPI_INT, nb_sub-1, 1, MPI_COMM_WORLD);
+    MPI_Send(&content[0], nb_elems * sizeof(T), MPI_CHAR, nb_sub-1, 2, MPI_COMM_WORLD);
+    content.clear();
 
-    for (int k = 1; k < world; k++) {
-      int nb_elems = content[k].size();
-      MPI_Send(&sizes[k], 1, MPI_INT, k, 0, MPI_COMM_WORLD);
-      MPI_Send(&nb_elems, 1, MPI_INT, k, 1, MPI_COMM_WORLD);
-      MPI_Send(&content[k][0], nb_elems * sizeof(T), MPI_CHAR, k, 2, MPI_COMM_WORLD);
-    }
+    // for (int k = 1; k < world; k++) {
+    //   int nb_elems = content[k].size();
+    //   MPI_Send(&sizes[k], 1, MPI_INT, k, 0, MPI_COMM_WORLD);
+    //   MPI_Send(&nb_elems, 1, MPI_INT, k, 1, MPI_COMM_WORLD);
+    //   MPI_Send(&content[k][0], nb_elems * sizeof(T), MPI_CHAR, k, 2, MPI_COMM_WORLD);
+    // }
     SpMatR Gs((sizes[0]), n);
-    Gs.setFromTriplets(content[0].begin(), content[0].end());
+    Gs.setFromTriplets(content0.begin(), content0.end());
     // std::cout << "rank " << rank << "\n" << Gs << "\n\n";
     return Gs;
   } else {
