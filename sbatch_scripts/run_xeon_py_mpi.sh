@@ -33,6 +33,6 @@ export OMPI_MCA_gds=^ds12
 export PMIX_MCA_btl="self,vader"
 export OMPI_MCA_btl="self,vader"
 
-srun --mpi=pmix_v4 --cpus-per-task=${NUM_THREADS} singularity exec ${SLURM_SUBMIT_DIR}/jupycpp.sif python3 ${SLURM_SUBMIT_DIR}/${SCRIPT} ${SLURM_SUBMIT_DIR}/${MATRIX_PATH} > ${SLURM_SUBMIT_DIR}/${RESULT}
+srun --mpi=pmix_v4 --cpus-per-task=${NUM_THREADS} singularity exec --env OMP_NUM_THREADS=${NUM_THREADS} ${SLURM_SUBMIT_DIR}/jupycpp.sif python3 ${SLURM_SUBMIT_DIR}/${SCRIPT} ${SLURM_SUBMIT_DIR}/${MATRIX_PATH} > ${SLURM_SUBMIT_DIR}/${RESULT}
 
 exit 0
