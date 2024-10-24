@@ -1,5 +1,6 @@
 include: "doe.smk"
 include: "matrices.smk"
+include: "build.smk"
 
 rule all:
   input:
@@ -14,6 +15,8 @@ rule run_expe_with_matrix:
   input:
     sbatch="sbatch_scripts/run_xeon_daph_scheme.sh",
     script="benchmark_scripts/{benchmark}/daph/{benchmark}.daph",
+    sif="daphne-dev.sif",
+    src="daphne-src/bin/daphne",
     mtx="matrices/{matrix}/{matrix}_ones.mtx",
     meta="matrices/{matrix}/{matrix}_ones.mtx.meta"
   output:

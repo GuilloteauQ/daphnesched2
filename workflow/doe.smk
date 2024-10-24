@@ -1,9 +1,10 @@
 COMMITS = {
   #"67839df": ("https://github.com/daphne-eu/daphne", "67839dfb7b298c118193d79702c1b21815e6d405"),
-  "qbranch": ("https://github.com/GuilloteauQ/daphne", "e086c3d26fe41013c7ffcb480b471211c52607bb"),
   
 }
 IMPLEMENTATIONS = COMMITS.keys()
+DAPHNE_GIT_URL    = "https://github.com/GuilloteauQ/daphne"
+DAPHNE_GIT_COMMIT = "e086c3d26fe41013c7ffcb480b471211c52607bb"
 
 LANGUAGES = [
   "cpp",
@@ -60,7 +61,7 @@ MPI_DISTRIBUTION = {
 }
 
 
-TOTAL_ITERS = 5
+TOTAL_ITERS = 3
 ITERATIONS = range(1, TOTAL_ITERS + 1)
 
 SCHEMES = [
