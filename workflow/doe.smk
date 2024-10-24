@@ -42,7 +42,7 @@ NUM_THREADS = [
 MPI_CONFIG_NB_NODES=4
 MPI_CONFIG_CORES_PER_NODE=20
 
-MPI_SCALE_NB_NODES = range(2, 11)
+MPI_SCALE_NB_NODES = range(1, 11)
 
 MPI_DISTRIBUTION = {
   # total-mpi-procs, task-per-node, cpu-per-task
