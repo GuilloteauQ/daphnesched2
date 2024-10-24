@@ -26,4 +26,4 @@ rule run_expe_with_matrix:
   params:
     matrix_size = lambda w: matrices[w.matrix]["meta"]["numRows"]
   shell:
-    "sbatch {input.sbatch} {wildcards.num_threads} {input.script} {input.mtx} {params.matrix_size} {output}"
+    "sbatch {input.sbatch} {wildcards.num_threads} {input.script} {input.mtx} {params.matrix_size} {wildcards.scheme} {output}"
