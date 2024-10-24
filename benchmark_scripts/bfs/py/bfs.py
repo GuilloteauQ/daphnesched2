@@ -16,6 +16,7 @@ def bfs(filename, maxi=2000):
         x = np.minimum(1.0, x + G.dot(x))
     end = time.time()
     print(end - start)
+    print(x.sum())
 
 if __name__ == "__main__":
     args = sys.argv
