@@ -1,16 +1,6 @@
 G = readMatrix($f);
-#N = 10000;
-#G = rand(N, N, 1.0, 1.0, 0.0001, -1);
-#print("reading matrix");
 start = now();
-##plop = sum((G@G) * G);
-#tmp2 = G * G;
-#print("compute tmp2");
-#G_square = G @ G;
-#print("done G@G");
-#tmp = G_square * G;
-#print("G_square * G");
 nb_triangle = sum(G * (G@G));
 end = now();
 print((end-start) / 1000000000.0);
-print(nb_triangle);
+#print(nb_triangle);

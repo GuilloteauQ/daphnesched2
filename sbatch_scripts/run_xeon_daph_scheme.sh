@@ -20,7 +20,8 @@ NUM_THREADS=$1
 SCRIPT=$2
 MATRIX_PATH=$3
 MATRIX_SIZE=$4 # unsued but kept to have the same api as for the other sbatch scripts
-RESULT=$5
+PARTITIONING=$5
+RESULT=$6
 
 OPTIONS=""
 
