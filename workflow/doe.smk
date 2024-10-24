@@ -1,12 +1,16 @@
+COMMITS = {
+  "67839df": ("https://github.com/daphne-eu/daphne", "67839dfb7b298c118193d79702c1b21815e6d405"),
+}
+IMPLEMENTATIONS = COMMITS.keys()
+
 LANGUAGES = [
   "cpp",
   "py",
-  #"daph",
+  "daph",
   "jl"
 ]
 
 MATRICES = [
-  #"amazon0302",
   "amazon0601",
   "wikipedia-20070206",
   "ljournal-2008"
@@ -25,8 +29,8 @@ SCRIPTS_MPI = [
 SCRIPTS_WITH_MATRICES = [
   "connected_components",
   "pagerank",
-  #"bfs",
-  # "triangle_count"
+  "bfs",
+  "triangle_count"
 
 ]
 
