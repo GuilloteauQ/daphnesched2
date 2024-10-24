@@ -20,7 +20,7 @@ rule download_and_compile:
       git clone {params.url} daphne-src
       cd daphne-src/
       git checkout {params.commit}
-      cd ../..
+      cd ../
       singularity exec {input.singularity} bash -c "cd daphne-src/; ./build.sh --no-deps --installPrefix /usr/local"
     """
 
@@ -39,7 +39,7 @@ rule download_and_compile_mpi:
       git clone {params.url} daphne-src-mpi
       cd daphne-src-mpi
       git checkout {params.commit}
-      cd ../..
+      cd ../
       singularity exec {input.singularity} bash -c "cd daphne-src-mpi; ./build.sh --no-deps --mpi --installPrefix /usr/local"
     """
 
