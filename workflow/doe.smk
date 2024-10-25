@@ -33,7 +33,7 @@ SCRIPTS_WITH_MATRICES = [
   "connected_components",
   "pagerank",
   "bfs",
-  "triangle_count"
+  #"triangle_count"
 ]
 
 SCRIPTS_WITHOUT_MATRICES = [

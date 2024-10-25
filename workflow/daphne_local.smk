@@ -7,7 +7,7 @@ rule all:
     expand("data/raw/{matrix}/{benchmark}/daph-schemes/{num_threads}/{scheme}/{iter}.dat",\
       matrix=MATRICES,\
       benchmark=SCRIPTS_WITH_MATRICES,\
-      num_threads=NUM_THREADS,\
+      num_threads=20,\
       scheme=SCHEMES,\
       iter=ITERATIONS),
 
