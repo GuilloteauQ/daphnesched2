@@ -5,5 +5,4 @@ nb_triangles = sum((G@G) * G);
 end = now();
 duration_reading = (end - start_reading) / 1000000000.0;
 duration_compute = (end - start_compute) / 1000000000.0;
-#print(duration_reading, 0); print(",",0); print(duration_compute, 0); print(",",0); print(floor(nb_triangles / 3.0));
 print(duration_reading, 0); print(",",0); print(duration_compute, 0); print(",",0); print(as.scalar(floor(nb_triangles / 3.0)));
