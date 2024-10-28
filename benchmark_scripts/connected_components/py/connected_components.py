@@ -5,17 +5,19 @@ from scipy.sparse import csr_matrix, csr_array
 import numpy as np
 
 def cc(filename, maxi=100):
+    start_reading = time.time()
     G = csr_matrix(mmread(filename))
+    start_compute = time.time()
     n = G.shape[1]
-    start = time.time()
-    c = np.array([list(map(lambda i: float(i), range(1, n + 1, 1)))])
+    c = np.array([list(map(lambda i: float(i), range(1, n + 1, 1)))]).transpose()
 
     for iter in range(maxi):
-        x = G.multiply(c.transpose()).max(axis=0)
+        x = G.multiply(c.transpose()).max(axis=1)
         c = np.maximum(c, x.todense())
-    end = time.time()
-    print(end - start)
-    #print(c.sum())
+    fin = time.time()
+    duration_reading = fin - start_reading
+    duration_compute = fin - start_compute
+    print(f"{duration_reading},{duration_compute},{c.sum()}")
 
 if __name__ == "__main__":
     args = sys.argv
