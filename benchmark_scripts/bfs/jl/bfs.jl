@@ -17,19 +17,21 @@ function G_mult_c(G, c)
 end
 
 function main(filename)
+  start_reading = time_ns()
   G = mmread(filename)
+  start_compute = time_ns()
   n = size(G, 1)
   x = zeros(n)
   x[1] = 1.0
 
-  maxi = 2000
-  start = time_ns()
+  maxi = 200
   for iter in 1:maxi
-    #x = min.(1.0, x .+ G * x)
     x = min.(1.0, x .+ G_mult_c(G, x))
   end
   fin = time_ns()
-  println((fin - start) * 1e-9)
+  duration_reading = (fin - start_reading) * 1e-9
+  duration_compute = (fin - start_compute) * 1e-9
+  println("$(duration_reading),$(duration_compute),$(floor(Int64, sum(x)))")
 end
 
 main(ARGS[1])
