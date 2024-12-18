@@ -1,7 +1,5 @@
-- [ ] manage the compilation of c in workflow
+- [ ] docker image produced by nix for julia and python in workflow
 
-- [ ] docker image produced by nix for julia and python
+- [ ] symlink between daph, mpi and not mpi
 
-- [ ] check on the hash of the compiled folder of daphne ?
-
-- [ ] should the script to generate the singularity image can/should be in `workflow/scripts` ?
+- [ ] create mpi folder instead of -mpi ?
