@@ -5,6 +5,7 @@
 #include <Eigen/Core>
 #include <unsupported/Eigen/SparseExtra>
 #include <chrono>
+#include <iomanip>
 #include <mpi.h>
 
 #define MAX(x, y) ((x) < (y)) ? (y) : (x)
@@ -12,6 +13,30 @@
 typedef Eigen::SparseMatrix<double, Eigen::RowMajor> SpMatR;
 typedef SpMatR::InnerIterator InIterMatR;
 typedef Eigen::Triplet<double> T;
+
+SpMatR G_broadcast_mult_c(SpMatR G, Eigen::VectorXd c) {
+  SpMatR res = SpMatR(G);
+  for (int row_id = 0; row_id < G.outerSize(); row_id++) {
+    for (InIterMatR i_(G, row_id); i_; ++i_) {
+      res.coeffRef(row_id, i_.col()) *= c.coeff(i_.col());
+    }
+  }
+  return res;
+}
+
+Eigen::VectorXd spmaximum(SpMatR G) {
+  int n = G.rows();
+  Eigen::VectorXd res = Eigen::VectorXd::Zero(n);
+  for (int row_id = 0; row_id < G.outerSize(); row_id++) {
+    for (InIterMatR i_(G, row_id); i_; ++i_) {
+      auto tmp = G.coeff(row_id, i_.col());
+      if (tmp > res.coeff(row_id)) {
+        res.coeffRef(row_id) = tmp;
+      }
+    }
+  }
+  return res;
+}
 
 SpMatR read_and_send_matrix(std::string filename, int n) {
   int world;
@@ -122,12 +147,13 @@ int main(int argc, char** argv) {
   }
   sizes[world-1] = n - (world-1) * (n/world);
 
+  auto start_reading = std::chrono::high_resolution_clock::now();
   SpMatR G = read_and_send_matrix(filename, n);
+  auto start_compute = std::chrono::high_resolution_clock::now();
 
   MPI_Op myOp;
   MPI_Op_create((MPI_User_function*)reduce_max, true, &myOp);
 
-  auto start = std::chrono::high_resolution_clock::now();
 
   Eigen::VectorXd c_partial(n);
   Eigen::VectorXd c(n);
@@ -138,24 +164,16 @@ int main(int argc, char** argv) {
   Eigen::VectorXd x(n);
 
   for (int iter = 0; iter < 100; iter++) {
-    Eigen::VectorXd c_rank = c.segment(offsets[rank], sizes[rank]);
-    Eigen::VectorXd maxes = Eigen::VectorXd::Zero(n);
-    for (int row_id = 0; row_id < G.outerSize(); row_id++) {
-      double tmp = c_rank.coeffRef(row_id);
-      for (InIterMatR i_(G, row_id); i_; ++i_) {
-        if (tmp > maxes.coeffRef(i_.col())) {
-          maxes.coeffRef(i_.col()) = tmp;
-        }
-      }
-    }
-    c_partial = c.cwiseMax(maxes);
-    MPI_Allreduce(c_partial.data(), c.data(), n, MPI_DOUBLE, myOp, MPI_COMM_WORLD);
+    SpMatR tmp = G_broadcast_mult_c(G, c);
+    Eigen::VectorXd x_partial = spmaximum(tmp);
+    MPI_Allgatherv(x_partial.data(), sizes[rank], MPI_DOUBLE, x.data(), sizes.data(), offsets.data(), MPI_DOUBLE, MPI_COMM_WORLD);
+    c = c.cwiseMax(x);
   }
   auto stop = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration<float>(stop - start);
+  auto duration_compute = std::chrono::duration<float>(stop - start_compute);
+  auto duration_reading = std::chrono::duration<float>(stop - start_reading);
   if (rank == 0) {
-    std::cout << duration.count() << std::endl;
-    //std::cout << c.sum() << std::endl;
+    std::cout << duration_reading.count() << "," << duration_compute.count() << "," << std::setprecision (16) << c.sum() << std::endl;
   }
   MPI_Finalize();
   return 0;
