@@ -5,7 +5,6 @@
 #include <Eigen/Core>
 #include <unsupported/Eigen/SparseExtra>
 
-
 typedef Eigen::SparseMatrix<int, Eigen::RowMajor> SpMatR;
 
 int main(int argc, char** argv) {
@@ -16,6 +15,10 @@ int main(int argc, char** argv) {
   std::string filename = argv[1];
 
   int n = atoi(argv[2]);
+
+  /*
+  Block comment to test multimetrics
+  */
 
   SpMatR G(n, n); 
   if (!loadMarket(G, filename))
@@ -38,5 +41,6 @@ int main(int argc, char** argv) {
     diff = (c.array() != prev.array()).count();
   }
   // std::cout << c << std::endl;
+  
   return 0;
 }
