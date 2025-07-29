@@ -6,6 +6,8 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
+  nixConfig.bash-prompt = "\\w [daphnesched2]$ ";
+
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
@@ -52,9 +54,11 @@
               # Analysis related
               (rWrapper.override { packages = r-packages; })
 
+              singularity
+
               # Paper related
-              texlive.combined.scheme-full
-              rubber
+              # texlive.combined.scheme-full
+              # rubber
             ];
           };
         };

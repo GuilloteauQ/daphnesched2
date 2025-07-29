@@ -7,7 +7,7 @@ function G_broadcast_mult_c(G, c)
   vals = nonzeros(G)
   m, n = size(G)
   new_vals = zeros(length(vals))
-  for j = 1:m
+  Threads.@threads for j = 1:m
      for i in nzrange(G, j)
         col = cols[i]
         val = vals[i]

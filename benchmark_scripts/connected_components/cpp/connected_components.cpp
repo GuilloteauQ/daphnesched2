@@ -12,6 +12,7 @@ typedef SpMatR::InnerIterator InIterMatR;
 
 SpMatR G_broadcast_mult_c(SpMatR G, Eigen::VectorXd c) {
   SpMatR res = SpMatR(G);
+  #pragma omp parallel for
   for (int row_id = 0; row_id < G.outerSize(); row_id++) {
     for (InIterMatR i_(G, row_id); i_; ++i_) {
       res.coeffRef(row_id, i_.col()) *= c.coeff(i_.col());

@@ -35,6 +35,6 @@ int main(int argc, char** argv) {
   auto stop = std::chrono::high_resolution_clock::now();
   auto duration_compute = std::chrono::duration<float>(stop - start_compute);
   auto duration_reading = std::chrono::duration<float>(stop - start_reading);
-  std::cout << duration_reading.count() << "," << duration_compute.count() << "," << std::setprecision (15) << std::floor(nb_triangles / 3.0) << std::endl;
+  std::cout << duration_reading.count() << "," << duration_compute.count() << "," << std::setprecision (16) << std::floor(nb_triangles / 3.0) << std::endl;
   return 0;
 }
