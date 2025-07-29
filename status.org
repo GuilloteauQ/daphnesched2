@@ -1,0 +1,93 @@
+* CC
+
+result: 162120699139
+
+|-----------+----------+----------------+-------------------|
+| Algorithm | Language | Implementation | Status            |
+|-----------+----------+----------------+-------------------|
+| CC        | Julia    | Sequential     | OK                |
+| CC        | Julia    | Parallel       | OK                |
+| CC        | Julia    | MPI            | Correctness Issue |
+|-----------+----------+----------------+-------------------|
+| CC        | Python   | Sequential     | OK                |
+| CC        | Python   | Parallel       | OK                |
+| CC        | Python   | MPI            | Correctness Issue |
+|-----------+----------+----------------+-------------------|
+| CC        | C++      | Sequential     | OK                |
+| CC        | C++      | Parallel       | OK                |
+| CC        | C++      | MPI            | OK                |
+|-----------+----------+----------------+-------------------|
+| CC        | DAPHNE   | Sequential     | OK                |
+| CC        | DAPHNE   | Parallel       | OK                |
+| CC        | DAPHNE   | MPI            | To check          |
+|-----------+----------+----------------+-------------------|
+
+* Pagerank
+
+result: 3.725793839555776e-06
+
+|-----------+----------+----------------+----------|
+| Algorithm | Language | Implementation | Status   |
+|-----------+----------+----------------+----------|
+| PageRank  | Julia    | Sequential     | OK       |
+| PageRank  | Julia    | Parallel       | OK       |
+| PageRank  | Julia    | MPI            | OK       |
+|-----------+----------+----------------+----------|
+| PageRank  | Python   | Sequential     | OK       |
+| PageRank  | Python   | Parallel       | OK       |
+| PageRank  | Python   | MPI            | OK       |
+|-----------+----------+----------------+----------|
+| PageRank  | C++      | Sequential     | OK       |
+| PageRank  | C++      | Parallel       | OK       |
+| PageRank  | C++      | MPI            | OK       |
+|-----------+----------+----------------+----------|
+| PageRank  | DAPHNE   | Sequential     | OK       |
+| PageRank  | DAPHNE   | Parallel       | OK       |
+| PageRank  | DAPHNE   | MPI            | To check |
+|-----------+----------+----------------+----------|
+
+* BFS
+
+|-----------+----------+----------------+----------------------------|
+| Algorithm | Language | Implementation | Status                     |
+|-----------+----------+----------------+----------------------------|
+| BFS       | Julia    | Sequential     | OK                         |
+| BFS       | Julia    | Parallel       | OK                         |
+| BFS       | Julia    | MPI            | To implement               |
+|-----------+----------+----------------+----------------------------|
+| BFS       | Python   | Sequential     | OK                         |
+| BFS       | Python   | Parallel       | OK                         |
+| BFS       | Python   | MPI            | To write                   |
+|-----------+----------+----------------+----------------------------|
+| BFS       | C++      | Sequential     | OK (to verify correctness) |
+| BFS       | C++      | Parallel       | OK (to verify correctness) |
+| BFS       | C++      | MPI            | To write                   |
+|-----------+----------+----------------+----------------------------|
+| BFS       | DAPHNE   | Sequential     | OK                         |
+| BFS       | DAPHNE   | Parallel       | OK                         |
+| BFS       | DAPHNE   | MPI            | To Check                   |
+|-----------+----------+----------------+----------------------------|
+
+
+* Triangle Count
+
+result: 3865222
+
+| Algorithm | Language | Implementation | Status                                        |
+|-----------+----------+----------------+-----------------------------------------------|
+| TC        | Julia    | Sequential     | OK                                            |
+| TC        | Julia    | Parallel       | OK                                            |
+| TC        | Julia    | MPI            | To write                                      |
+|-----------+----------+----------------+-----------------------------------------------|
+| TC        | Python   | Sequential     | OK                                            |
+| TC        | Python   | Parallel       | OK                                            |
+| TC        | Python   | MPI            | To write                                      |
+|-----------+----------+----------------+-----------------------------------------------|
+| TC        | C++      | Sequential     | OK                                            |
+| TC        | C++      | Parallel       | OK                                            |
+| TC        | C++      | MPI            | OK                                            |
+|-----------+----------+----------------+-----------------------------------------------|
+| TC        | DAPHNE   | Sequential     | KO (very very long (does it even terminate?)) |
+| TC        | DAPHNE   | Parallel       | KO (very very long (does it even terminate?)) |
+| TC        | DAPHNE   | MPI            | TODO                                          |
+|-----------+----------+----------------+-----------------------------------------------|

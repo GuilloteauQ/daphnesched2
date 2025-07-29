@@ -57,6 +57,7 @@ function read_and_send_matrix(filename)
 end
 
 function pagerank(filename, maxi)
+  start_reading = time_ns()
   G = read_and_send_matrix(filename)
   rank = MPI.Comm_rank(comm)
   world = MPI.Comm_size(comm)
@@ -72,7 +73,7 @@ function pagerank(filename, maxi)
   offsets[2:world] = cumsum(sizes)[1:world-1]
   sum_total = n * 1.0
 
-  start = time_ns()
+  start_compute = time_ns()
   for iter in 1:maxi
     p_partial = alpha * (G * p) + one_minus_alpha * p[1+offsets[rank + 1]:(1+offsets[rank + 1] + sizes[rank + 1] - 1)]
     sum_partial = sum(p_partial)
@@ -83,8 +84,9 @@ function pagerank(filename, maxi)
   end
   fin = time_ns()
   if rank == 0
-    println((fin - start) * 1e-9)
-    #println(p[1])
+    duration_reading = (fin - start_reading) * 1e-9
+    duration_compute = (fin - start_compute) * 1e-9
+    println("$(duration_reading),$(duration_compute),$(p[1])")
   end
 end
 

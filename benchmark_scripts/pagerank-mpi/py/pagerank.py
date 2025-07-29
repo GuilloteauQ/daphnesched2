@@ -93,8 +93,8 @@ def read_and_send_sparse_matrix(filename):
 
 
 def pagerank(filename, maxi=250):
+    start_reading = time.time()
     G = read_and_send_sparse_matrix(filename)
-    #G = mmread(filename)
     world = comm.Get_size()
     start = time.time()
     n = G.shape[1]
@@ -107,6 +107,7 @@ def pagerank(filename, maxi=250):
     offsets[1:]=np.cumsum(sizes)[:-1]
     sum_total = n * 1.0
 
+    start_compute = time.time()
     for iter in range(maxi):
         p_partial = alpha * G.dot(p) +one_minus_alpha * p[offsets[rank]:(offsets[rank] + sizes[rank])]
 
@@ -117,10 +118,11 @@ def pagerank(filename, maxi=250):
 
         comm.Allgatherv([p_partial,  MPI.DOUBLE],
                        [p, sizes, offsets, MPI.DOUBLE])
-    end = time.time()
+    fin = time.time()
     if rank == 0:
-        #print(p[0])
-        print(end - start)
+        duration_reading = fin - start_reading
+        duration_compute = fin - start_compute
+        print(f"{duration_reading},{duration_compute},{p[0]}")
 
 if __name__ == "__main__":
     args = sys.argv

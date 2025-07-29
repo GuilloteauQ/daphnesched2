@@ -6,6 +6,7 @@
 #include <unsupported/Eigen/SparseExtra>
 #include <chrono>
 #include <mpi.h>
+#include <iomanip>
 
 typedef Eigen::SparseMatrix<double, Eigen::RowMajor> SpMatR;
 typedef Eigen::Triplet<double> T;
@@ -97,14 +98,15 @@ int main(int argc, char** argv) {
   }
   sizes[world-1] = n - (world-1) * (n/world);
 
+  auto start_reading = std::chrono::high_resolution_clock::now();
   SpMatR G = read_and_send_matrix(filename, n);
 
-  auto start = std::chrono::high_resolution_clock::now();
   Eigen::VectorXd p(n);
   Eigen::VectorXd p_partial(n);
   p = Eigen::VectorXd::Ones(n);
   double sum_total = n * 1.0;
 
+  auto start_compute = std::chrono::high_resolution_clock::now();
   for (int i = 0; i < maxi; i++) {
     p_partial = alpha * (G * p) + one_minus_alpha * p.segment(offsets[rank], sizes[rank]);
     double sum_partial = p_partial.sum();
@@ -114,10 +116,11 @@ int main(int argc, char** argv) {
     MPI_Allgatherv(p_partial.data(), sizes[rank], MPI_DOUBLE, p.data(), sizes.data(), offsets.data(), MPI_DOUBLE, MPI_COMM_WORLD);
   }
   auto stop = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration<float>(stop - start);
   if (rank == 0) {
-    std::cout << duration.count() << std::endl;
-    //std::cout << p[0] << std::endl;
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration_compute = std::chrono::duration<float>(stop - start_compute);
+    auto duration_reading = std::chrono::duration<float>(stop - start_reading);
+    std::cout << duration_reading.count() << "," << duration_compute.count() << "," << std::setprecision (16) << p[0] << std::endl;
   }
   MPI_Finalize();
   return 0;
