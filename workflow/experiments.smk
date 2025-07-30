@@ -20,7 +20,9 @@ rule run_expe_with_matrix:
     sbatch="sbatch_scripts/run_xeon_{lang}.sh",
     script="benchmark_scripts/{benchmark}/{lang}/{benchmark}.{lang}",
     mtx="matrices/{matrix}/{matrix}_ones.mtx",
-    meta="matrices/{matrix}/{matrix}_ones.mtx.meta"
+    meta="matrices/{matrix}/{matrix}_ones.mtx.meta",
+    jupycpp_sif="jupycpp.sif",
+    daphne_sif="daphne-dev.sif"
   output:
     "data/{matrix}/{benchmark}/{lang}/{num_threads}/{iter}.dat"  
   wildcard_constraints:
@@ -33,7 +35,9 @@ rule run_expe_with_matrix:
 rule run_expe_without_matrix:
   input:
     sbatch="sbatch_scripts/run_xeon_{lang}.sh",
-    script="benchmark_scripts/{benchmark}/{lang}/{benchmark}.{lang}"
+    script="benchmark_scripts/{benchmark}/{lang}/{benchmark}.{lang}",
+    jupycpp_sif="jupycpp.sif",
+    daphne_sif="daphne-dev.sif"
   output:
     "data/NA/{benchmark}/{lang}/{num_threads}/{iter}.dat"  
   shell:

@@ -46,7 +46,19 @@ rule download_and_compile_mpi:
 rule build_container:
   output:
     "daphne-dev.sif"
+  params:
+    docker_tag = DAPHNE_DOCKER_TAG
   shell:
     """
-    singularity build {output} docker://daphneeu/daphne-dev:2024-10-16_X86-64_BASE_ubuntu24.04
+    singularity build {output} docker://daphneeu/daphne-dev:{params.docker_tag}
+    """
+
+rule build_container_jupycpp:
+  output:
+    "jupycpp.sif"
+  params:
+    docker_tag = JUPYCPP_DOCKER_TAG
+  shell:
+    """
+    singularity build {output} docker://guilloteauq/jupycpp:{params.docker_tag}
     """

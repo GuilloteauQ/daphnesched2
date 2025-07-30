@@ -2,7 +2,7 @@
   description = "A very basic flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/25.05";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -18,7 +18,7 @@
         packages = {
           jupycpp = pkgs.dockerTools.buildImage {
             name = "guilloteauq/jupycpp";
-            tag = "april24";
+            tag = "july25";
             copyToRoot = pkgs.buildEnv {
               name = "image-root";
               paths = with pkgs; [

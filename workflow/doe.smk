@@ -1,12 +1,7 @@
-COMMITS = {
-  #"67839df": ("https://github.com/daphne-eu/daphne", "67839dfb7b298c118193d79702c1b21815e6d405"),
-  
-}
-IMPLEMENTATIONS = COMMITS.keys()
-DAPHNE_GIT_URL    = "https://github.com/GuilloteauQ/daphne"
-#DAPHNE_GIT_COMMIT = "e086c3d26fe41013c7ffcb480b471211c52607bb"
-DAPHNE_GIT_COMMIT = "4ce7359d522952b0b8306aa04ae68a3785841ec0"
-
+DAPHNE_GIT_URL    = "https://github.com/daphne-eu/daphne"
+DAPHNE_GIT_COMMIT = "00419aa8313ae72b55306ac8c14d060c115df40c"
+DAPHNE_DOCKER_TAG = "2025-03-12_X86-64_BASE_ubuntu24.04"
+JUPYCPP_DOCKER_TAG = "july25"
 
 LANGUAGES = [
   "cpp",
@@ -27,14 +22,14 @@ MATRICES_CONFIG = [
 ]
 
 SCRIPTS_MPI = [
-  #"pagerank",
-  "connected_components"
+  "pagerank",
+  #"connected_components"
 ]
 
 SCRIPTS_WITH_MATRICES = [
   "connected_components",
   "pagerank",
-  "bfs",
+  #"bfs",
   #"triangle_count"
 ]
 
@@ -44,7 +39,8 @@ SCRIPTS_WITHOUT_MATRICES = [
 
 NUM_THREADS = [
   1,
-  20
+  64
+  128
 ]
 
 MPI_CONFIG_NB_NODES=4
@@ -63,7 +59,7 @@ MPI_DISTRIBUTION = {
 }
 
 
-TOTAL_ITERS = 3
+TOTAL_ITERS = 5
 ITERATIONS = range(1, TOTAL_ITERS + 1)
 
 SCHEMES = [
