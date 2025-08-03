@@ -2,8 +2,10 @@ include: "doe.smk"
 
 rule compile:
   input:
-    "daphne-src/bin/daphne",
-    "daphne-src-mpi/bin/daphne",
+    "daphne.sif",
+    "jupycpp.sif",
+    # "daphne-src/bin/daphne",
+    # "daphne-src-mpi/bin/daphne",
 
 rule download_and_compile:
   input:
@@ -20,8 +22,12 @@ rule download_and_compile:
       git clone {params.url} daphne-src
       cd daphne-src/
       git checkout {params.commit}
+      # for patch in ../patches/*.patch
+      # do
+      #   patch -p1 < $patch
+      # done
       cd ../
-      singularity exec {input.singularity} bash -c "cd daphne-src/; ./build.sh --no-deps --installPrefix /usr/local"
+      singularity exec --no-mount /cvmfs {input.singularity} bash -c "cd daphne-src/; ./build.sh --no-deps --installPrefix /usr/local"
     """
 
 rule download_and_compile_mpi:
@@ -39,18 +45,22 @@ rule download_and_compile_mpi:
       git clone {params.url} daphne-src-mpi
       cd daphne-src-mpi
       git checkout {params.commit}
+      # for patch in ../patches/*.patch
+      # do
+      #   patch -p1 < $patch
+      # done
       cd ../
-      singularity exec {input.singularity} bash -c "cd daphne-src-mpi; ./build.sh --no-deps --mpi --installPrefix /usr/local"
+      singularity exec --no-mount /cvmfs {input.singularity} bash -c "cd daphne-src-mpi; ./build.sh --no-deps --mpi --installPrefix /usr/local"
     """
 
 rule build_container:
   output:
-    "daphne-dev.sif"
+    "daphne.sif"
   params:
     docker_tag = DAPHNE_DOCKER_TAG
   shell:
     """
-    singularity build {output} docker://daphneeu/daphne-dev:{params.docker_tag}
+    singularity build {output} docker://daphneeu/daphne:{params.docker_tag}
     """
 
 rule build_container_jupycpp:

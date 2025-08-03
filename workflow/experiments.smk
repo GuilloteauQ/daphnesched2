@@ -1,4 +1,5 @@
 include: "doe.smk"
+include: "build.smk"
 include: "matrices.smk"
 
 rule all:
@@ -17,12 +18,12 @@ rule all:
 
 rule run_expe_with_matrix:
   input:
-    sbatch="sbatch_scripts/run_xeon_{lang}.sh",
+    sbatch="sbatch_scripts/run_vega_{lang}.sh",
     script="benchmark_scripts/{benchmark}/{lang}/{benchmark}.{lang}",
     mtx="matrices/{matrix}/{matrix}_ones.mtx",
     meta="matrices/{matrix}/{matrix}_ones.mtx.meta",
     jupycpp_sif="jupycpp.sif",
-    daphne_sif="daphne-dev.sif"
+    daphne_sif="daphne.sif"
   output:
     "data/{matrix}/{benchmark}/{lang}/{num_threads}/{iter}.dat"  
   wildcard_constraints:
@@ -34,10 +35,10 @@ rule run_expe_with_matrix:
 
 rule run_expe_without_matrix:
   input:
-    sbatch="sbatch_scripts/run_xeon_{lang}.sh",
+    sbatch="sbatch_scripts/run_vega_{lang}.sh",
     script="benchmark_scripts/{benchmark}/{lang}/{benchmark}.{lang}",
     jupycpp_sif="jupycpp.sif",
-    daphne_sif="daphne-dev.sif"
+    daphne_sif="daphne.sif"
   output:
     "data/NA/{benchmark}/{lang}/{num_threads}/{iter}.dat"  
   shell:

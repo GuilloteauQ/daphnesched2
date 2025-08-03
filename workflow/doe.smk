@@ -13,7 +13,7 @@ LANGUAGES = [
 MATRICES = [
   "amazon0601",
   "wikipedia-20070206",
-  "ljournal-2008"
+  # "ljournal-2008"
 ]
 
 MATRICES_CONFIG = [
@@ -39,7 +39,7 @@ SCRIPTS_WITHOUT_MATRICES = [
 
 NUM_THREADS = [
   1,
-  64
+  64,
   128
 ]
 
