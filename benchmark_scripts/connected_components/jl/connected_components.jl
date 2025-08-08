@@ -50,7 +50,10 @@ end
 
 function cc(filename, maxi)
   start_reading = time_ns()
-  G = MatrixMarket.mmread(filename, :csr)
+  # this line made trouble --> /daphnesched2/julia-trouble.out: :csr is not accepted anymore by MatrixMarket.jl v0.5.2
+  #G = MatrixMarket.mmread(filename, :csr)
+  G = MatrixMarket.mmread(filename)  # reads as SparseMatrixCSC
+  G = SparseMatrixCSR(G)             # converts to CSR
   start_compute = time_ns()
   c = vec(collect(1.0:1.0:float(size(G, 1))))
 
