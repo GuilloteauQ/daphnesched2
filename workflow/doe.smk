@@ -13,7 +13,7 @@ LANGUAGES = [
 MATRICES = [
   "amazon0601",
   "wikipedia-20070206",
-  # "ljournal-2008"
+  "ljournal-2008"
 ]
 
 MATRICES_CONFIG = [
@@ -21,14 +21,14 @@ MATRICES_CONFIG = [
   "wikipedia-20070206",
 ]
 
-SCRIPTS_MPI = [
-  "pagerank",
-  #"connected_components"
+SCRIPTS_MPI_WITH_MATRICES = [
+  "connected_components",
+  #"pagerank",
 ]
 
 SCRIPTS_WITH_MATRICES = [
   "connected_components",
-  "pagerank",
+  #"pagerank",
   #"bfs",
   #"triangle_count"
 ]
@@ -39,27 +39,38 @@ SCRIPTS_WITHOUT_MATRICES = [
 
 NUM_THREADS = [
   1,
+  4,
+  16,
   64,
   128
 ]
 
-MPI_CONFIG_NB_NODES=4
-MPI_CONFIG_CORES_PER_NODE=20
-
+MPI_NB_NODES=4
 MPI_SCALE_NB_NODES = range(1, 11)
 
+# MPI_DISTRIBUTION = {
+#   # total-mpi-procs, task-per-node, cpu-per-task
+#   # based on MPI_CONFIG_NB_NODES=4 (4 nodes)
+#   "4":  (1,  128),
+#   "8":  (2,  64),
+#   "16": (4,  32),
+#   "32": (8,  16),
+#   "64": (16, 8),
+#   "128": (32, 4),
+#   "256": (64, 2),
+#   "512": (128, 1)
+# }
+
+# for testing
 MPI_DISTRIBUTION = {
   # total-mpi-procs, task-per-node, cpu-per-task
-  "4":  (1,  20),
-  "8":  (2,  10),
-  "16": (4,  5),
-  "20": (5,  4),
-  "40": (10, 2),
-  "80": (20, 1)
+  # based on MPI_CONFIG_NB_NODES=4 (4 nodes)
+  "128": (32, 4)
 }
 
 
-TOTAL_ITERS = 5
+# TOTAL_ITERS = 5
+TOTAL_ITERS = 1  # for testing
 ITERATIONS = range(1, TOTAL_ITERS + 1)
 
 SCHEMES = [
@@ -82,4 +93,9 @@ QUEUE_LAYOUTS = [
   "CENTRALIZED",
   "PERGROUP",
   "PERCPU"
+]
+
+VICTIMS = [
+  "SEQ",
+  "SEQPRI"
 ]

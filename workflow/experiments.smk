@@ -4,7 +4,7 @@ include: "matrices.smk"
 
 rule all:
   input:
-    expand("data/{matrix}/{benchmark}/{lang}/{num_threads}/{iter}.dat",\
+    expand("data/seq-local/{matrix}/{benchmark}/{lang}/{num_threads}/{iter}.dat",\
       matrix=MATRICES,\
       benchmark=SCRIPTS_WITH_MATRICES,\
       lang=LANGUAGES,\
@@ -25,13 +25,16 @@ rule run_expe_with_matrix:
     jupycpp_sif="jupycpp.sif",
     daphne_sif="daphne.sif"
   output:
-    "data/{matrix}/{benchmark}/{lang}/{num_threads}/{iter}.dat"  
+    "data/seq-local/{matrix}/{benchmark}/{lang}/{num_threads}/{iter}.dat"  
   wildcard_constraints:
     matrix="|".join(matrices.keys())
   params:
     matrix_size = lambda w: matrices[w.matrix]["meta"]["numRows"]
   shell:
-    "sbatch {input.sbatch} {wildcards.num_threads} {input.script} {input.mtx} {params.matrix_size} {output}"
+    """
+    mkdir -p $(dirname {output}) 
+    sbatch {input.sbatch} {wildcards.num_threads} {input.script} {input.mtx} {params.matrix_size} {output}
+    """
 
 rule run_expe_without_matrix:
   input:
@@ -40,7 +43,10 @@ rule run_expe_without_matrix:
     jupycpp_sif="jupycpp.sif",
     daphne_sif="daphne.sif"
   output:
-    "data/NA/{benchmark}/{lang}/{num_threads}/{iter}.dat"  
+    "data/seq-local/NA/{benchmark}/{lang}/{num_threads}/{iter}.dat"  
   shell:
-    "sbatch --time=0-05:00:00 {input.sbatch} {wildcards.num_threads} {input.script} NA -1 {output}"
+    """
+    mkdir -p $(dirname {output}) 
+    sbatch --time=0-05:00:00 {input.sbatch} {wildcards.num_threads} {input.script} NA -1 {output}
+    """
 

@@ -59,7 +59,10 @@ rule download_matrix:
   params:
     url = lambda w: matrices[w.matrix]["url"]
   shell:
-    "wget {params.url} -O {output}"
+    """
+    mkdir -p $(dirname {output})
+    wget {params.url} -O {output}
+    """
 
 rule setup_metadata:
   output:
