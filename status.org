@@ -91,3 +91,41 @@ result: 3865222
 | TC        | DAPHNE   | Parallel       | KO (very very long (does it even terminate?)) |
 | TC        | DAPHNE   | MPI            | TODO                                          |
 |-----------+----------+----------------+-----------------------------------------------|
+
+
+* Experiments
+
+| Algorithm | Matrix              | Language | Implementation | Nodes | Parallelism                    | Status |
+|           |                     |          |                |       | Total process:                 |        |
+|           |                     |          |                |       | (task-per-node; cpus-per-task) |        |
+|-----------+---------------------+----------+----------------+-------+--------------------------------+--------|
+| CC        | amazon0601          | C++      | Sequential     | 1     | 1 : (1; 1)                     | Done   |    
+| CC        | amazon0601          | Python   | Sequential     | 1     | 1 : (1; 1)                     | Done   |    
+| CC        | amazon0601          | Julia    | Sequential     | 1     | 1 : (1; 1)                     | Done   |    
+| CC        | amazon0601          | DAPHNE   | Sequential     | 1     | 1 : (1; 1)                     | Done   |    
+|-----------+---------------------+----------+----------------+-------+--------------------------------+--------|
+| CC        | wikipedia-20070206  | C++      | Sequential     | 1     | 1 : (1; 1)                     | Done   |    
+| CC        | wikipedia-20070206  | Python   | Sequential     | 1     | 1 : (1; 1)                     | Done   |    
+| CC        | wikipedia-20070206  | Julia    | Sequential     | 1     | 1 : (1; 1)                     | Done   |    
+| CC        | wikipedia-20070206  | DAPHNE   | Sequential     | 1     | 1 : (1; 1)                     | Done   |   
+|-----------+---------------------+----------+----------------+-------+--------------------------------+--------|
+| CC        | ljournal-2008       | C++      | Sequential     | 1     | 1 : (1; 1)                     | Done   |    
+| CC        | ljournal-2008       | Python   | Sequential     | 1     | 1 : (1; 1)                     | Done   |    
+| CC        | ljournal-2008       | Julia    | Sequential     | 1     | 1 : (1; 1)                     | Done   |    
+| CC        | ljournal-2008       | DAPHNE   | Sequential     | 1     | 1 : (1; 1)                     | Done   | 
+|-----------+---------------------+----------+----------------+-------+--------------------------------+--------|  
+| CC        | amazon0601          | C++      | Parallel       | 1     | 1 : (1: 4,16,64,128)           | Done   |    
+| CC        | amazon0601          | Python   | Parallel       | 1     | 1 : (1: 4,16,64,128)           | Done   |    
+| CC        | amazon0601          | Julia    | Parallel       | 1     | 1 : (1: 4,16,64,128)           | Done   |    
+| CC        | amazon0601          | DAPHNE   | Parallel       | 1     | 1 : (1: 4,16,64,128)           | Done   |    
+|-----------+---------------------+----------+----------------+-------+--------------------------------+--------|
+| CC        | wikipedia-20070206  | C++      | Parallel       | 1     | 1 : (1: 4,16,64,128)           | Done   |    
+| CC        | wikipedia-20070206  | Python   | Parallel       | 1     | 1 : (1: 4,16,64,128)           | Done   |    ß
+| CC        | wikipedia-20070206  | Julia    | Parallel       | 1     | 1 : (1: 4,16,64,128)           | Done   |    
+| CC        | wikipedia-20070206  | DAPHNE   | Parallel       | 1     | 1 : (1: 4,16,64,128)           | Done   |   
+|-----------+---------------------+----------+----------------+-------+--------------------------------+--------|
+| CC        | ljournal-2008       | C++      | Parallel       | 1     | 1 : (1: 4,16,64,128)           | Done   |    
+| CC        | ljournal-2008       | Python   | Parallel       | 1     | 1 : (1: 4,16,64,128)           | Done   |    
+| CC        | ljournal-2008       | Julia    | Parallel       | 1     | 1 : (1: 4,16,64,128)           | Done   |    
+| CC        | ljournal-2008       | DAPHNE   | Parallel       | 1     | 1 : (1: 4,16,64,128)           | Done   | 
+|-----------+---------------------+----------+----------------+-------+--------------------------------+--------|  
