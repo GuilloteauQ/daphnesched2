@@ -3,110 +3,71 @@ include: "matrices.smk"
 
 rule all:
   input:
-    expand("data/mpi-config/{matrix}/{benchmark}/{lang}/{mpi_procs}/{iter}.dat",\
-      matrix=MATRICES_CONFIG,\
-      benchmark=SCRIPTS_MPI,\
-      lang=LANGUAGES,\
+    expand("data/mpi/{matrix}/{benchmark}/{lang}/{mpi_procs}/{iter}.dat",\
+      matrix=MATRICES,\
+      benchmark=SCRIPTS_MPI_WITH_MATRICES,\
+      lang=["cpp","py","jl"],\
       mpi_procs=MPI_DISTRIBUTION.keys(),\
       iter=ITERATIONS),
-    expand("data/mpi-scale/{matrix}/{benchmark}/{lang}/{nb_nodes}/{iter}.dat",\
+    expand("data/mpi/{matrix}/{benchmark}/daph/{scheme}-{layout}-{victim}/{mpi_procs}/{iter}.dat",\
       matrix=MATRICES,\
-      benchmark=SCRIPTS_MPI,\
-      lang=LANGUAGES,\
-      nb_nodes=MPI_SCALE_NB_NODES,
-      iter=ITERATIONS),
-    expand("data/mpi-daph/{matrix}/{benchmark}/{layout}/{scheme}/{iter}.dat",\
-      matrix=MATRICES,\
-      benchmark=SCRIPTS_MPI,\
-      layout=QUEUE_LAYOUTS,
-      scheme=SCHEMES,\
-      iter=ITERATIONS),
-    expand("data/mpi-scale-daph-best/{matrix}/{benchmark}/{nb_nodes}/{iter}.dat",\
-      matrix=MATRICES,\
-      benchmark=SCRIPTS_MPI,\
-      nb_nodes=MPI_SCALE_NB_NODES,
-      iter=ITERATIONS),
+      benchmark=SCRIPTS_MPI_WITH_MATRICES,\
+      mpi_procs=MPI_DISTRIBUTION.keys(),\
+      scheme=["static"],\
+      layout=["centralized"],\
+      victim=["seq"],\
+      iter=ITERATIONS),    
 
-rule run_expe_mpi_config:
+rule run_expe_mpi_jupycpp:
   input:
-    sbatch="sbatch_scripts/run_xeon_{lang}_mpi.sh",
+    sbatch="sbatch_scripts/run_vega_{lang}_mpi.sh",
     script="benchmark_scripts/{benchmark}-mpi/{lang}/{benchmark}.{lang}",
     mtx="matrices/{matrix}/{matrix}_ones.mtx",
     meta="matrices/{matrix}/{matrix}_ones.mtx.meta"
   output:
-    "data/mpi-config/{matrix}/{benchmark}/{lang}/{mpi_procs}/{iter}.dat"  
+    "data/mpi/{matrix}/{benchmark}/{lang}/{mpi_procs}/{iter}.dat"  
   wildcard_constraints:
     matrix="|".join(matrices.keys()),
-    benchmark="|".join(SCRIPTS_MPI)
+    benchmark="|".join(SCRIPTS_MPI_WITH_MATRICES),
+    lang="cpp|py|jl"
   params:
     matrix_size = lambda w: matrices[w.matrix]["meta"]["numRows"],
     tasks_per_node = lambda w: MPI_DISTRIBUTION[w.mpi_procs][0],
     cpus_per_task = lambda w: MPI_DISTRIBUTION[w.mpi_procs][1],
-    nb_nodes = MPI_CONFIG_NB_NODES
+    nb_nodes = MPI_NB_NODES
   shell:
-    "sbatch --nodes={params.nb_nodes} \
+    """
+    mkdir -p $(dirname {output}) 
+    sbatch  --nodes={params.nb_nodes} \
             --ntasks-per-node={params.tasks_per_node} \
-            --cpus-per-task={params.cpus_per_task} {input.sbatch} {params.cpus_per_task} {input.script} {input.mtx} {params.matrix_size} {output}"
+            --cpus-per-task={params.cpus_per_task} {input.sbatch} {params.cpus_per_task} {input.script} {input.mtx} {params.matrix_size} {output}
+    """
 
-rule run_expe_mpi_scale:
+rule run_expe_mpi_daph:
   input:
-    sbatch="sbatch_scripts/run_xeon_{lang}_mpi.sh",
-    script="benchmark_scripts/{benchmark}-mpi/{lang}/{benchmark}.{lang}",
+    sbatch="sbatch_scripts/run_vega_daph_mpi.sh",
+    script="benchmark_scripts/{benchmark}/daph/{benchmark}.daph",
     mtx="matrices/{matrix}/{matrix}_ones.mtx",
     meta="matrices/{matrix}/{matrix}_ones.mtx.meta"
   output:
-    "data/mpi-scale/{matrix}/{benchmark}/{lang}/{nb_nodes}/{iter}.dat"  
+    "data/mpi/{matrix}/{benchmark}/daph/{scheme}-{layout}-{victim}/{mpi_procs}/{iter}.dat" 
   wildcard_constraints:
     matrix="|".join(matrices.keys()),
-    benchmark="|".join(SCRIPTS_MPI)
+    benchmark="|".join(SCRIPTS_MPI_WITH_MATRICES),
   params:
     matrix_size = lambda w: matrices[w.matrix]["meta"]["numRows"],
-    tasks_per_node = 1,
-    cpus_per_task = 20
+    tasks_per_node = lambda w: MPI_DISTRIBUTION[w.mpi_procs][0],
+    cpus_per_task = lambda w: MPI_DISTRIBUTION[w.mpi_procs][1],
+    nb_nodes = MPI_NB_NODES,
+    scheme_uc = lambda w: w.scheme.upper(),
+    layout_uc = lambda w: w.layout.upper(),
+    victim_uc = lambda w: w.victim.upper()
   shell:
-    "sbatch --nodes={wildcards.nb_nodes} \
+    """
+    mkdir -p $(dirname {output})
+    sbatch --nodes={params.nb_nodes} \
             --ntasks-per-node={params.tasks_per_node} \
-            --cpus-per-task={params.cpus_per_task} {input.sbatch} {params.cpus_per_task} {input.script} {input.mtx} {params.matrix_size} {output}"
+            --cpus-per-task={params.cpus_per_task} \
+             {input.sbatch} {params.cpus_per_task} {input.script} {input.mtx} {params.matrix_size} {params.scheme_uc} {params.layout_uc} {params.victim_uc} {output}
+    """
 
-rule run_expe_mpi_daphne:
-  input:
-    sbatch="sbatch_scripts/run_xeon_daph_mpi_options.sh",
-    script="benchmark_scripts/{benchmark}-mpi/daph/{benchmark}.daph",
-    mtx="matrices/{matrix}/{matrix}_ones.mtx",
-    meta="matrices/{matrix}/{matrix}_ones.mtx.meta"
-  output:
-    "data/mpi-daph/{matrix}/{benchmark}/{layout}/{scheme}/{iter}.dat"  
-  wildcard_constraints:
-    matrix="|".join(matrices.keys()),
-    benchmark="|".join(SCRIPTS_MPI),
-    scheme="|".join(SCHEMES),
-    layout="|".join(QUEUE_LAYOUTS)
-  params:
-    nb_nodes = 4,
-    tasks_per_node = 1,
-    cpus_per_task = 20
-  shell:
-    "sbatch --nodes={params.nb_nodes} \
-            --ntasks-per-node={params.tasks_per_node} \
-            --cpus-per-task={params.cpus_per_task} {input.sbatch} {params.cpus_per_task} {input.script} {input.mtx} {wildcards.scheme} {wildcards.layout} {output}"
-
-rule run_expe_mpi_daphne_best:
-  input:
-    sbatch="sbatch_scripts/run_xeon_daph_mpi_options.sh",
-    script="benchmark_scripts/{benchmark}-mpi/daph/{benchmark}.daph",
-    mtx="matrices/{matrix}/{matrix}_ones.mtx",
-    meta="matrices/{matrix}/{matrix}_ones.mtx.meta"
-  output:
-    "data/mpi-scale-daph-best/{matrix}/{benchmark}/{nb_nodes}/{iter}.dat"
-  wildcard_constraints:
-    matrix="|".join(matrices.keys()),
-    benchmark="|".join(SCRIPTS_MPI),
-  params:
-    tasks_per_node = 1,
-    cpus_per_task = 20,
-    scheme = "AUTO",
-    layout = "CENTRALIZED"
-  shell:
-    "sbatch --nodes={wildcards.nb_nodes} \
-            --ntasks-per-node={params.tasks_per_node} \
-            --cpus-per-task={params.cpus_per_task} {input.sbatch} {params.cpus_per_task} {input.script} {input.mtx} {params.scheme} {params.layout} {output}"
