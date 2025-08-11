@@ -1,0 +1,37 @@
++ NUM_THREADS=4
++ SOURCEFILE=benchmark_scripts/connected_components-mpi/cpp/connected_components.cpp
++ MATRIX_PATH=matrices/wikipedia-20070206/wikipedia-20070206_ones.mtx
++ MATRIX_SIZE=3566907
++ RESULT=data/mpi/wikipedia-20070206/connected_components/cpp/128/1.dat
+++ dirname benchmark_scripts/connected_components-mpi/cpp/connected_components.cpp
+++ basename benchmark_scripts/connected_components-mpi/cpp/connected_components.cpp .cpp
++ EXECUTABLE=benchmark_scripts/connected_components-mpi/cpp/connected_components_4_20127
+++ PKG_CONFIG_PATH=/share/pkgconfig
+++ singularity exec --no-mount /cvmfs /ceph/hpc/home/euretok/daphnesched2/jupycpp.sif pkg-config --cflags eigen3
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
++ CFLAGS=-I/nix/store/rzbrwrvqvx10wpad0z9qf1hrxa0mmfyr-eigen-3.4.0-unstable-2022-05-19/include/eigen3
++ OPTIONS=
++ '[' 4 -gt 1 ']'
++ OPTIONS='-I/nix/store/rzbrwrvqvx10wpad0z9qf1hrxa0mmfyr-eigen-3.4.0-unstable-2022-05-19/include/eigen3 -O3 -fopenmp'
++ export UCX_TLS=rc,sm,self
++ UCX_TLS=rc,sm,self
++ export 'PMIX_MCA_gds=^ds12'
++ PMIX_MCA_gds='^ds12'
++ export 'OMPI_MCA_gds=^ds12'
++ OMPI_MCA_gds='^ds12'
++ export PMIX_MCA_btl=self,vader
++ PMIX_MCA_btl=self,vader
++ export OMPI_MCA_btl=self,vader
++ OMPI_MCA_btl=self,vader
++ singularity exec --no-mount /cvmfs /ceph/hpc/home/euretok/daphnesched2/jupycpp.sif mpic++ /ceph/hpc/home/euretok/daphnesched2/benchmark_scripts/connected_components-mpi/cpp/connected_components.cpp -o /ceph/hpc/home/euretok/daphnesched2/benchmark_scripts/connected_components-mpi/cpp/connected_components_4_20127 -I/nix/store/rzbrwrvqvx10wpad0z9qf1hrxa0mmfyr-eigen-3.4.0-unstable-2022-05-19/include/eigen3 -O3 -fopenmp
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
++ OMP_NUM_THREADS=4
++ srun --mpi=pmix --cpus-per-task=4 singularity exec --no-mount /cvmfs /ceph/hpc/home/euretok/daphnesched2/jupycpp.sif /ceph/hpc/home/euretok/daphnesched2/benchmark_scripts/connected_components-mpi/cpp/connected_components_4_20127 /ceph/hpc/home/euretok/daphnesched2/matrices/wikipedia-20070206/wikipedia-20070206_ones.mtx 3566907
+srun: error: Task launch for StepId=2075833.0 failed on node cn0448: Unspecified error
+srun: error: Task launch for StepId=2075833.0 failed on node cn0452: Unspecified error
+srun: error: Task launch for StepId=2075833.0 failed on node cn0456: Unspecified error
+srun: error: Task launch for StepId=2075833.0 failed on node cn0451: Unspecified error
+srun: error: Application launch failed: Unspecified error
+srun: Job step aborted

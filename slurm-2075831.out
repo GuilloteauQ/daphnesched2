@@ -1,0 +1,21 @@
++ NUM_THREADS=4
++ SCRIPT=benchmark_scripts/connected_components/daph/connected_components.daph
++ MATRIX_PATH=matrices/wikipedia-20070206/wikipedia-20070206_ones.mtx
++ MATRIX_SIZE=3566907
++ PARTITIONING=STATIC
++ QUEUE_LAYOUT=CENTRALIZED
++ VICTIM_SELECTION=SEQ
++ RESULT=data/mpi/wikipedia-20070206/connected_components/daph/static-centralized-seq/128/1.dat
++ export OMPI_MCA_PML=ucx
++ OMPI_MCA_PML=ucx
++ export UCX_TLS=rc,sm,self
++ UCX_TLS=rc,sm,self
++ export 'PMIX_MCA_gds=^ds12'
++ PMIX_MCA_gds='^ds12'
++ export 'OMPI_MCA_gds=^ds12'
++ OMPI_MCA_gds='^ds12'
++ export PMIX_MCA_btl=self,vader
++ PMIX_MCA_btl=self,vader
++ export OMPI_MCA_btl=self,vader
++ OMPI_MCA_btl=self,vader
++ srun --mpi=pmix --cpus-per-task=4 singularity exec --no-mount /cvmfs /ceph/hpc/home/euretok/daphnesched2/daphne.sif daphne --vec --distributed --num-threads=4 --dist_backend=MPI --select-matrix-repr --pin-workers --partitioning=STATIC --queue_layout=CENTRALIZED --victim_selection=SEQ -- args 'f="/ceph/hpc/home/euretok/daphnesched2/matrices/wikipedia-20070206/wikipedia-20070206_ones.mtx"' /ceph/hpc/home/euretok/daphnesched2/benchmark_scripts/connected_components/daph/connected_components.daph

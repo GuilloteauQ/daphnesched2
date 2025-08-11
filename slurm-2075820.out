@@ -1,0 +1,36 @@
++ NUM_THREADS=4
++ SCRIPT=benchmark_scripts/connected_components-mpi/jl/connected_components.jl
++ MATRIX_PATH=matrices/amazon0601/amazon0601_ones.mtx
++ MATRIX_SIZE=403394
++ RESULT=data/mpi/amazon0601/connected_components/jl/128/1.dat
++ export OMP_NUM_THREADS=4
++ OMP_NUM_THREADS=4
++ export OPENBLAS_NUM_THREADS=4
++ OPENBLAS_NUM_THREADS=4
++ export MKL_NUM_THREADS=4
++ MKL_NUM_THREADS=4
++ export VECLIB_MAXIMUM_THREADS=4
++ VECLIB_MAXIMUM_THREADS=4
++ export NUMEXPR_NUM_THREADS=4
++ NUMEXPR_NUM_THREADS=4
++ export OMPI_MCA_PML=ucx
++ OMPI_MCA_PML=ucx
++ export UCX_TLS=rc,sm,self
++ UCX_TLS=rc,sm,self
++ export 'PMIX_MCA_gds=^ds12'
++ PMIX_MCA_gds='^ds12'
++ export 'OMPI_MCA_gds=^ds12'
++ OMPI_MCA_gds='^ds12'
++ export PMIX_MCA_btl=self,vader
++ PMIX_MCA_btl=self,vader
++ export OMPI_MCA_btl=self,vader
++ OMPI_MCA_btl=self,vader
+++ dirname /ceph/hpc/home/euretok/daphnesched2/benchmark_scripts/connected_components-mpi/jl/connected_components.jl
++ srun --mpi=pmix --cpus-per-task=4 singularity exec --no-mount /cvmfs /ceph/hpc/home/euretok/daphnesched2/jupycpp.sif julia --project=/ceph/hpc/home/euretok/daphnesched2/benchmark_scripts/connected_components-mpi/jl -e 'using Pkg; Pkg.instantiate()'
+srun: error: slurm_receive_msgs: [[cn0392.vega.pri]:41498] failed: Socket timed out on send/recv operation
+srun: error: Task launch for StepId=2075820.0 failed on node cn0406: Unspecified error
+srun: error: Task launch for StepId=2075820.0 failed on node cn0402: Unspecified error
+srun: error: Task launch for StepId=2075820.0 failed on node cn0391: Unspecified error
+srun: error: Task launch for StepId=2075820.0 failed on node cn0392: Socket timed out on send/recv operation
+srun: error: Application launch failed: Socket timed out on send/recv operation
+srun: Job step aborted
