@@ -15,6 +15,9 @@ benchmark_scripts/pagerank/cpp/pagerank_*
 node_modules/
 dist/
 
+# slurm out files
+*.out
+
 # Compiled Java class files
 *.class
 
@@ -103,7 +106,6 @@ Thumbs.db
 *.rubbercache
 *.run.xml
 
-*.out
 *.mtx
 *.tar.gz
 
