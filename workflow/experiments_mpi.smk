@@ -8,7 +8,7 @@ rule all:
       matrix=["amazon0601"],\
       benchmark=SCRIPTS_MPI_WITH_MATRICES,\
       # lang=["cpp","py","jl"],\
-      lang=["py"],\
+      lang=["jl"],\
       mpi_procs=MPI_DISTRIBUTION.keys(),\
       iter=ITERATIONS),
     # expand("data/mpi/{matrix}/{benchmark}/daph/{scheme}-{layout}-{victim}/{mpi_procs}/{iter}.dat",\

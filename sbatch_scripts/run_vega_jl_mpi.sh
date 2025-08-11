@@ -51,8 +51,11 @@ export OMPI_MCA_gds="^ds12"
 export PMIX_MCA_btl="self,vader"
 export OMPI_MCA_btl="self,vader"
 
-srun --mpi=pmix --cpus-per-task=${NUM_THREADS} singularity exec --no-mount /cvmfs ${SLURM_SUBMIT_DIR}/jupycpp.sif julia --project=$(dirname ${SLURM_SUBMIT_DIR}/${SCRIPT}) -e "using Pkg; Pkg.instantiate()"
+srun --cpus-per-task=${NUM_THREADS} singularity exec --no-mount /cvmfs ${SLURM_SUBMIT_DIR}/jupycpp.sif julia --project=$(dirname ${SLURM_SUBMIT_DIR}/${SCRIPT}) -e "using Pkg; Pkg.instantiate()"
+srun --cpus-per-task=${NUM_THREADS} singularity exec --no-mount /cvmfs ${SLURM_SUBMIT_DIR}/jupycpp.sif julia --threads ${NUM_THREADS} --project=$(dirname ${SLURM_SUBMIT_DIR}/${SCRIPT}) ${SLURM_SUBMIT_DIR}/${SCRIPT} ${SLURM_SUBMIT_DIR}/${MATRIX_PATH} > ${SLURM_SUBMIT_DIR}/${RESULT}
 
-srun --mpi=pmix --cpus-per-task=${NUM_THREADS} singularity exec --no-mount /cvmfs ${SLURM_SUBMIT_DIR}/jupycpp.sif julia --threads ${NUM_THREADS} --project=$(dirname ${SLURM_SUBMIT_DIR}/${SCRIPT}) ${SLURM_SUBMIT_DIR}/${SCRIPT} ${SLURM_SUBMIT_DIR}/${MATRIX_PATH} > ${SLURM_SUBMIT_DIR}/${RESULT}
+# srun --mpi=pmix --cpus-per-task=${NUM_THREADS} singularity exec --no-mount /cvmfs ${SLURM_SUBMIT_DIR}/jupycpp.sif julia --project=$(dirname ${SLURM_SUBMIT_DIR}/${SCRIPT}) -e "using Pkg; Pkg.instantiate()"
+# srun --mpi=pmix --cpus-per-task=${NUM_THREADS} singularity exec --no-mount /cvmfs ${SLURM_SUBMIT_DIR}/jupycpp.sif julia --threads ${NUM_THREADS} --project=$(dirname ${SLURM_SUBMIT_DIR}/${SCRIPT}) ${SLURM_SUBMIT_DIR}/${SCRIPT} ${SLURM_SUBMIT_DIR}/${MATRIX_PATH} > ${SLURM_SUBMIT_DIR}/${RESULT}
+
 
 exit 0
