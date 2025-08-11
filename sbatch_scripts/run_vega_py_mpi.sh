@@ -22,6 +22,12 @@ export MKL_NUM_THREADS=${NUM_THREADS}
 export VECLIB_MAXIMUM_THREADS=${NUM_THREADS}
 export NUMEXPR_NUM_THREADS=${NUM_THREADS}
 
+export UCX_TLS=sm,self 
+# with UCX, only use: 
+    # rc: inter node Infiniband reliable connection
+    # sm: intra node shared memory
+    # self: loopback MPI talking to itself
+
 export OMPI_MCA_PML="ucx"     
 # replace the byte transport layer (BTL) for point-to-point comm 
 # with Unified Communication X (UCX)
@@ -32,17 +38,11 @@ export OMPI_MCA_PML="ucx"
         # cm: Connection Management PML (delegates all communication to mtl)
         # ob1: Open Byte Transfer Layer 1 (delegates communication to btl)
 
-export UCX_TLS="rc,sm,self"    
-# with UCX, only use: 
-    # rc: inter node Infiniband reliable connection
-    # sm: intra node shared memory
-    # self: loopback MPI talking to itself
-
 #export PMIX_MCA_gds="hash"
 # https://github.com/open-mpi/ompi/issues/7516
 # GDS (Global Data Store) component, do not use the ds12 component.
-export PMIX_MCA_gds="^ds12"
-export OMPI_MCA_gds="^ds12" 
+export PMIX_MCA_gds=^ds12
+export OMPI_MCA_gds=^ds12
 
 # avoid btl fallback with tcp or vader on VEGA --> so crash instead of fallback
 #export OMPI_MCA_btl="^vader,tcp,openib"
@@ -51,6 +51,6 @@ export OMPI_MCA_gds="^ds12"
 export PMIX_MCA_btl="self,vader"
 export OMPI_MCA_btl="self,vader"
 
-srun --mpi=pmix --cpus-per-task=${NUM_THREADS} singularity exec --no-mount /cvmfs --env OMP_NUM_THREADS=${NUM_THREADS} ${SLURM_SUBMIT_DIR}/jupycpp.sif python3 ${SLURM_SUBMIT_DIR}/${SCRIPT} ${SLURM_SUBMIT_DIR}/${MATRIX_PATH} > ${SLURM_SUBMIT_DIR}/${RESULT}
+srun --cpus-per-task=${NUM_THREADS} singularity exec --no-mount /cvmfs --env OMP_NUM_THREADS=${NUM_THREADS} ${SLURM_SUBMIT_DIR}/jupycpp.sif python3 ${SLURM_SUBMIT_DIR}/${SCRIPT} ${SLURM_SUBMIT_DIR}/${MATRIX_PATH} > ${SLURM_SUBMIT_DIR}/${RESULT}
 
 exit 0
