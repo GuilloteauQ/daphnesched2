@@ -28,7 +28,7 @@ SCRIPTS_MPI_WITH_MATRICES = [
 
 SCRIPTS_WITH_MATRICES = [
   "connected_components",
-  #"pagerank",
+  "pagerank",
   #"bfs",
   #"triangle_count"
 ]
@@ -39,8 +39,11 @@ SCRIPTS_WITHOUT_MATRICES = [
 
 NUM_THREADS = [
   1,
+  2,
   4,
+  8,
   16,
+  32,
   64,
   128
 ]
@@ -69,8 +72,8 @@ MPI_DISTRIBUTION = {
 }
 
 
-# TOTAL_ITERS = 5
-TOTAL_ITERS = 1  # for testing
+TOTAL_ITERS = 5
+#TOTAL_ITERS = 1  # for testing
 ITERATIONS = range(1, TOTAL_ITERS + 1)
 
 SCHEMES = [
