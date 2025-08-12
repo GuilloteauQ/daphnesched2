@@ -12,8 +12,8 @@ LANGUAGES = [
 
 MATRICES = [
   "amazon0601",
-  "wikipedia-20070206",
-  "ljournal-2008"
+  #"wikipedia-20070206",
+  #"ljournal-2008"
 ]
 
 MATRICES_CONFIG = [
@@ -72,8 +72,8 @@ MPI_DISTRIBUTION = {
 }
 
 
-TOTAL_ITERS = 5
-#TOTAL_ITERS = 1  # for testing
+#TOTAL_ITERS = 5
+TOTAL_ITERS = 1  # for testing
 ITERATIONS = range(1, TOTAL_ITERS + 1)
 
 SCHEMES = [

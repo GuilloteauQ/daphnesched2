@@ -3,22 +3,22 @@ include: "matrices.smk"
 
 rule all:
   input:
-    expand("data/mpi/{matrix}/{benchmark}/{lang}/{mpi_procs}/{iter}.dat",\
-      #matrix=MATRICES,\
-      matrix=["amazon0601"],\
-      benchmark=SCRIPTS_MPI_WITH_MATRICES,\
-      # lang=["cpp","py","jl"],\
-      lang=["jl"],\
-      mpi_procs=MPI_DISTRIBUTION.keys(),\
-      iter=ITERATIONS),
-    # expand("data/mpi/{matrix}/{benchmark}/daph/{scheme}-{layout}-{victim}/{mpi_procs}/{iter}.dat",\
-    #   matrix=MATRICES,\
+    # expand("data/mpi/{matrix}/{benchmark}/{lang}/{mpi_procs}/{iter}.dat",\
+    #   #matrix=MATRICES,\
+    #   matrix=["amazon0601"],\
     #   benchmark=SCRIPTS_MPI_WITH_MATRICES,\
+    #   # lang=["cpp","py","jl"],\
+    #   lang=["py"],\
     #   mpi_procs=MPI_DISTRIBUTION.keys(),\
-    #   scheme=["static"],\
-    #   layout=["centralized"],\
-    #   victim=["seq"],\
-    #   iter=ITERATIONS),    
+    #   iter=ITERATIONS),
+    expand("data/mpi/{matrix}/{benchmark}/daph/{scheme}-{layout}-{victim}/{mpi_procs}/{iter}.dat",\
+      matrix=MATRICES,\
+      benchmark=SCRIPTS_MPI_WITH_MATRICES,\
+      mpi_procs=MPI_DISTRIBUTION.keys(),\
+      scheme=["static"],\
+      layout=["centralized"],\
+      victim=["seq"],\
+      iter=ITERATIONS),    
 
 rule run_expe_mpi_jupycpp:
   input:
