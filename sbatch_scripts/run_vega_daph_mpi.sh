@@ -29,26 +29,26 @@ export OMPI_MCA_PML="ucx"
         # cm: Connection Management PML (delegates all communication to mtl)
         # ob1: Open Byte Transfer Layer 1 (delegates communication to btl)
 
-export UCX_TLS="rc,sm,self"    
+export UCX_TLS="sm,self"    
 # with UCX, only use: 
     # rc: inter node Infiniband reliable connection
     # sm: intra node shared memory
     # self: loopback MPI talking to itself
 
-#export PMIX_MCA_gds="hash"
+export PMIX_MCA_gds="hash"
 # https://github.com/open-mpi/ompi/issues/7516
 # GDS (Global Data Store) component, do not use the ds12 component.
-export PMIX_MCA_gds="^ds12"
-export OMPI_MCA_gds="^ds12" 
+#export PMIX_MCA_gds="^ds12"
+#export OMPI_MCA_gds="^ds12" 
 
 # avoid btl fallback with tcp or vader on VEGA --> so crash instead of fallback
 #export OMPI_MCA_btl="^vader,tcp,openib"
 #export PMIX_MCA_btl="^vader,tcp,openib"
 # btl fallback choices for intra node (no tcp/openib set for inter node --> crash)
-export PMIX_MCA_btl="self,vader"
-export OMPI_MCA_btl="self,vader"
+#export PMIX_MCA_btl="self,vader"
+#export OMPI_MCA_btl="self,vader"
 
-srun --mpi=pmix --cpus-per-task=${NUM_THREADS} singularity exec --no-mount /cvmfs ${SLURM_SUBMIT_DIR}/daphne.sif daphne \
+srun --mpi=pmix_v3 --cpus-per-task=${NUM_THREADS} singularity exec ${SLURM_SUBMIT_DIR}/daphne.sif daphne \
             --vec \
 			--distributed \
 			--num-threads=${NUM_THREADS} \
@@ -60,5 +60,20 @@ srun --mpi=pmix --cpus-per-task=${NUM_THREADS} singularity exec --no-mount /cvmf
 			--victim_selection=${VICTIM_SELECTION} \
 			-- args f=\"${SLURM_SUBMIT_DIR}/${MATRIX_PATH}\" \
             ${SLURM_SUBMIT_DIR}/${SCRIPT} &> ${SLURM_SUBMIT_DIR}/${RESULT}
+
+
+
+# srun --mpi=pmix --cpus-per-task=${NUM_THREADS} singularity exec --no-mount /cvmfs ${SLURM_SUBMIT_DIR}/daphne.sif daphne \
+#             --vec \
+# 			--distributed \
+# 			--num-threads=${NUM_THREADS} \
+# 			--dist_backend=MPI \
+# 			--select-matrix-repr \
+# 			--pin-workers \
+# 			--partitioning=${PARTITIONING} \
+# 			--queue_layout=${QUEUE_LAYOUT} \
+# 			--victim_selection=${VICTIM_SELECTION} \
+# 			-- args f=\"${SLURM_SUBMIT_DIR}/${MATRIX_PATH}\" \
+#             ${SLURM_SUBMIT_DIR}/${SCRIPT} &> ${SLURM_SUBMIT_DIR}/${RESULT}
 
 exit 0
