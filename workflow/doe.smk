@@ -1,19 +1,21 @@
 DAPHNE_GIT_URL    = "https://github.com/daphne-eu/daphne"
-DAPHNE_GIT_COMMIT = "218e4688c132615195e329b2734962b05cd74500"
-DAPHNE_DOCKER_TAG = "0.3_X86-64_BASE_ubuntu20.04"
+# DAPHNE_GIT_COMMIT = "218e4688c132615195e329b2734962b05cd74500" # 0.3
+DAPHNE_GIT_COMMIT = "aa1fb14badc0083c2d927210b782745544260f38"
+# DAPHNE_DOCKER_TAG = "0.3_X86-64_BASE_ubuntu20.04"
+DAPHNE_DOCKER_TAG = "2025-03-12_X86-64_BASE_ubuntu24.04"
 JUPYCPP_DOCKER_TAG = "july25"
 
 LANGUAGES = [
-  "cpp",
-  "py",
+  #"cpp",
+  #"py",
   "daph",
-  "jl"
+  #"jl"
 ]
 
 MATRICES = [
   "amazon0601",
-  #"wikipedia-20070206",
-  #"ljournal-2008"
+  "wikipedia-20070206",
+  "ljournal-2008"
 ]
 
 MATRICES_CONFIG = [
@@ -72,8 +74,8 @@ MPI_DISTRIBUTION = {
 }
 
 
-#TOTAL_ITERS = 5
-TOTAL_ITERS = 1  # for testing
+TOTAL_ITERS = 5
+#TOTAL_ITERS = 1  # for testing
 ITERATIONS = range(1, TOTAL_ITERS + 1)
 
 SCHEMES = [
