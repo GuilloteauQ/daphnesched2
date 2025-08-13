@@ -48,6 +48,7 @@ rule run_expe_mpi_jupycpp:
 rule run_expe_mpi_daph:
   input:
     sbatch="sbatch_scripts/run_vega_daph_mpi.sh",
+    daphne="daphne-src-mpi/bin/daphne",
     script="benchmark_scripts/{benchmark}/daph/{benchmark}.daph",
     mtx="matrices/{matrix}/{matrix}_ones.mtx",
     meta="matrices/{matrix}/{matrix}_ones.mtx.meta"

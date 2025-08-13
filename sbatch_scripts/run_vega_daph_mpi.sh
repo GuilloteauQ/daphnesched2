@@ -6,7 +6,7 @@
 #              d-hh:mm:ss
 #SBATCH --time=0-02:00:00
 #SBATCH --wait
-#SBATCH --mem=8G
+#SBATCH --mem=128G
 
 set -ex
 
@@ -19,36 +19,11 @@ QUEUE_LAYOUT=$6
 VICTIM_SELECTION=$7
 RESULT=$8
 
-export OMPI_MCA_PML="ucx"     
-# replace the byte transport layer (BTL) for point-to-point comm 
-# with Unified Communication X (UCX)
-    # PML is either either:
-        # ucx: Unified Communication X with things like
-            # cma/memory: shared memory access via Cross-Memory Attach (CMA) — for inter-process comm on the same node
-            # rc, rc_verbs: Infiniband Reliable Connection
-        # cm: Connection Management PML (delegates all communication to mtl)
-        # ob1: Open Byte Transfer Layer 1 (delegates communication to btl)
-
-export UCX_TLS="sm,self"    
-# with UCX, only use: 
-    # rc: inter node Infiniband reliable connection
-    # sm: intra node shared memory
-    # self: loopback MPI talking to itself
-
+export UCX_TLS=self,sm
+export OMPI_MCA_PML="ucx"
 export PMIX_MCA_gds="hash"
-# https://github.com/open-mpi/ompi/issues/7516
-# GDS (Global Data Store) component, do not use the ds12 component.
-#export PMIX_MCA_gds="^ds12"
-#export OMPI_MCA_gds="^ds12" 
 
-# avoid btl fallback with tcp or vader on VEGA --> so crash instead of fallback
-#export OMPI_MCA_btl="^vader,tcp,openib"
-#export PMIX_MCA_btl="^vader,tcp,openib"
-# btl fallback choices for intra node (no tcp/openib set for inter node --> crash)
-#export PMIX_MCA_btl="self,vader"
-#export OMPI_MCA_btl="self,vader"
-
-srun --mpi=pmix_v3 --cpus-per-task=${NUM_THREADS} singularity exec ${SLURM_SUBMIT_DIR}/daphne.sif daphne \
+srun --mpi=pmix_v3 --cpus-per-task=${NUM_THREADS} singularity exec ${SLURM_SUBMIT_DIR}/daphne-dev.sif ./daphne-src-mpi/bin/daphne \
             --vec \
 			--distributed \
 			--num-threads=${NUM_THREADS} \
@@ -58,7 +33,7 @@ srun --mpi=pmix_v3 --cpus-per-task=${NUM_THREADS} singularity exec ${SLURM_SUBMI
 			--partitioning=${PARTITIONING} \
 			--queue_layout=${QUEUE_LAYOUT} \
 			--victim_selection=${VICTIM_SELECTION} \
-			-- args f=\"${SLURM_SUBMIT_DIR}/${MATRIX_PATH}\" \
+			--args f=\"${SLURM_SUBMIT_DIR}/${MATRIX_PATH}\" \
             ${SLURM_SUBMIT_DIR}/${SCRIPT} &> ${SLURM_SUBMIT_DIR}/${RESULT}
 
 

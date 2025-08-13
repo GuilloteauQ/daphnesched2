@@ -9,7 +9,7 @@
 #              d-hh:mm:ss
 #SBATCH --time=0-04:00:00
 #SBATCH --wait
-#SBATCH --mem=8G
+#SBATCH --mem=128G
 
 set -ex
 
@@ -31,7 +31,7 @@ then
 fi
 
 
-srun --cpus-per-task=${NUM_THREADS} singularity exec --no-mount /cvmfs ${SLURM_SUBMIT_DIR}/daphne.sif daphne \
+srun --cpus-per-task=${NUM_THREADS} singularity exec --no-mount /cvmfs ${SLURM_SUBMIT_DIR}/daphne-dev.sif ./daphne-src/bin/daphne \
 					            --select-matrix-repr \
                       ${OPTIONS} \
 					            --args f=\"${SLURM_SUBMIT_DIR}/${MATRIX_PATH}\"\
