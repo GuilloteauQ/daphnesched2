@@ -14,8 +14,8 @@ LANGUAGES = [
 
 MATRICES = [
   "amazon0601",
-  "wikipedia-20070206",
-  "ljournal-2008"
+  #"wikipedia-20070206",
+  #"ljournal-2008"
 ]
 
 MATRICES_CONFIG = [
@@ -49,6 +49,19 @@ NUM_THREADS = [
   64,
   128
 ]
+
+MPI_LOCAL = {
+  # total-mpi-procs, task-per-node, cpu-per-task
+  # based on MPI_CONFIG_NB_NODES=4 (4 nodes)
+  "1":  (1,  1),
+  "2":  (2,  1),
+  "4": (4,  1),
+  "8": (8,  1),
+  "16": (16, 1),
+  "32": (32, 1),
+  "64": (64, 1),
+  "128": (128, 1)
+}
 
 MPI_NB_NODES=4
 MPI_SCALE_NB_NODES = range(1, 11)
