@@ -10,6 +10,7 @@ smake/
 benchmark_scripts/connected_components/cpp/connected_components_*
 benchmark_scripts/pagerank/cpp/pagerank_*
 .snakemake/
+slurm_out/
 
 # Node artifact files
 node_modules/
