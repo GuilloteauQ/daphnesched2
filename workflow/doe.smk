@@ -47,25 +47,27 @@ NUM_THREADS = [
   16,
   32,
   64,
-  128
+  #128
 ]
 
 MPI_LOCAL = {
   # total-mpi-procs, task-per-node, cpu-per-task
-  # based on MPI_CONFIG_NB_NODES=4 (4 nodes)
-  "1":  (1,  1),
+  # based on 1  node
+  #"1":  (1,  1),
   "2":  (2,  1),
-  "4": (4,  1),
-  "8": (8,  1),
-  "16": (16, 1),
-  "32": (32, 1),
-  "64": (64, 1),
-  "128": (128, 1)
+  #"4": (4,  1),
+  #"8": (8,  1),
+  #"16": (16, 1),
+  #"32": (32, 1),
+  #"64": (64, 1),
+  #"128": (128, 1)
 }
 
-MPI_NB_NODES=4
-MPI_SCALE_NB_NODES = range(1, 11)
+# MPI scaling over nodes
+MPI_SCALE_NB_NODES = [2,4,8,16]
 
+# MPI distributed with many processes on multiple nodes
+MPI_NB_NODES=4
 # MPI_DISTRIBUTION = {
 #   # total-mpi-procs, task-per-node, cpu-per-task
 #   # based on MPI_CONFIG_NB_NODES=4 (4 nodes)
@@ -79,16 +81,8 @@ MPI_SCALE_NB_NODES = range(1, 11)
 #   "512": (128, 1)
 # }
 
-# for testing
-MPI_DISTRIBUTION = {
-  # total-mpi-procs, task-per-node, cpu-per-task
-  # based on MPI_CONFIG_NB_NODES=4 (4 nodes)
-  "128": (32, 4)
-}
-
-
-TOTAL_ITERS = 5
-#TOTAL_ITERS = 1  # for testing
+#TOTAL_ITERS = 5
+TOTAL_ITERS = 1  # for testing
 ITERATIONS = range(1, TOTAL_ITERS + 1)
 
 SCHEMES = [
