@@ -17,7 +17,7 @@ node_modules/
 dist/
 
 # slurm out files
-*.out
+#*.out
 
 # Compiled Java class files
 *.class

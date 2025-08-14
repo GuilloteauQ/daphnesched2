@@ -1,0 +1,16 @@
++ NUM_THREADS=32
++ SCRIPT=benchmark_scripts/connected_components/daph/connected_components.daph
++ MATRIX_PATH=matrices/amazon0601/amazon0601_ones.mtx
++ MATRIX_SIZE=403394
++ PARTITIONING=STATIC
++ QUEUE_LAYOUT=CENTRALIZED
++ VICTIM_SELECTION=SEQ
++ RESULT=data/mpi_scale_nodes/amazon0601/connected_components/daph/static-centralized-seq/4/1.dat
++ export UCX_TLS=self,sm
++ UCX_TLS=self,sm
++ export OMPI_MCA_PML=ucx
++ OMPI_MCA_PML=ucx
++ export PMIX_MCA_gds=hash
++ PMIX_MCA_gds=hash
++ srun --mpi=pmix_v3 --cpus-per-task=32 singularity exec /ceph/hpc/home/euretok/daphnesched2/daphne-dev.sif ./daphne-src-mpi/bin/daphne --vec --distributed --num-threads=32 --dist_backend=MPI --select-matrix-repr --pin-workers --partitioning=STATIC --queue_layout=CENTRALIZED --victim_selection=SEQ --args 'f="/ceph/hpc/home/euretok/daphnesched2/matrices/amazon0601/amazon0601_ones.mtx"' /ceph/hpc/home/euretok/daphnesched2/benchmark_scripts/connected_components/daph/connected_components.daph
++ exit 0

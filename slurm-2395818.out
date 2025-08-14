@@ -1,0 +1,460 @@
++ FOLDER=daphne-src-mpi
++ TAG=--mpi
++ srun singularity exec --no-mount /cvmfs /ceph/hpc/home/euretok/daphnesched2/daphne-dev.sif bash -c 'cd daphne-src-mpi; ./build.sh --no-deps --mpi --installPrefix /usr/local'
+using MPI
+[DAPHNE].............................................................................................[14.08.25 11:25:25]
+[DAPHNE]...Welcome to................................................................................[14.08.25 11:25:25]
+[DAPHNE].............................................................................................[14.08.25 11:25:25]
+[DAPHNE]...._______.......................__.........................................................[14.08.25 11:25:25]
+[DAPHNE]...|       \.....................|  \........................................................[14.08.25 11:25:25]
+[DAPHNE]...| €€€€€€€\  ______    ______  | €€____   _______    ______..............[14.08.25 11:25:25]
+[DAPHNE]...| €€  | €€ |      \  /      \ | €€    \ |       \  /      \...................[14.08.25 11:25:25]
+[DAPHNE]...| €€  | €€  \€€€€€€\|  €€€€€€\| €€€€€€€\| €€€€€€€\|  €€€€€€\[14.08.25 11:25:25]
+[DAPHNE]...| €€  | €€ /      €€| €€  | €€| €€  | €€| €€  | €€| €€    €€[14.08.25 11:25:25]
+[DAPHNE]...| €€__/ €€|  €€€€€€€| €€__/ €€| €€  | €€| €€  | €€| €€€€€€€€[14.08.25 11:25:25]
+[DAPHNE]...| €€    €€ \€€    €€| €€    €€| €€  | €€| €€  | €€ \€€     \[14.08.25 11:25:25]
+[DAPHNE]... \€€€€€€€   \€€€€€€€| €€€€€€€  \€€   \€€ \€€   \€€  \€€€€€€€[14.08.25 11:25:25]
+[DAPHNE].......................| €€..............................................................[14.08.25 11:25:25]
+[DAPHNE].......................| €€..............................................................[14.08.25 11:25:25]
+[DAPHNE]........................\€€..................EU-H2020.//.957407..........................[14.08.25 11:25:25]
+[DAPHNE].............................................................................................[14.08.25 11:25:25]
+
+
+[DAPHNE]..Build Daphne...............................................................................[14.08.25 11:25:27]
+-- Using ccache
+-- The CXX compiler identification is GNU 13.3.0
+-- The C compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+CMake Deprecation Warning at CMakeLists.txt:42 (cmake_policy):
+  The OLD behavior for policy CMP0116 will be removed from a future version
+  of CMake.
+
+  The cmake-policies(7) manual explains that the OLD behaviors of all
+  policies are deprecated and that a policy should be set to OLD only under
+  specific short-term circumstances.  Projects should be ported to the NEW
+  behavior and not rely on setting a policy to OLD.
+
+
+-- Found ZLIB: /usr/lib/x86_64-linux-gnu/libz.so (found version "1.3")
+-- Found LibXml2: /usr/lib/x86_64-linux-gnu/libxml2.so (found version "2.9.14")
+-- Using MLIRConfig.cmake in: /usr/local/lib/cmake/mlir
+-- Using LLVMConfig.cmake in: /usr/local/lib/cmake/llvm
+-- Linker detection: GNU ld
+-- Performing Test C_SUPPORTS_FPIC
+-- Performing Test C_SUPPORTS_FPIC - Success
+-- Performing Test CXX_SUPPORTS_FPIC
+-- Performing Test CXX_SUPPORTS_FPIC - Success
+-- Building with -fPIC
+-- Performing Test C_SUPPORTS_FNO_SEMANTIC_INTERPOSITION
+-- Performing Test C_SUPPORTS_FNO_SEMANTIC_INTERPOSITION - Success
+-- Performing Test CXX_SUPPORTS_FNO_SEMANTIC_INTERPOSITION
+-- Performing Test CXX_SUPPORTS_FNO_SEMANTIC_INTERPOSITION - Success
+-- Performing Test SUPPORTS_FVISIBILITY_INLINES_HIDDEN_FLAG
+-- Performing Test SUPPORTS_FVISIBILITY_INLINES_HIDDEN_FLAG - Success
+-- Performing Test C_SUPPORTS_WERROR_DATE_TIME
+-- Performing Test C_SUPPORTS_WERROR_DATE_TIME - Success
+-- Performing Test CXX_SUPPORTS_WERROR_DATE_TIME
+-- Performing Test CXX_SUPPORTS_WERROR_DATE_TIME - Success
+-- Performing Test C_SUPPORTS_WERROR_UNGUARDED_AVAILABILITY_NEW
+-- Performing Test C_SUPPORTS_WERROR_UNGUARDED_AVAILABILITY_NEW - Failed
+-- Performing Test CXX_SUPPORTS_WERROR_UNGUARDED_AVAILABILITY_NEW
+-- Performing Test CXX_SUPPORTS_WERROR_UNGUARDED_AVAILABILITY_NEW - Failed
+-- Performing Test CXX_SUPPORTS_MISSING_FIELD_INITIALIZERS_FLAG
+-- Performing Test CXX_SUPPORTS_MISSING_FIELD_INITIALIZERS_FLAG - Success
+-- Performing Test C_SUPPORTS_IMPLICIT_FALLTHROUGH_FLAG
+-- Performing Test C_SUPPORTS_IMPLICIT_FALLTHROUGH_FLAG - Success
+-- Performing Test CXX_SUPPORTS_IMPLICIT_FALLTHROUGH_FLAG
+-- Performing Test CXX_SUPPORTS_IMPLICIT_FALLTHROUGH_FLAG - Success
+-- Performing Test C_SUPPORTS_COVERED_SWITCH_DEFAULT_FLAG
+-- Performing Test C_SUPPORTS_COVERED_SWITCH_DEFAULT_FLAG - Failed
+-- Performing Test CXX_SUPPORTS_COVERED_SWITCH_DEFAULT_FLAG
+-- Performing Test CXX_SUPPORTS_COVERED_SWITCH_DEFAULT_FLAG - Failed
+-- Performing Test CXX_SUPPORTS_CLASS_MEMACCESS_FLAG
+-- Performing Test CXX_SUPPORTS_CLASS_MEMACCESS_FLAG - Success
+-- Performing Test CXX_SUPPORTS_REDUNDANT_MOVE_FLAG
+-- Performing Test CXX_SUPPORTS_REDUNDANT_MOVE_FLAG - Success
+-- Performing Test CXX_SUPPORTS_PESSIMIZING_MOVE_FLAG
+-- Performing Test CXX_SUPPORTS_PESSIMIZING_MOVE_FLAG - Success
+-- Performing Test CXX_SUPPORTS_NOEXCEPT_TYPE_FLAG
+-- Performing Test CXX_SUPPORTS_NOEXCEPT_TYPE_FLAG - Success
+-- Performing Test CXX_WONT_WARN_ON_FINAL_NONVIRTUALDTOR
+-- Performing Test CXX_WONT_WARN_ON_FINAL_NONVIRTUALDTOR - Failed
+-- Performing Test CXX_SUPPORTS_SUGGEST_OVERRIDE_FLAG
+-- Performing Test CXX_SUPPORTS_SUGGEST_OVERRIDE_FLAG - Success
+-- Performing Test CXX_WSUGGEST_OVERRIDE_ALLOWS_ONLY_FINAL
+-- Performing Test CXX_WSUGGEST_OVERRIDE_ALLOWS_ONLY_FINAL - Success
+-- Performing Test C_WCOMMENT_ALLOWS_LINE_WRAP
+-- Performing Test C_WCOMMENT_ALLOWS_LINE_WRAP - Failed
+-- Performing Test C_SUPPORTS_STRING_CONVERSION_FLAG
+-- Performing Test C_SUPPORTS_STRING_CONVERSION_FLAG - Failed
+-- Performing Test CXX_SUPPORTS_STRING_CONVERSION_FLAG
+-- Performing Test CXX_SUPPORTS_STRING_CONVERSION_FLAG - Failed
+-- Performing Test CXX_SUPPORTS_MISLEADING_INDENTATION_FLAG
+-- Performing Test CXX_SUPPORTS_MISLEADING_INDENTATION_FLAG - Success
+-- Performing Test C_SUPPORTS_CTAD_MAYBE_UNSPPORTED_FLAG
+-- Performing Test C_SUPPORTS_CTAD_MAYBE_UNSPPORTED_FLAG - Failed
+-- Performing Test CXX_SUPPORTS_CTAD_MAYBE_UNSPPORTED_FLAG
+-- Performing Test CXX_SUPPORTS_CTAD_MAYBE_UNSPPORTED_FLAG - Success
+-- Performing Test LINKER_SUPPORTS_COLOR_DIAGNOSTICS
+-- Performing Test LINKER_SUPPORTS_COLOR_DIAGNOSTICS - Failed
+-- Performing Test C_SUPPORTS_FNO_FUNCTION_SECTIONS
+-- Performing Test C_SUPPORTS_FNO_FUNCTION_SECTIONS - Success
+-- Performing Test C_SUPPORTS_FFUNCTION_SECTIONS
+-- Performing Test C_SUPPORTS_FFUNCTION_SECTIONS - Success
+-- Performing Test CXX_SUPPORTS_FFUNCTION_SECTIONS
+-- Performing Test CXX_SUPPORTS_FFUNCTION_SECTIONS - Success
+-- Performing Test C_SUPPORTS_FDATA_SECTIONS
+-- Performing Test C_SUPPORTS_FDATA_SECTIONS - Success
+-- Performing Test CXX_SUPPORTS_FDATA_SECTIONS
+-- Performing Test CXX_SUPPORTS_FDATA_SECTIONS - Success
+-- Looking for os_signpost_interval_begin
+-- Looking for os_signpost_interval_begin - not found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Looking for sgemm_
+-- Looking for sgemm_ - found
+-- Found BLAS: /usr/local/lib/libopenblas.so
+-- CMAKE_PREFIX_PATH:  /usr/local
+-- Found MPI_C: /usr/local/lib/libmpi.so (found version "3.1")
+-- Found MPI_CXX: /usr/local/lib/libmpi.so (found version "3.1")
+-- Found MPI: TRUE (found version "3.1")
+-- Looking for a CUDA compiler
+-- Looking for a CUDA compiler - NOTFOUND
+-- Using lld
+-- Arrow version: 13.0.0
+-- Found the Arrow shared library: /usr/local/lib/libarrow.so.1300.0.0
+-- Found the Arrow import library: ARROW_IMPORT_LIB-NOTFOUND
+-- Found the Arrow static library: /usr/local/lib/libarrow.a
+-- Parquet version: 13.0.0
+-- Found the Parquet shared library: /usr/local/lib/libparquet.so.1300.0.0
+-- Found the Parquet import library: PARQUET_IMPORT_LIB-NOTFOUND
+-- Found the Parquet static library: /usr/local/lib/libparquet.a
+-- ANTLR4_JAR_LOCATION is /usr/local/share/antlr4/antlr-4.9.2-complete.jar
+-- Found Java: /usr/bin/java (found version "11.0.26") found components: Runtime
+-- Antlr4 DaphneDSLGrammar - Building Common Include-, Source- and Tokenfiles, Visitor Include- and Sourcefiles
+-- Antlr4 SQLGrammar - Building Common Include-, Source- and Tokenfiles, Visitor Include- and Sourcefiles
+-- ANTLR4_SQL_DIR is /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/build/antlr4_generated_src/SQLGrammar
+-- Found Python3: /ceph/hpc/home/euretok/.conda/envs/snakemake/bin/python3.13 (found version "3.13.5") found components: Interpreter
+writing catalog to /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/lib/catalog.json
+-- Configuring done (6.2s)
+-- Generating done (0.4s)
+-- Build files have been written to: /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/build
+[0/2] Re-checking globbed directories...
+[1/245] Running cpp protocol buffer compiler on data.proto
+[2/245] Building DaphneOpsDialect.cpp.inc...
+[3/245] Building DaphneOpsDialect.h.inc...
+[4/245] Building DaphneOpsTypes.cpp.inc...
+[5/245] Building DaphneOpsTypes.h.inc...
+[6/245] Building DaphneOpsEnums.cpp.inc...
+[7/245] Building DaphneOpsEnums.h.inc...
+[8/245] Running cpp protocol buffer compiler on worker.proto
+[9/245] Building DaphneDistributableOpInterface.cpp.inc...
+[10/245] Building DaphneDistributableOpInterface.h.inc...
+[11/245] Building DaphneInferFrameLabelsOpInterface.cpp.inc...
+[12/245] Building DaphneInferFrameLabelsOpInterface.h.inc...
+[13/245] Building DaphneInferSparsityOpInterface.cpp.inc...
+[14/245] Building DaphneInferShapeOpInterface.h.inc...
+[15/245] Building DaphneInferTypesOpInterface.cpp.inc...
+[16/245] Building DaphneInferShapeOpInterface.cpp.inc...
+[17/245] Building DaphneInferSparsityOpInterface.h.inc...
+[18/245] Building DaphneInferTypesOpInterface.h.inc...
+[19/245] Building DaphneVectorizableOpInterface.cpp.inc...
+[20/245] Building DaphneVectorizableOpInterface.h.inc...
+[21/245] Building Passes.h.inc...
+[22/245] Building DaphneOps.cpp.inc...
+[23/245] Building DaphneOps.h.inc...
+[24/245] Running grpc protocol buffer compiler on data.proto
+[25/245] Running grpc protocol buffer compiler on worker.proto
+[26/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/MarkCUDAOpsPass.cpp.o
+[27/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/MarkFPGAOPENCLOpsPass.cpp.o
+[28/245] Building CXX object src/util/CMakeFiles/Util.dir/MurmurHash3.cpp.o
+[29/245] Generating ../../../antlr4_generated_src/SQLGrammar/SQLGrammar.tokens, ../../../antlr4_generated_src/SQLGrammar/SQLGrammar.interp, ../../../antlr4_generated_src/SQLGrammar/SQLGrammarLexer.h, ../../../antlr4_generated_src/SQLGrammar/SQLGrammarLexer.cpp, ../../../antlr4_generated_src/SQLGrammar/SQLGrammarParser.h, ../../../antlr4_generated_src/SQLGrammar/SQLGrammarParser.cpp, ../../../antlr4_generated_src/SQLGrammar/SQLGrammarBaseVisitor.h, ../../../antlr4_generated_src/SQLGrammar/SQLGrammarBaseVisitor.cpp, ../../../antlr4_generated_src/SQLGrammar/SQLGrammarVisitor.h, ../../../antlr4_generated_src/SQLGrammar/SQLGrammarVisitor.cpp
+[30/245] Building CXX object src/runtime/local/datastructures/CMakeFiles/DataStructures.dir/ValueTypeUtils.cpp.o
+[31/245] Building CXX object src/compiler/utils/CMakeFiles/CompilerUtils.dir/TypePrinting.cpp.o
+[32/245] Building CXX object src/util/CMakeFiles/Util.dir/StringRefCount.cpp.o
+[33/245] Building CXX object src/runtime/local/datastructures/CMakeFiles/DataStructures.dir/Frame.cpp.o
+[34/245] Building CXX object src/runtime/distributed/proto/CMakeFiles/Proto.dir/data.pb.cc.o
+[35/245] Building CXX object src/util/CMakeFiles/Util.dir/KernelDispatchMapping.cpp.o
+[36/245] Building CXX object src/util/CMakeFiles/Util.dir/DaphneLogger.cpp.o
+[37/245] Building CXX object src/runtime/distributed/proto/CMakeFiles/Proto.dir/worker.pb.cc.o
+[38/245] Building CXX object src/runtime/local/datastructures/CMakeFiles/DataStructures.dir/ContiguousTensor.cpp.o
+[39/245] Building CXX object src/runtime/local/datastructures/CMakeFiles/DataStructures.dir/CSRMatrix.cpp.o
+[40/245] Building CXX object src/util/CMakeFiles/Util.dir/Statistics.cpp.o
+[41/245] Building CXX object src/runtime/distributed/proto/CMakeFiles/Proto.dir/data.grpc.pb.cc.o
+[42/245] Building CXX object src/util/CMakeFiles/Util.dir/ErrorHandler.cpp.o
+[43/245] Building CXX object src/parser/metadata/CMakeFiles/DaphneMetaDataParser.dir/MetaDataParser.cpp.o
+[44/245] Building CXX object src/runtime/local/io/CMakeFiles/IO.dir/utils.cpp.o
+[45/245] Building CXX object src/ir/daphneir/CMakeFiles/obj.MLIRDaphne.dir/DaphneDistributableOpInterface.cpp.o
+[46/245] Building CXX object src/ir/daphneir/CMakeFiles/obj.MLIRDaphne.dir/Fold.cpp.o
+[47/245] Building CXX object src/ir/daphneir/CMakeFiles/obj.MLIRDaphne.dir/DaphneInferSparsityOpInterface.cpp.o
+[48/245] Building CXX object src/compiler/inference/CMakeFiles/obj.MLIRDaphneInference.dir/TypeInferenceUtils.cpp.o
+[49/245] Linking CXX static library src/runtime/local/io/libIO.a
+[50/245] Linking CXX static library src/parser/metadata/libDaphneMetaDataParser.a
+[51/245] Building CXX object src/parser/sql/CMakeFiles/SQLParser.dir/__/__/__/antlr4_generated_src/SQLGrammar/SQLGrammarVisitor.cpp.o
+[52/245] Building CXX object src/parser/sql/CMakeFiles/SQLParser.dir/__/__/__/antlr4_generated_src/SQLGrammar/SQLGrammarBaseVisitor.cpp.o
+[53/245] Building CXX object src/parser/sql/CMakeFiles/SQLParser.dir/__/__/__/antlr4_generated_src/SQLGrammar/SQLGrammarLexer.cpp.o
+[54/245] Building CXX object src/compiler/utils/CMakeFiles/CompilerUtils.dir/CompilerUtils.cpp.o
+[55/245] Building CXX object src/ir/daphneir/CMakeFiles/obj.MLIRDaphne.dir/DaphneVectorizableOpInterface.cpp.o
+[56/245] Building CXX object src/ir/daphneir/CMakeFiles/obj.MLIRDaphne.dir/DaphneInferFrameLabelsOpInterface.cpp.o
+[57/245] Building CXX object src/runtime/distributed/proto/CMakeFiles/Proto.dir/worker.grpc.pb.cc.o
+[58/245] Building CXX object src/ir/daphneir/CMakeFiles/obj.MLIRDaphne.dir/Canonicalize.cpp.o
+[59/245] Linking CXX shared library /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/lib/libProto.so
+[60/245] Building CXX object src/ir/daphneir/CMakeFiles/obj.MLIRDaphne.dir/DaphneInferShapeOpInterface.cpp.o
+[61/245] Building CXX object src/runtime/local/datastructures/CMakeFiles/DataStructures.dir/ChunkedTensor.cpp.o
+[62/245] Building CXX object src/ir/daphneir/CMakeFiles/obj.MLIRDaphne.dir/DaphneInferTypesOpInterface.cpp.o
+[63/245] Building CXX object src/parser/sql/CMakeFiles/SQLParser.dir/__/__/__/antlr4_generated_src/SQLGrammar/SQLGrammarParser.cpp.o
+[64/245] Building CXX object src/runtime/local/datastructures/CMakeFiles/DataStructures.dir/DataPlacement.cpp.o
+[65/245] Building CXX object src/runtime/local/datastructures/CMakeFiles/DataStructures.dir/Structure.cpp.o
+[66/245] Building CXX object src/runtime/local/datastructures/CMakeFiles/DataStructures.dir/MetaDataObject.cpp.o
+[67/245] Generating ../../../antlr4_generated_src/DaphneDSLGrammar/DaphneDSLGrammar.tokens, ../../../antlr4_generated_src/DaphneDSLGrammar/DaphneDSLGrammar.interp, ../../../antlr4_generated_src/DaphneDSLGrammar/DaphneDSLGrammarLexer.h, ../../../antlr4_generated_src/DaphneDSLGrammar/DaphneDSLGrammarLexer.cpp, ../../../antlr4_generated_src/DaphneDSLGrammar/DaphneDSLGrammarParser.h, ../../../antlr4_generated_src/DaphneDSLGrammar/DaphneDSLGrammarParser.cpp, ../../../antlr4_generated_src/DaphneDSLGrammar/DaphneDSLGrammarBaseVisitor.h, ../../../antlr4_generated_src/DaphneDSLGrammar/DaphneDSLGrammarBaseVisitor.cpp, ../../../antlr4_generated_src/DaphneDSLGrammar/DaphneDSLGrammarVisitor.h, ../../../antlr4_generated_src/DaphneDSLGrammar/DaphneDSLGrammarVisitor.cpp
+[68/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/ProfilingPass.cpp.o
+[69/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/InsertDaphneContextPass.cpp.o
+[70/245] Building CXX object src/compiler/explanation/CMakeFiles/obj.MLIRDaphneExplain.dir/PrintIRPass.cpp.o
+[71/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/__/instrumentation/KernelInstrumentation.cpp.o
+[72/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_36.cpp.o
+[73/245] Building CXX object src/parser/config/CMakeFiles/DaphneConfigParser.dir/ConfigParser.cpp.o
+[74/245] Building CXX object src/api/cli/CMakeFiles/daphne.dir/daphne.cpp.o
+[75/245] Linking CXX static library lib/libMLIRDaphneExplain.a
+[76/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_16.cpp.o
+[77/245] Building CXX object src/compiler/inference/CMakeFiles/obj.MLIRDaphneInference.dir/SelectMatrixRepresentationsPass.cpp.o
+[78/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_23.cpp.o
+[79/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_43.cpp.o
+[80/245] Linking CXX static library src/parser/config/libDaphneConfigParser.a
+[81/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_18.cpp.o
+[82/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_21.cpp.o
+[83/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_11.cpp.o
+[84/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_28.cpp.o
+[85/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_15.cpp.o
+[86/245] Building CXX object src/compiler/utils/CMakeFiles/CompilerUtils.dir/LoweringUtils.cpp.o
+[87/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_17.cpp.o
+[88/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_47.cpp.o
+[89/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_2.cpp.o
+[90/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_105.cpp.o
+[91/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_31.cpp.o
+[92/245] Linking CXX static library src/compiler/utils/libCompilerUtils.a
+[93/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_33.cpp.o
+[94/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_107.cpp.o
+[95/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_14.cpp.o
+[96/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_29.cpp.o
+[97/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_30.cpp.o
+[98/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_34.cpp.o
+[99/245] Building CXX object src/compiler/inference/CMakeFiles/obj.MLIRDaphneInference.dir/InferencePass.cpp.o
+[100/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_103.cpp.o
+[101/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_101.cpp.o
+[102/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_51.cpp.o
+[103/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_53.cpp.o
+[104/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_4.cpp.o
+[105/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_106.cpp.o
+[106/245] Linking CXX static library src/util/libUtil.a
+[107/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_46.cpp.o
+[108/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_48.cpp.o
+[109/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_104.cpp.o
+[110/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_44.cpp.o
+[111/245] Building CXX object src/runtime/distributed/proto/CMakeFiles/CallData.dir/CallData.cpp.o
+[112/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_102.cpp.o
+[113/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_19.cpp.o
+[114/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_41.cpp.o
+[115/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_58.cpp.o
+[116/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_37.cpp.o
+[117/245] Linking CXX static library src/runtime/distributed/proto/libCallData.a
+[118/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_100.cpp.o
+[119/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_50.cpp.o
+[120/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_13.cpp.o
+[121/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_32.cpp.o
+[122/245] Building CXX object src/compiler/inference/CMakeFiles/obj.MLIRDaphneInference.dir/AdaptTypesToKernelsPass.cpp.o
+[123/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_38.cpp.o
+[124/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_10.cpp.o
+[125/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_59.cpp.o
+[126/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_35.cpp.o
+[127/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_57.cpp.o
+[128/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_55.cpp.o
+[129/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_42.cpp.o
+[130/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_39.cpp.o
+[131/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_60.cpp.o
+[132/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_45.cpp.o
+[133/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_22.cpp.o
+[134/245] Building CXX object src/parser/daphnedsl/CMakeFiles/DaphneDSLParser.dir/__/__/__/antlr4_generated_src/DaphneDSLGrammar/DaphneDSLGrammarVisitor.cpp.o
+[135/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_27.cpp.o
+[136/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_61.cpp.o
+[137/245] Building CXX object src/parser/sql/CMakeFiles/SQLParser.dir/SQLParser.cpp.o
+In file included from /usr/local/include/antlr4-runtime/RuleContext.h:8,
+                 from /usr/local/include/antlr4-runtime/ParserRuleContext.h:8,
+                 from /usr/local/include/antlr4-runtime/InterpreterRuleContext.h:8,
+                 from /usr/local/include/antlr4-runtime/antlr4-runtime.h:30,
+                 from /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/src/parser/ParserUtils.h:24,
+                 from /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/src/parser/sql/SQLVisitor.h:19,
+                 from /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/src/parser/sql/SQLParser.cpp:19:
+/usr/local/include/antlr4-runtime/tree/ParseTree.h:49:18: warning: 'virtual bool antlr4::tree::ParseTree::operator==(const antlr4::tree::ParseTree&) const' was hidden [-Woverloaded-virtual=]
+   49 |     virtual bool operator == (const ParseTree &other) const;
+      |                  ^~~~~~~~
+/usr/local/include/antlr4-runtime/RuleContext.h:131:10: note:   by 'bool antlr4::RuleContext::operator==(const antlr4::RuleContext&)'
+  131 |     bool operator == (const RuleContext &other) { return this == &other; } // Simple address comparison.
+      |          ^~~~~~~~
+[138/245] Building CXX object src/parser/daphnedsl/CMakeFiles/DaphneDSLParser.dir/__/__/__/antlr4_generated_src/DaphneDSLGrammar/DaphneDSLGrammarBaseVisitor.cpp.o
+[139/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_63.cpp.o
+[140/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_20.cpp.o
+[141/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/ManageObjRefsPass.cpp.o
+[142/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_56.cpp.o
+[143/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_62.cpp.o
+[144/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_0.cpp.o
+[145/245] Building CXX object src/parser/daphnedsl/CMakeFiles/DaphneDSLParser.dir/__/__/__/antlr4_generated_src/DaphneDSLGrammar/DaphneDSLGrammarLexer.cpp.o
+[146/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_49.cpp.o
+[147/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_64.cpp.o
+[148/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_26.cpp.o
+[149/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/VectorizeComputationsPass.cpp.o
+[150/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_6.cpp.o
+[151/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_68.cpp.o
+[152/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_54.cpp.o
+[153/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/DistributeComputationsPass.cpp.o
+[154/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/RewriteSqlOpPass.cpp.o
+[155/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_69.cpp.o
+[156/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/DistributePipelinesPass.cpp.o
+[157/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_70.cpp.o
+[158/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_71.cpp.o
+[159/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_65.cpp.o
+[160/245] Building CXX object src/parser/sql/CMakeFiles/SQLParser.dir/SQLVisitor.cpp.o
+In file included from /usr/local/include/antlr4-runtime/RuleContext.h:8,
+                 from /usr/local/include/antlr4-runtime/ParserRuleContext.h:8,
+                 from /usr/local/include/antlr4-runtime/InterpreterRuleContext.h:8,
+                 from /usr/local/include/antlr4-runtime/antlr4-runtime.h:30,
+                 from /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/src/parser/sql/SQLVisitor.cpp:17:
+/usr/local/include/antlr4-runtime/tree/ParseTree.h:49:18: warning: 'virtual bool antlr4::tree::ParseTree::operator==(const antlr4::tree::ParseTree&) const' was hidden [-Woverloaded-virtual=]
+   49 |     virtual bool operator == (const ParseTree &other) const;
+      |                  ^~~~~~~~
+/usr/local/include/antlr4-runtime/RuleContext.h:131:10: note:   by 'bool antlr4::RuleContext::operator==(const antlr4::RuleContext&)'
+  131 |     bool operator == (const RuleContext &other) { return this == &other; } // Simple address comparison.
+      |          ^~~~~~~~
+[161/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_72.cpp.o
+[162/245] Linking CXX static library src/parser/sql/libSQLParser.a
+[163/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/PhyOperatorSelectionPass.cpp.o
+[164/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_73.cpp.o
+[165/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_66.cpp.o
+[166/245] Building CXX object src/runtime/local/datastructures/CMakeFiles/DataStructures.dir/DenseMatrix.cpp.o
+[167/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_1.cpp.o
+[168/245] Linking CXX static library src/runtime/local/datastructures/libDataStructures.a
+[169/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_25.cpp.o
+[170/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_3.cpp.o
+[171/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_24.cpp.o
+[172/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_67.cpp.o
+[173/245] Building CXX object src/parser/catalog/CMakeFiles/DaphneCatalogParser.dir/KernelCatalogParser.cpp.o
+[174/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_12.cpp.o
+[175/245] Linking CXX static library src/parser/catalog/libDaphneCatalogParser.a
+[176/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_74.cpp.o
+[177/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_75.cpp.o
+[178/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/DaphneOptPass.cpp.o
+[179/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/MapOpLowering.cpp.o
+[180/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/ModOpLowering.cpp.o
+[181/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/TransposeOpLowering.cpp.o
+[182/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_40.cpp.o
+[183/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_78.cpp.o
+[184/245] Building CXX object src/parser/daphnedsl/CMakeFiles/DaphneDSLParser.dir/__/__/__/antlr4_generated_src/DaphneDSLGrammar/DaphneDSLGrammarParser.cpp.o
+[185/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/SpecializeGenericFunctionsPass.cpp.o
+[186/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_79.cpp.o
+[187/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/AggAllOpLowering.cpp.o
+[188/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_76.cpp.o
+[189/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/SparsityExploitationPass.cpp.o
+[190/245] Building CXX object src/runtime/distributed/worker/CMakeFiles/WorkerImpl.dir/WorkerImplGRPCAsync.cpp.o
+[191/245] Building CXX object src/runtime/distributed/worker/CMakeFiles/WorkerImpl.dir/WorkerImplGRPCSync.cpp.o
+[192/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/RewriteToCallKernelOpPass.cpp.o
+[193/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_5.cpp.o
+[194/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_52.cpp.o
+[195/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_8.cpp.o
+[196/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/AggDimOpLowering.cpp.o
+[197/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/LowerToLLVMPass.cpp.o
+[198/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_80.cpp.o
+[199/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_81.cpp.o
+[200/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/MatMulOpLowering.cpp.o
+[201/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/MatMul.cpp.o
+[202/245] Building CXX object src/compiler/lowering/CMakeFiles/obj.MLIRDaphneTransforms.dir/EwOpsLowering.cpp.o
+[203/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_77.cpp.o
+[204/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_82.cpp.o
+[205/245] Linking CXX static library lib/libMLIRDaphneTransforms.a
+[206/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_84.cpp.o
+[207/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_83.cpp.o
+[208/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_86.cpp.o
+[209/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_87.cpp.o
+[210/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_88.cpp.o
+[211/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_93.cpp.o
+[212/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_92.cpp.o
+[213/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_95.cpp.o
+[214/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/CreateDaphneContext.cpp.o
+[215/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_85.cpp.o
+[216/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_98.cpp.o
+[217/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_99.cpp.o
+[218/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/Pooling.cpp.o
+[219/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_9.cpp.o
+[220/245] Building CXX object src/parser/daphnedsl/CMakeFiles/DaphneDSLParser.dir/DaphneDSLBuiltins.cpp.o
+In file included from /usr/local/include/antlr4-runtime/RuleContext.h:8,
+                 from /usr/local/include/antlr4-runtime/ParserRuleContext.h:8,
+                 from /usr/local/include/antlr4-runtime/InterpreterRuleContext.h:8,
+                 from /usr/local/include/antlr4-runtime/antlr4-runtime.h:30,
+                 from /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/src/parser/ParserUtils.h:24,
+                 from /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/src/parser/daphnedsl/DaphneDSLBuiltins.h:20,
+                 from /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/src/parser/daphnedsl/DaphneDSLBuiltins.cpp:19:
+/usr/local/include/antlr4-runtime/tree/ParseTree.h:49:18: warning: 'virtual bool antlr4::tree::ParseTree::operator==(const antlr4::tree::ParseTree&) const' was hidden [-Woverloaded-virtual=]
+   49 |     virtual bool operator == (const ParseTree &other) const;
+      |                  ^~~~~~~~
+/usr/local/include/antlr4-runtime/RuleContext.h:131:10: note:   by 'bool antlr4::RuleContext::operator==(const antlr4::RuleContext&)'
+  131 |     bool operator == (const RuleContext &other) { return this == &other; } // Simple address comparison.
+      |          ^~~~~~~~
+[221/245] Building CXX object src/compiler/execution/CMakeFiles/DaphneIrExecutor.dir/DaphneIrExecutor.cpp.o
+[222/245] Building CXX object src/runtime/distributed/worker/CMakeFiles/WorkerImpl.dir/WorkerImpl.cpp.o
+[223/245] Building CXX object src/parser/daphnedsl/CMakeFiles/DaphneDSLParser.dir/DaphneDSLParser.cpp.o
+In file included from /usr/local/include/antlr4-runtime/RuleContext.h:8,
+                 from /usr/local/include/antlr4-runtime/ParserRuleContext.h:8,
+                 from /usr/local/include/antlr4-runtime/InterpreterRuleContext.h:8,
+                 from /usr/local/include/antlr4-runtime/antlr4-runtime.h:30,
+                 from /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/src/parser/CancelingErrorListener.h:20,
+                 from /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/src/parser/daphnedsl/DaphneDSLParser.cpp:18:
+/usr/local/include/antlr4-runtime/tree/ParseTree.h:49:18: warning: 'virtual bool antlr4::tree::ParseTree::operator==(const antlr4::tree::ParseTree&) const' was hidden [-Woverloaded-virtual=]
+   49 |     virtual bool operator == (const ParseTree &other) const;
+      |                  ^~~~~~~~
+/usr/local/include/antlr4-runtime/RuleContext.h:131:10: note:   by 'bool antlr4::RuleContext::operator==(const antlr4::RuleContext&)'
+  131 |     bool operator == (const RuleContext &other) { return this == &other; } // Simple address comparison.
+      |          ^~~~~~~~
+[224/245] Building CXX object src/runtime/distributed/worker/CMakeFiles/WorkerImpl.dir/__/__/__/compiler/execution/DaphneIrExecutor.cpp.o
+[225/245] Linking CXX static library src/runtime/distributed/worker/libWorkerImpl.a
+[226/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_94.cpp.o
+[227/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_96.cpp.o
+[228/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_89.cpp.o
+[229/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_97.cpp.o
+[230/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/__/vectorized/Tasks.cpp.o
+[231/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/__/vectorized/MTWrapper_sparse.cpp.o
+[232/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/__/vectorized/MTWrapper_dense.cpp.o
+[233/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_90.cpp.o
+[234/245] Building CXX object src/api/internal/CMakeFiles/DaphneInternal.dir/daphne_internal.cpp.o
+[235/245] Building CXX object src/parser/daphnedsl/CMakeFiles/DaphneDSLParser.dir/DaphneDSLVisitor.cpp.o
+In file included from /usr/local/include/antlr4-runtime/RuleContext.h:8,
+                 from /usr/local/include/antlr4-runtime/ParserRuleContext.h:8,
+                 from /usr/local/include/antlr4-runtime/InterpreterRuleContext.h:8,
+                 from /usr/local/include/antlr4-runtime/antlr4-runtime.h:30,
+                 from /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/src/parser/CancelingErrorListener.h:20,
+                 from /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/src/parser/daphnedsl/DaphneDSLVisitor.cpp:21:
+/usr/local/include/antlr4-runtime/tree/ParseTree.h:49:18: warning: 'virtual bool antlr4::tree::ParseTree::operator==(const antlr4::tree::ParseTree&) const' was hidden [-Woverloaded-virtual=]
+   49 |     virtual bool operator == (const ParseTree &other) const;
+      |                  ^~~~~~~~
+/usr/local/include/antlr4-runtime/RuleContext.h:131:10: note:   by 'bool antlr4::RuleContext::operator==(const antlr4::RuleContext&)'
+  131 |     bool operator == (const RuleContext &other) { return this == &other; } // Simple address comparison.
+      |          ^~~~~~~~
+[236/245] Linking CXX static library src/parser/daphnedsl/libDaphneDSLParser.a
+[237/245] Linking CXX static library src/api/internal/libDaphneInternal.a
+[238/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_7.cpp.o
+[239/245] Building CXX object src/runtime/local/kernels/CMakeFiles/KernelObjLib.dir/kernels_91.cpp.o
+[240/245] Building CXX object src/ir/daphneir/CMakeFiles/obj.MLIRDaphne.dir/DaphneDialect.cpp.o
+[241/245] Linking CXX static library lib/libMLIRDaphne.a
+[242/245] Linking CXX static library lib/libMLIRDaphneInference.a
+[243/245] Linking CXX shared library /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/lib/libAllKernels.so
+[244/245] Linking CXX static library lib/libDaphneIrExecutor.a
+[245/245] Linking CXX executable /ceph/hpc/home/euretok/daphnesched2/daphne-src-mpi/bin/daphne
+[DAPHNE]..Successfully built Daphne://daphne (took 1min 8s 176ms 443us 765ns)........................[14.08.25 11:26:34]
++ exit 0

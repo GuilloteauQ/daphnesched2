@@ -1,0 +1,258 @@
++ NUM_THREADS=1
++ SOURCEFILE=benchmark_scripts/connected_components-mpi/cpp/connected_components.cpp
++ MATRIX_PATH=matrices/amazon0601/amazon0601_ones.mtx
++ MATRIX_SIZE=403394
++ RESULT=data/mpi_scale_nodes/amazon0601/connected_components/cpp/2/1.dat
+++ dirname benchmark_scripts/connected_components-mpi/cpp/connected_components.cpp
+++ basename benchmark_scripts/connected_components-mpi/cpp/connected_components.cpp .cpp
++ EXECUTABLE=benchmark_scripts/connected_components-mpi/cpp/connected_components_1_11066
+++ PKG_CONFIG_PATH=/share/pkgconfig
+++ singularity exec --no-mount /cvmfs /ceph/hpc/home/euretok/daphnesched2/jupycpp.sif pkg-config --cflags eigen3
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
++ CFLAGS=-I/nix/store/rzbrwrvqvx10wpad0z9qf1hrxa0mmfyr-eigen-3.4.0-unstable-2022-05-19/include/eigen3
++ OPTIONS=
++ '[' 1 -gt 1 ']'
++ OPTIONS='-I/nix/store/rzbrwrvqvx10wpad0z9qf1hrxa0mmfyr-eigen-3.4.0-unstable-2022-05-19/include/eigen3 -O3 -DEIGEN_DONT_PARALLELIZE'
++ export UCX_TLS=self,sm
++ UCX_TLS=self,sm
++ export OMPI_MCA_PML=ucx
++ OMPI_MCA_PML=ucx
++ export PMIX_MCA_gds=hash
++ PMIX_MCA_gds=hash
++ singularity exec --no-mount /cvmfs /ceph/hpc/home/euretok/daphnesched2/jupycpp.sif mpic++ /ceph/hpc/home/euretok/daphnesched2/benchmark_scripts/connected_components-mpi/cpp/connected_components.cpp -o /ceph/hpc/home/euretok/daphnesched2/benchmark_scripts/connected_components-mpi/cpp/connected_components_1_11066 -I/nix/store/rzbrwrvqvx10wpad0z9qf1hrxa0mmfyr-eigen-3.4.0-unstable-2022-05-19/include/eigen3 -O3 -DEIGEN_DONT_PARALLELIZE
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
++ OMP_NUM_THREADS=1
++ srun --mpi=pmix_v3 --cpus-per-task=1 singularity exec /ceph/hpc/home/euretok/daphnesched2/jupycpp.sif /ceph/hpc/home/euretok/daphnesched2/benchmark_scripts/connected_components-mpi/cpp/connected_components_1_11066 /ceph/hpc/home/euretok/daphnesched2/matrices/amazon0601/amazon0601_ones.mtx 403394
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+/ceph/hpc/home/euretok/daphnesched2/benchmark_scripts/connected_components-mpi/cpp/connected_components_1_11066: /ceph/hpc/home/euretok/daphnesched2/benchmark_scripts/connected_components-mpi/cpp/connected_components_1_11066: cannot execute binary file
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+srun: error: cn0677: task 2: Exited with exit code 126
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+WARNING: passwd file doesn't exist in container, not updating
+WARNING: group file doesn't exist in container, not updating
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_reset_if_to: cn0677 [0]: pmixp_coll_ring.c:738: 0x14ee6400d090: collective timeout seq=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_log: cn0677 [0]: pmixp_coll.c:286: Dumping collective state
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:756: 0x14ee6400d090: COLL_FENCE_RING state seq=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:758: my peerid: 0:cn0677
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:765: neighbor id: next 1:cn0697, prev 1:cn0697
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:775: Context ptr=0x14ee6400d108, #0, in-use=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:775: Context ptr=0x14ee6400d140, #1, in-use=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:775: Context ptr=0x14ee6400d178, #2, in-use=1
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:786: 	 seq=0 contribs: loc=0/prev=1/fwd=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:788: 	 neighbor contribs [2]:
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:821: 		 done contrib: cn0697
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:823: 		 wait contrib: -
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:825: 	 status=PMIXP_COLL_RING_PROGRESS
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:829: 	 buf (offset/size): 6867/16384
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_reset_if_to: cn0697 [1]: pmixp_coll_ring.c:738: 0x14b844076aa0: collective timeout seq=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_log: cn0697 [1]: pmixp_coll.c:286: Dumping collective state
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:756: 0x14b844076aa0: COLL_FENCE_RING state seq=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:758: my peerid: 1:cn0697
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:765: neighbor id: next 0:cn0677, prev 0:cn0677
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:775: Context ptr=0x14b844076b18, #0, in-use=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:775: Context ptr=0x14b844076b50, #1, in-use=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:775: Context ptr=0x14b844076b88, #2, in-use=1
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:786: 	 seq=0 contribs: loc=1/prev=0/fwd=1
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:788: 	 neighbor contribs [2]:
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:821: 		 done contrib: -
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:823: 		 wait contrib: cn0677
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:825: 	 status=PMIXP_COLL_RING_PROGRESS
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:829: 	 buf (offset/size): 6867/16384
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_reset_if_to: cn0697 [1]: pmixp_coll_ring.c:738: 0x14b844076aa0: collective timeout seq=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_log: cn0697 [1]: pmixp_coll.c:286: Dumping collective state
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:756: 0x14b844076aa0: COLL_FENCE_RING state seq=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:758: my peerid: 1:cn0697
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:765: neighbor id: next 0:cn0677, prev 0:cn0677
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:775: Context ptr=0x14b844076b18, #0, in-use=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:775: Context ptr=0x14b844076b50, #1, in-use=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:775: Context ptr=0x14b844076b88, #2, in-use=1
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:786: 	 seq=0 contribs: loc=1/prev=0/fwd=1
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:788: 	 neighbor contribs [2]:
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:821: 		 done contrib: -
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:823: 		 wait contrib: cn0677
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:825: 	 status=PMIXP_COLL_RING_PROGRESS
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:829: 	 buf (offset/size): 19/16384
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_reset_if_to: cn0677 [0]: pmixp_coll_ring.c:738: 0x14ee6400d090: collective timeout seq=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_log: cn0677 [0]: pmixp_coll.c:286: Dumping collective state
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:756: 0x14ee6400d090: COLL_FENCE_RING state seq=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:758: my peerid: 0:cn0677
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:765: neighbor id: next 1:cn0697, prev 1:cn0697
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:775: Context ptr=0x14ee6400d108, #0, in-use=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:775: Context ptr=0x14ee6400d140, #1, in-use=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:775: Context ptr=0x14ee6400d178, #2, in-use=1
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:786: 	 seq=0 contribs: loc=0/prev=1/fwd=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:788: 	 neighbor contribs [2]:
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:821: 		 done contrib: cn0697
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:823: 		 wait contrib: -
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:825: 	 status=PMIXP_COLL_RING_PROGRESS
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:829: 	 buf (offset/size): 19/16384
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_reset_if_to: cn0697 [1]: pmixp_coll_ring.c:738: 0x14b844076aa0: collective timeout seq=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_log: cn0697 [1]: pmixp_coll.c:286: Dumping collective state
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:756: 0x14b844076aa0: COLL_FENCE_RING state seq=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:758: my peerid: 1:cn0697
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:765: neighbor id: next 0:cn0677, prev 0:cn0677
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:775: Context ptr=0x14b844076b18, #0, in-use=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:775: Context ptr=0x14b844076b50, #1, in-use=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:775: Context ptr=0x14b844076b88, #2, in-use=1
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:786: 	 seq=0 contribs: loc=1/prev=0/fwd=1
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:788: 	 neighbor contribs [2]:
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:821: 		 done contrib: -
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:823: 		 wait contrib: cn0677
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:825: 	 status=PMIXP_COLL_RING_PROGRESS
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:829: 	 buf (offset/size): 6867/16384
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_reset_if_to: cn0697 [1]: pmixp_coll_ring.c:738: 0x14b844076aa0: collective timeout seq=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_log: cn0697 [1]: pmixp_coll.c:286: Dumping collective state
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:756: 0x14b844076aa0: COLL_FENCE_RING state seq=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:758: my peerid: 1:cn0697
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:765: neighbor id: next 0:cn0677, prev 0:cn0677
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:775: Context ptr=0x14b844076b18, #0, in-use=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:775: Context ptr=0x14b844076b50, #1, in-use=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:775: Context ptr=0x14b844076b88, #2, in-use=1
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:786: 	 seq=0 contribs: loc=1/prev=0/fwd=1
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:788: 	 neighbor contribs [2]:
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:821: 		 done contrib: -
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:823: 		 wait contrib: cn0677
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:825: 	 status=PMIXP_COLL_RING_PROGRESS
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0697 [1]: pmixp_coll_ring.c:829: 	 buf (offset/size): 19/16384
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_reset_if_to: cn0677 [0]: pmixp_coll_ring.c:738: 0x14ee6400d090: collective timeout seq=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_log: cn0677 [0]: pmixp_coll.c:286: Dumping collective state
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:756: 0x14ee6400d090: COLL_FENCE_RING state seq=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:758: my peerid: 0:cn0677
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:765: neighbor id: next 1:cn0697, prev 1:cn0697
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:775: Context ptr=0x14ee6400d108, #0, in-use=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:775: Context ptr=0x14ee6400d140, #1, in-use=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:775: Context ptr=0x14ee6400d178, #2, in-use=1
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:786: 	 seq=0 contribs: loc=0/prev=1/fwd=0
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:788: 	 neighbor contribs [2]:
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:821: 		 done contrib: cn0697
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:823: 		 wait contrib: -
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:825: 	 status=PMIXP_COLL_RING_PROGRESS
+slurmstepd: error:  mpi/pmix_v3: pmixp_coll_ring_log: cn0677 [0]: pmixp_coll_ring.c:829: 	 buf (offset/size): 19/16384
+slurmstepd: error: *** JOB 2396229 ON cn0677 CANCELLED AT 2025-08-14T13:37:03 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 2396229.0 ON cn0677 CANCELLED AT 2025-08-14T13:37:03 DUE TO TIME LIMIT ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.

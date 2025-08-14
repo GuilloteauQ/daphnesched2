@@ -64,7 +64,7 @@ MPI_LOCAL = {
 }
 
 # MPI scaling over nodes
-MPI_SCALE_NB_NODES = [2,4,8,16]
+MPI_SCALE_NB_NODES = [2,4]
 
 # MPI distributed with many processes on multiple nodes
 MPI_NB_NODES=4
