@@ -55,21 +55,41 @@ function read_and_send_matrix(filename)
   end
 end
 
+# function G_broadcast_mult_c(G, c)
+#   cols = colvals(G)
+#   vals = nonzeros(G)
+#   m, n = size(G)
+#   maxs = zeros(n)
+#   @Threads.threads for j = 1:m
+#      for i in nzrange(G, j)
+#         col = cols[i]
+#         val = vals[i]
+#         if val * c[j] > maxs[col]
+#           maxs[col] = val*c[j]
+#         end
+#      end
+#   end
+#   maxs
+# end
+
 function G_broadcast_mult_c(G, c)
   cols = colvals(G)
   vals = nonzeros(G)
   m, n = size(G)
-  maxs = zeros(n)
-  @Threads.threads for j = 1:m
-     for i in nzrange(G, j)
+  maxs = zeros(m)
+  @Threads.threads for row = 1:m
+     maxval = 0.0
+     for i in nzrange(G, row)
         col = cols[i]
         val = vals[i]
-        if val * c[j] > maxs[col]
-          maxs[col] = val*c[j]
+        weighted = val * c[col]
+        if weighted > maxval
+          maxval = weighted
         end
      end
+     maxs[row] = maxval
   end
-  maxs
+  return maxs
 end
 
 struct MyWrapper
@@ -81,7 +101,9 @@ function reduce_max(x, y)
 end
 
 function cc(filename, maxi)
+  start_reading = time_ns()
   G = read_and_send_matrix(filename)
+  start_compute = time_ns()
   rank = MPI.Comm_rank(comm)
   world = MPI.Comm_size(comm)
   n = size(G, 2)
@@ -91,18 +113,31 @@ function cc(filename, maxi)
   offsets = zeros(Int64, world)
   offsets[2:world] = cumsum(sizes)[1:world-1]
 
-  start = time_ns()
-  c = vec(collect(1.0:1.0:float(size(G, 2))))
+  # c = vec(collect(1.0:1.0:float(size(G, 2))))
+  c = collect(1.0:1.0:float(n))
 
   for iter in 1:maxi
-    x = G_broadcast_mult_c(G, c[1+offsets[rank + 1]:(1+offsets[rank + 1] + sizes[rank + 1] - 1)])
-    c_partial = max.(c, x)
-    MPI.Allreduce!(c_partial, c, reduce_max, comm)
+    # x = G_broadcast_mult_c(G, c[1+offsets[rank + 1]:(1+offsets[rank + 1] + sizes[rank + 1] - 1)])
+    # c_partial = max.(c, x)
+    # MPI.Allreduce!(c_partial, c, reduce_max, comm)
+
+    # 1. Multiply G with full c and Extract only the part for this rank
+    x_local = G_broadcast_mult_c(G, c)
+
+    # 3. Allgatherv to collect full x from all ranks
+    x_full = similar(c) # new array same ytpe and size, uniitialized
+    sizes32 = Int32.(sizes)
+
+    MPI.Allgatherv!(x_local, x_full, sizes32, comm)
+
+    # 4. Max update
+    c = max.(c, x_full)
   end
-  fin = time_ns()
   if rank == 0
-    println((fin - start) * 1e-9)
-    #println(sum(c))
+    fin = time_ns()
+    duration_reading = (fin - start_reading) * 1e-9
+    duration_compute = (fin - start_compute) * 1e-9
+    println("$(duration_reading),$(duration_compute),$(sum(c))")
   end
 
 end
