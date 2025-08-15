@@ -98,9 +98,10 @@ def reduce_max(xmem, ymem, dt):
     y[:] = z
 
 def cc(filename, maxi=100):
+    start_reading = time.time()
     G = read_and_send_sparse_matrix(filename)
     op = MPI.Op.Create(reduce_max, commute=True)
-    start = time.time()
+    start_compute = time.time()
     world = comm.Get_size()
     n = G.shape[1]
     sizes = [n // world for _ in range(world)]
@@ -111,14 +112,29 @@ def cc(filename, maxi=100):
     c = np.array([list(map(lambda i: float(i), range(1, n + 1, 1)))])
 
     for iter in range(maxi):
-        c_partial = csr_array(c[0,offsets[rank]:(offsets[rank] + sizes[rank])])
-        x = G.multiply(c_partial.transpose()).max(axis=0)
-        max_partial = np.maximum(c, x.todense())
-        comm.Allreduce([max_partial, MPI.DOUBLE], [c, MPI.DOUBLE], op)
+        # 1. Multiply G element-wise with broadcasted c
+        G_weighted = G.multiply(c[0])  # each G[i,j] * c[j]
+
+        # 2. Compute max of each row (only the rows owned by this rank)
+        x_partial = G_weighted.max(axis=1)  # shape: (local_rows, 1)
+        x_partial = np.asarray(x_partial.todense()).ravel()  # shape: (sizes[rank],)
+
+        # 3. Gather all x_partial into full x vector
+        x_full = np.empty(n, dtype=np.float64)
+        comm.Allgatherv(
+            x_partial,
+            [x_full, sizes, offsets, MPI.DOUBLE]
+        )
+
+        # 4. Element-wise max update of c
+        c = np.maximum(c, x_full.reshape(1, n))
+
     end = time.time()
     if rank == 0:
-        #print(c.sum())
-        print(end - start)
+        fin = time.time()
+        duration_reading = fin - start_reading
+        duration_compute = fin - start_compute
+        print(f"{duration_reading},{duration_compute},{c.sum()}")
 
 if __name__ == "__main__":
     args = sys.argv
