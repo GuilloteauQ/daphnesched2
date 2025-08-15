@@ -3,12 +3,12 @@ include: "matrices.smk"
 
 rule all:
   input:
-    # expand("data/mpi_local/{matrix}/{benchmark}/{lang}/{mpi_procs}/{iter}.dat",\
-    #   matrix=MATRICES,\
-    #   benchmark=SCRIPTS_MPI_WITH_MATRICES,\
-    #   lang=["cpp","py","jl"],\
-    #   mpi_procs=MPI_LOCAL.keys(),\
-    #   iter=ITERATIONS),
+    expand("data/mpi_local/{matrix}/{benchmark}/{lang}/{mpi_procs}/{iter}.dat",\
+      matrix=MATRICES,\
+      benchmark=SCRIPTS_MPI_WITH_MATRICES,\
+      lang=["cpp","py","jl"],\
+      mpi_procs=MPI_LOCAL.keys(),\
+      iter=ITERATIONS),    
     expand("data/mpi_local/{matrix}/{benchmark}/daph/{scheme}-{layout}-{victim}/{mpi_procs}/{iter}.dat",\
       matrix=MATRICES,\
       benchmark=SCRIPTS_MPI_WITH_MATRICES,\
