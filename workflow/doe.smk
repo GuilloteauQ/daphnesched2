@@ -14,7 +14,7 @@ LANGUAGES = [
 
 MATRICES = [
   "amazon0601",
-  "wikipedia-20070206",
+  #"wikipedia-20070206",
   #"ljournal-2008"
 ]
 

@@ -8,7 +8,7 @@ rule all:
       benchmark=SCRIPTS_MPI_WITH_MATRICES,\
       lang=["cpp","py","jl"],\
       nb_nodes=MPI_SCALE_NB_NODES,\
-      iter=ITERATIONS),
+      iter=ITERATIONS), 
     expand("data/mpi_scale_nodes/{matrix}/{benchmark}/daph/{scheme}-{layout}-{victim}/{nb_nodes}/{iter}.dat",\
       matrix=MATRICES,\
       benchmark=SCRIPTS_MPI_WITH_MATRICES,\
@@ -32,7 +32,7 @@ rule run_expe_mpi_jupycpp:
     lang="cpp|py|jl"
   params:
     matrix_size = lambda w: matrices[w.matrix]["meta"]["numRows"],
-    tasks_per_node = 32,  # 32 MPI process each with 1 thread for cpp, jl and py
+    tasks_per_node = 32,  # MPI process each with 1 thread for cpp, jl and py
     cpus_per_task = 1,
   shell:
     """
@@ -56,7 +56,7 @@ rule run_expe_mpi_daph:
     benchmark="|".join(SCRIPTS_MPI_WITH_MATRICES),
   params:
     matrix_size = lambda w: matrices[w.matrix]["meta"]["numRows"],
-    tasks_per_node = 1,   # 1 process with 20 per process for daphne
+    tasks_per_node = 1,   # 1 process with many threads per process for daphne
     cpus_per_task = 32,
     scheme_uc = lambda w: w.scheme.upper(),
     layout_uc = lambda w: w.layout.upper(),
