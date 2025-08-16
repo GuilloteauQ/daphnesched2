@@ -6,6 +6,8 @@
 entries=(
     "connected_components:connected_components:cc:seq" 
     "connected_components-mpi:connected_components:cc:mpi"
+    "pagerank:pagerank:pr:seq" 
+    "pagerank-mpi:pagerank:pr:mpi"    
 )
 langs=("cpp" "py" "jl" "daph")
 indir="../../../benchmark_scripts"
