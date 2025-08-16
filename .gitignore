@@ -5,12 +5,18 @@
 #
 
 *.sif
-data/
+data/mpi/
+data/mpi_local/
+data/mpi_scale_nodes/
+#data/seq-local/
 smake/
 benchmark_scripts/connected_components/cpp/connected_components_*
 benchmark_scripts/pagerank/cpp/pagerank_*
+benchmark_scripts/connected_components-mpi/cpp/connected_components_*
+benchmark_scripts/pagerank-mpi/cpp/pagerank_*
 .snakemake/
 slurm_out/
+collect_environment*
 
 # Node artifact files
 node_modules/
