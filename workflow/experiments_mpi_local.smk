@@ -3,12 +3,12 @@ include: "matrices.smk"
 
 rule all:
   input:
-    # expand("data/mpi_local/{matrix}/{benchmark}/{lang}/{mpi_procs}/{iter}.dat",\
-    #   matrix=MATRICES,\
-    #   benchmark=SCRIPTS_MPI_WITH_MATRICES,\
-    #   lang=["cpp","py","jl"],\
-    #   mpi_procs=MPI_LOCAL.keys(),\
-    #   iter=ITERATIONS),
+    expand("data/mpi_local/{matrix}/{benchmark}/{lang}/{mpi_procs}/{iter}.dat",\
+      matrix=MATRICES,\
+      benchmark=SCRIPTS_MPI_WITH_MATRICES,\
+      lang=["cpp","py","jl"],\
+      mpi_procs=MPI_LOCAL.keys(),\
+      iter=ITERATIONS),    
     expand("data/mpi_local/{matrix}/{benchmark}/daph/{scheme}-{layout}-{victim}/{mpi_procs}/{iter}.dat",\
       matrix=MATRICES,\
       benchmark=SCRIPTS_MPI_WITH_MATRICES,\
@@ -46,12 +46,10 @@ rule run_expe_mpi_jupycpp:
 rule run_expe_mpi_daph:
   input:
     sbatch="sbatch_scripts/run_vega_daph_mpi.sh",
+    daphne="daphne-src-mpi/bin/daphne",    
     script="benchmark_scripts/{benchmark}/daph/{benchmark}.daph",
     mtx="matrices/{matrix}/{matrix}_ones.mtx",
-    meta="matrices/{matrix}/{matrix}_ones.mtx.meta"
-    jupycpp_sif="jupycpp.sif",
-    daphne_sif="daphne-dev.sif",
-    daphne_src="daphne-src/bin/daphne"
+    meta="matrices/{matrix}/{matrix}_ones.mtx.meta",
   output:
     "data/mpi_local/{matrix}/{benchmark}/daph/{scheme}-{layout}-{victim}/{mpi_procs}/{iter}.dat" 
   wildcard_constraints:

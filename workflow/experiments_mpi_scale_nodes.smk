@@ -3,19 +3,19 @@ include: "matrices.smk"
 
 rule all:
   input:
-    expand("data/mpi_scale_nodes/{matrix}/{benchmark}/{lang}/{mpi_procs}/{iter}.dat",\
+    expand("data/mpi_scale_nodes/{matrix}/{benchmark}/{lang}/{nb_nodes}/{iter}.dat",\
       matrix=MATRICES,\
       benchmark=SCRIPTS_MPI_WITH_MATRICES,\
       lang=["cpp","py","jl"],\
-      nb_nodes=MPI_SCALE_NB_NODES,
-      iter=ITERATIONS),
-    expand("data/mpi_scale_nodes/{matrix}/{benchmark}/daph/{scheme}-{layout}-{victim}/{mpi_procs}/{iter}.dat",\
+      nb_nodes=MPI_SCALE_NB_NODES,\
+      iter=ITERATIONS), 
+    expand("data/mpi_scale_nodes/{matrix}/{benchmark}/daph/{scheme}-{layout}-{victim}/{nb_nodes}/{iter}.dat",\
       matrix=MATRICES,\
       benchmark=SCRIPTS_MPI_WITH_MATRICES,\
       scheme=["static"],\
       layout=["centralized"],\
       victim=["seq"],\
-      nb_nodes=MPI_SCALE_NB_NODES,     
+      nb_nodes=MPI_SCALE_NB_NODES,\
       iter=ITERATIONS),    
 
 rule run_expe_mpi_jupycpp:
@@ -23,10 +23,7 @@ rule run_expe_mpi_jupycpp:
     sbatch="sbatch_scripts/run_vega_{lang}_mpi.sh",
     script="benchmark_scripts/{benchmark}-mpi/{lang}/{benchmark}.{lang}",
     mtx="matrices/{matrix}/{matrix}_ones.mtx",
-    meta="matrices/{matrix}/{matrix}_ones.mtx.meta"
-    jupycpp_sif="jupycpp.sif",
-    daphne_sif="daphne-dev.sif",
-    daphne_src="daphne-src/bin/daphne"    
+    meta="matrices/{matrix}/{matrix}_ones.mtx.meta" 
   output:
     "data/mpi_scale_nodes/{matrix}/{benchmark}/{lang}/{nb_nodes}/{iter}.dat"  
   wildcard_constraints:
@@ -35,7 +32,7 @@ rule run_expe_mpi_jupycpp:
     lang="cpp|py|jl"
   params:
     matrix_size = lambda w: matrices[w.matrix]["meta"]["numRows"],
-    tasks_per_node = 32,  # 32 MPI process each with 1 thread for cpp, jl and py
+    tasks_per_node = 32,  # MPI process each with 1 thread for cpp, jl and py
     cpus_per_task = 1,
   shell:
     """
@@ -52,9 +49,6 @@ rule run_expe_mpi_daph:
     script="benchmark_scripts/{benchmark}/daph/{benchmark}.daph",
     mtx="matrices/{matrix}/{matrix}_ones.mtx",
     meta="matrices/{matrix}/{matrix}_ones.mtx.meta"
-    jupycpp_sif="jupycpp.sif",
-    daphne_sif="daphne-dev.sif",
-    daphne_src="daphne-src/bin/daphne"
   output:
     "data/mpi_scale_nodes/{matrix}/{benchmark}/daph/{scheme}-{layout}-{victim}/{nb_nodes}/{iter}.dat" 
   wildcard_constraints:
@@ -62,7 +56,7 @@ rule run_expe_mpi_daph:
     benchmark="|".join(SCRIPTS_MPI_WITH_MATRICES),
   params:
     matrix_size = lambda w: matrices[w.matrix]["meta"]["numRows"],
-    tasks_per_node = 1,   # 1 process with 20 per process for daphne
+    tasks_per_node = 1,   # 1 process with many threads per process for daphne
     cpus_per_task = 32,
     scheme_uc = lambda w: w.scheme.upper(),
     layout_uc = lambda w: w.layout.upper(),
