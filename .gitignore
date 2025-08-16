@@ -9,6 +9,7 @@ data/mpi/
 data/mpi_local/
 data/mpi_scale_nodes/
 #data/seq-local/
+tmp-mpi-scale-results-64/
 smake/
 benchmark_scripts/connected_components/cpp/connected_components_*
 benchmark_scripts/pagerank/cpp/pagerank_*
@@ -23,7 +24,7 @@ node_modules/
 dist/
 
 # slurm out files
-#*.out
+*.out
 
 # Compiled Java class files
 *.class
