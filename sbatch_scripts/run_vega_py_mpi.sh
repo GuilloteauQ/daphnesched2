@@ -6,7 +6,7 @@
 #              d-hh:mm:ss
 #SBATCH --time=0-02:00:00
 #SBATCH --wait
-#SBATCH --mem=8G
+#SBATCH --mem=128G
 
 set -ex
 
