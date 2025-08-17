@@ -59,8 +59,11 @@ MPI_LOCAL = {
   "8": (8,  1),
   "16": (16, 1),
   "32": (32, 1),
-  "64": (64, 1),
-  "128": (128, 1),  
+  # 64 and 128 could not be run for daphne as memory problems
+  # --mem=128 worked for 32 processes, not for 64
+  # --mem=256 is the limit of Vega node, and takes ages to start on Vega
+  # "64": (64, 1),
+  # "128": (128, 1),  
 }
 
 # MPI scaling over nodes
@@ -82,7 +85,7 @@ MPI_NB_NODES=4
 # }
 
 TOTAL_ITERS = 5
-# TOTAL_ITERS = 1  # for testing
+#TOTAL_ITERS = 1  # for testing
 ITERATIONS = range(1, TOTAL_ITERS + 1)
 
 SCHEMES = [
