@@ -6,15 +6,15 @@ DAPHNE_DOCKER_TAG = "2025-03-12_X86-64_BASE_ubuntu24.04"
 JUPYCPP_DOCKER_TAG = "july25"
 
 LANGUAGES = [
-  #"cpp",
-  #"py",
+  "cpp",
+  "py",
   "daph",
-  #"jl"
+  "jl"
 ]
 
 MATRICES = [
   "amazon0601",
-  #"wikipedia-20070206",
+  "wikipedia-20070206",
   #"ljournal-2008"
 ]
 
@@ -30,7 +30,7 @@ SCRIPTS_MPI_WITH_MATRICES = [
 
 SCRIPTS_WITH_MATRICES = [
   "connected_components",
-  "pagerank",
+  # "pagerank",
   #"bfs",
   #"triangle_count"
 ]
@@ -67,7 +67,7 @@ MPI_LOCAL = {
 }
 
 # MPI scaling over nodes
-MPI_SCALE_NB_NODES = [1,2,3,4,5,6]
+MPI_SCALE_NB_NODES = [2,3,4,5]
 
 # MPI distributed with many processes on multiple nodes
 MPI_NB_NODES=4
