@@ -7,6 +7,7 @@
 #SBATCH --time=0-02:00:00
 #SBATCH --wait
 #SBATCH --mem=128G
+#SBATCH --nodelist=cn[0550-0599]
 
 set -ex
 
