@@ -6,9 +6,11 @@
 
 *.sif
 data/mpi/
-data/mpi_local/
-data/mpi_scale_nodes/
-#data/seq-local/
+#data/mpi_local/
+#data/mpi_scale_nodes/
+# data/seq-local/wikipedia-20070206/
+data/seq-local/ljournal-2008/
+# data/seq-local/amazone0601
 tmp-mpi-scale-results-64/
 smake/
 benchmark_scripts/connected_components/cpp/connected_components_*
