@@ -49,6 +49,11 @@ SpMatR read_and_send_matrix(std::string filename, int n) {
     if (!loadMarket(G, filename))
       std::cout << "could  not load mtx file" << std::endl;
 
+    // if there is only one rank (world == 1), just retutrn G and no partition.
+    if (world == 1) {
+      return G;  // no distribution needed
+    }
+
     int nb_sub = world;
 
     std::vector<T> content;
