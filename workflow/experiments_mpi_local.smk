@@ -57,7 +57,7 @@ rule run_expe_mpi_daph:
     benchmark="|".join(SCRIPTS_MPI_WITH_MATRICES),
   params:
     matrix_size = lambda w: matrices[w.matrix]["meta"]["numRows"],
-    tasks_per_node = lambda w: MPI_LOCAL[w.mpi_procs][0],
+    tasks_per_node = lambda w: MPI_LOCAL[w.mpi_procs][0] + 1, # additional task for coordinator
     cpus_per_task = lambda w: MPI_LOCAL[w.mpi_procs][1],
     nb_nodes = 1,
     scheme_uc = lambda w: w.scheme.upper(),

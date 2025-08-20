@@ -32,7 +32,7 @@ rule run_expe_mpi_jupycpp:
     lang="cpp|py|jl"
   params:
     matrix_size = lambda w: matrices[w.matrix]["meta"]["numRows"],
-    tasks_per_node = 32,  # MPI process each with 1 thread for cpp, jl and py
+    tasks_per_node = 16,  # MPI process each with 1 thread for cpp, jl and py
     cpus_per_task = 1,
   shell:
     """
@@ -57,14 +57,15 @@ rule run_expe_mpi_daph:
   params:
     matrix_size = lambda w: matrices[w.matrix]["meta"]["numRows"],
     tasks_per_node = 1,   # 1 process with many threads per process for daphne
-    cpus_per_task = 32,
+    cpus_per_task = 16,
     scheme_uc = lambda w: w.scheme.upper(),
     layout_uc = lambda w: w.layout.upper(),
-    victim_uc = lambda w: w.victim.upper()
+    victim_uc = lambda w: w.victim.upper(),
+    nb_nodes_daph = lambda w: int(w.nb_nodes) + 1 # additonal node for coordinator
   shell:
     """
     mkdir -p $(dirname {output})
-    sbatch --nodes={wildcards.nb_nodes} \
+    sbatch --nodes={params.nb_nodes_daph} \
             --ntasks-per-node={params.tasks_per_node} \
             --cpus-per-task={params.cpus_per_task} \
              {input.sbatch} {params.cpus_per_task} {input.script} {input.mtx} {params.matrix_size} {params.scheme_uc} {params.layout_uc} {params.victim_uc} {output}

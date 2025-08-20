@@ -14,7 +14,7 @@ LANGUAGES = [
 
 MATRICES = [
   "amazon0601",
-  "wikipedia-20070206",
+   "wikipedia-20070206",
   #"ljournal-2008"
 ]
 
@@ -53,7 +53,7 @@ NUM_THREADS = [
 MPI_LOCAL = {
   # total-mpi-procs, task-per-node, cpu-per-task
   # based on 1  node
-  #"1":  (1,  1), # does not make sense and will not finish if mpi comm is not set up correctly with only one rank
+  "1":  (1,  1), 
   "2":  (2,  1),
   "4": (4,  1),
   "8": (8,  1),
@@ -67,7 +67,7 @@ MPI_LOCAL = {
 }
 
 # MPI scaling over nodes
-MPI_SCALE_NB_NODES = [2,3,4,5]
+MPI_SCALE_NB_NODES = [1,2,3,4,5]
 
 # MPI distributed with many processes on multiple nodes
 MPI_NB_NODES=4
@@ -85,7 +85,7 @@ MPI_NB_NODES=4
 # }
 
 TOTAL_ITERS = 5
-#TOTAL_ITERS = 1  # for testing
+# TOTAL_ITERS = 1  # for testing
 ITERATIONS = range(1, TOTAL_ITERS + 1)
 
 SCHEMES = [
