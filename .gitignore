@@ -17,6 +17,7 @@ data/mpi_scale_nodes/ljournal-2008/
 data/seq-local/ljournal-2008/
 # data/seq-local/amazone0601
 tmp-mpi-scale-results-64/
+tmp-daph-mpi-local/
 smake/
 benchmark_scripts/connected_components/cpp/connected_components_*
 benchmark_scripts/pagerank/cpp/pagerank_*
