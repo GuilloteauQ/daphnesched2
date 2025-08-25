@@ -25,7 +25,7 @@ benchmark_scripts/connected_components-mpi/cpp/connected_components_*
 benchmark_scripts/pagerank-mpi/cpp/pagerank_*
 .snakemake/
 slurm_out/
-collect_environment*
+# collect_environment*
 
 # Node artifact files
 node_modules/
